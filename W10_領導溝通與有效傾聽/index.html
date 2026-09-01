@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W10 領導溝通與有效傾聽：為什麼我說的，和他聽到的不一樣？</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#172554',
+            },
+            indigoTheme: {
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #2563eb !important;
+      background-color: #eff6ff !important;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-sbi, #section-michael, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-comments text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">W10 ‧ 11/8 授課</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W10：Can You Really Communicate as a Leader? 領導溝通與有效傾聽</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-blue-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">26頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W07_激勵與員工動機_為什麼部屬不再努力.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W7">
+            <i class="fa-solid fa-arrow-left"></i> W7
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-blue-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 開場矛盾</a>
+        <a href="#section-activity1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 一句話四理解</a>
+        <a href="#section-process" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 溝通流程與噪音</a>
+        <a href="#section-barriers" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 五大溝通障礙</a>
+        <a href="#section-case1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 看著辦個案</a>
+        <a href="#section-listening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 傾聽三大工具</a>
+        <a href="#section-sbi" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 SBI回饋模型</a>
+        <a href="#section-michael" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 Michael對話演練</a>
+        <a href="#section-debrief" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">11 五大收束</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">12 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、知識詛咒解構技巧、SBI 回饋話術模板與 Michael 困難對話引導重點。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W10 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-blue-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-blue-900/80 border border-blue-700 text-blue-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+          <span>Week 10 ‧ 第 5 主題模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Can You Really Communicate as a Leader?<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-blue-300 to-indigo-300">
+            領導溝通與有效傾聽：為什麼我說的，和他聽到的不一樣？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「我明明已經講得很清楚了，為什麼部屬還是做錯？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          管理者最常見的盲點，是把<strong>「我說了 (Message Sent)」</strong>等同於<strong>「對方理解了 (Shared Understanding)」</strong>。本週我們不談花俏的演講技巧，而是直擊領導溝通的本質：<strong>Intent ➔ Message ➔ Interpretation ➔ Response</strong>。掌握噪聲過濾、五大溝通障礙、Active Listening 三大傾聽工具、SBI 回饋模型，以及面對高績效難搞同仁時的 <strong>Difficult Conversations</strong>！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-sbi" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i> SBI 回饋實戰產生器
+          </a>
+          <a href="#section-michael" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-user-ninja"></i> Michael 困難對話演練
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 9 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">溝通的意義，由接收者決定</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              溝通不是單向的資訊廣播，而是雙向共識的達成。<br>
+              <strong class="text-blue-900">Communication is not what you say. It is what the other person understands.</strong>
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200/70 text-xs font-semibold text-blue-950 space-y-1.5">
+            <div class="font-bold text-blue-700 flex items-center gap-1.5"><i class="fa-solid fa-ear-listen"></i> 本週金句心法：</div>
+            <p>Listen to understand, not to reply. 聽是為了理解，而不是為了急著反駁！</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 9 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">打破廣播迷思：</strong>區分 Communication ≠ Information（傳送不等於理解）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">掌握溝通完整迴路：</strong>Sender ➔ Encoding ➔ Channel ➔ Receiver ➔ Decoding ➔ Feedback。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">辨識五大溝通障礙：</strong>打破知識詛咒、選擇性知覺、資訊超載、錯誤管道與權力差距。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">精準區分授權與模糊：</strong>銘記 Ambiguity is not empowerment，建立四大授權邊界。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">區分 Hearing vs Listening：</strong>不再只是聽見聲音，而是深度理解對方意圖。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">熟練傾聽三大工具：</strong>Paraphrasing（換句話說）、Clarifying（具體澄清）、Open Questions。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">掌握 SBI 回饋架構：</strong>Situation（情境）➔ Behavior（行為）➔ Impact（影響），對事不對人。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">引導 Difficult Conversations：</strong>學會說出對方不想聽的話，同時保留對方尊嚴。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100 sm:col-span-2">
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 mt-0.5">9</div>
+              <div><strong class="text-slate-900">破除「沉默＝同意」迷思：</strong>認知 Silence does not mean agreement，營造發聲心理安全感。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W10 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：「我不是早就跟你說過了嗎？」</strong><div class="text-xs text-slate-500">報告情境衝突：有說有聽，為什麼依然出大錯？</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">情境討論</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：一句話，四種理解（Message ≠ Meaning）</strong><div class="text-xs text-slate-500">「這件事再想一下」、「有空找我」解構接收者心理脈絡</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">溝通實驗</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-activity1" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">30–50 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：Communication ≠ Information（溝通流程與噪音）</strong><div class="text-xs text-slate-500">Sender ➔ Encoding ➔ Channel ➔ Receiver ➔ Decoding ➔ Feedback</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">理論模型講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-process" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">50–70 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：為什麼溝通會失敗？（五大溝通障礙）</strong><div class="text-xs text-slate-500">知識詛咒、選擇性知覺、資訊超載、錯誤管道、權力差距</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">障礙解構</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-barriers" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">70–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：主管說「你自己看著辦」（授權 vs 模糊）</strong><div class="text-xs text-slate-500">Ambiguity is not empowerment；四大授權邊界解析</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">個案思辨研討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-case1" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">100–120 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 3：Active Listening（主管真的有在聽嗎？）</strong><div class="text-xs text-slate-500">Hearing vs Listening；Paraphrasing、Clarifying、Open-ended Questions</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">傾聽技巧講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-listening" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">120–140 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 2：Listen Before You Lead（兩人傾聽演練）</strong><div class="text-xs text-slate-500">3分鐘禁止給建議，只能 Ask / Paraphrase / Clarify / Summarize</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">雙人角色演練</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-listening" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">140–160 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Feedback & Difficult Conversations（SBI 回饋實務）</strong><div class="text-xs text-slate-500">Situation ➔ Behavior ➔ Impact；處理行為不攻擊人格</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">管理回饋實作</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-sbi" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">160–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Case / Role Play：高績效但難合作的 Michael</strong><div class="text-xs text-slate-500">5分鐘困難對話演練：業績拔尖但態度傲慢，主管第一句話怎麼說？</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-900 font-bold">困難對話演練</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-michael" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>教師 Debrief：五大核心 Takeaways</strong><div class="text-xs text-slate-500">Sent≠Understood / 意義由接收者定 / 沉默≠同意 / 先聽後診斷 / SBI</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800 font-bold">核心提煉</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-debrief" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-blue-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-blue-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>One-Minute Paper：課堂即時反思卡</strong><div class="text-xs text-slate-500">3 題精簡反思 ＋ 一週職場傾聽小實驗</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-100 text-gold-900">課末收束</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 我不是早就跟你說過了嗎？ -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">「我不是早就跟你說過了嗎？」</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          先問全班：「當主管後，你有沒有對部屬說過這句話？」接著拋出經典案例：主管只說「這份報告很重要，週五前給我」，部屬週五交出，主管卻暴怒「這怎能給總經理看？」，部屬委屈「你沒說是總經理要用的啊！」。<strong>主管有說、部屬有聽，為什麼依然出大錯？</strong>
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-5 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-3">
+            <span class="text-xs font-bold text-blue-800 bg-blue-100 px-2.5 py-0.5 rounded">主管的視角 (Sender)</span>
+            <p class="text-xs text-slate-700 leading-relaxed">
+              「我星期一就特別交代這份報告『很重要』，也給了週五截止日。在我們公司，『重要報告』當然就是要報給總經理看的，這難道還需要我明講嗎？！」
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-3">
+            <span class="text-xs font-bold text-rose-800 bg-rose-100 px-2.5 py-0.5 rounded">部屬的視角 (Receiver)</span>
+            <p class="text-xs text-slate-700 leading-relaxed">
+              「主管只叫我週五前交一份內部工作彙整，完全沒提到總經理會看、也沒說要放策略建議。我準時交了，主管卻當眾罵我，我覺得超冤枉！」
+            </p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            <div class="text-xs sm:text-sm">
+              <strong class="text-gold-300">溝通核心金句：</strong>
+              <span>Communication is not what you say. It is what the other person understands.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–30分 Activity 1 一句話四種理解 -->
+    <section id="section-activity1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">15–30 min 認知實驗</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 1：一句話，四種理解（Message ≠ Meaning）</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Scenario 1 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded">測試句 1</span>
+            <span class="text-xs text-slate-400 font-mono">主管說：</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-base text-center">
+            「這件事情，你再想一下。」
+          </div>
+          <p class="text-xs text-slate-600">不同部屬聽到這句話時，腦中的即時解讀：</p>
+          <div class="space-y-1.5 text-xs text-slate-700">
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">A. 你的方案太爛了，回去重寫。（否定）</div>
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">B. 主管自己還沒想清楚，在拖延時間。（猶豫）</div>
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">C. 主管希望我提供更多備選方案。（擴充）</div>
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">D. 主管其實不同意，但不好意思直接拒絕。（軟釘子）</div>
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded">測試句 2</span>
+            <span class="text-xs text-slate-400 font-mono">主管說：</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-base text-center">
+            「有空來找我一下。」
+          </div>
+          <p class="text-xs text-slate-600">不同部屬聽到這句話時，腦中的即時解讀：</p>
+          <div class="space-y-1.5 text-xs text-slate-700">
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">A. 慘了！我是不是犯了什麼大錯要被約談？（恐慌）</div>
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">B. 難道是要談年底考績或升遷？（期待）</div>
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">C. 大概又有棘手的新專案要塞給我。（防備）</div>
+            <div class="p-2 bg-slate-50 rounded border border-slate-200">D. 只是剛好想到一件小事想隨便聊聊。（輕鬆）</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-xs sm:text-sm text-blue-950">
+        <strong>💡 核心心理機制：</strong>接收者（Receiver）在解讀訊息時，會自動代入自身的<strong>過去經驗 (Experience)、權力關係 (Relationship)、情緒狀態 (Emotion) 與主觀假設 (Assumption)</strong>。因此，主管發出的 Message，絕不等於部屬接收到的 Meaning！
+      </div>
+    </section>
+
+    <!-- SECTION 5: 30–50分 核心理論 1：溝通流程與噪音模型 -->
+    <section id="section-process" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">30–50 min 理論模型</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Communication ≠ Information：溝通流程與噪音</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <!-- Communication Pipeline Flow -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-center text-xs">
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="font-bold text-blue-900">1. Sender</div>
+            <p class="text-[10px] text-slate-500 mt-1">主管大腦中的原始意圖</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="font-bold text-blue-900">2. Encoding</div>
+            <p class="text-[10px] text-slate-500 mt-1">轉換為文字/語氣/肢體</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="font-bold text-blue-900">3. Channel</div>
+            <p class="text-[10px] text-slate-500 mt-1">口頭/Email/LINE/會議</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="font-bold text-blue-900">4. Receiver</div>
+            <p class="text-[10px] text-slate-500 mt-1">部屬接收到訊號</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="font-bold text-blue-900">5. Decoding</div>
+            <p class="text-[10px] text-slate-500 mt-1">部屬主觀解讀語意</p>
+          </div>
+          <div class="p-3 bg-blue-600 text-white rounded-xl shadow-sm">
+            <div class="font-bold">6. Feedback</div>
+            <p class="text-[10px] text-blue-100 mt-1">雙向核對與確認共識</p>
+          </div>
+        </div>
+
+        <!-- Noise Callout -->
+        <div class="p-4 rounded-xl bg-slate-900 text-slate-200 text-xs space-y-2">
+          <div class="text-gold-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-triangle-exclamation"></i> 溝通管道中的「NOISE (噪音)」：
+          </div>
+          <p>
+            噪音不只是物理環境吵雜，在管理學中，<strong>情緒 (Emotion)、權力差距 (Power Distance)、部門本位立場 (Bias)、過去受挫經驗 (Trauma)、主觀假設 (Assumption) 與模糊語言</strong>，都是扭曲訊息的巨大噪音！
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: 50–70分 核心理論 2：五大溝通障礙 -->
+    <section id="section-barriers" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">50–70 min 障礙解構</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">為什麼管理溝通會失敗？（五大溝通障礙）</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">1. Assumption (知識詛咒)</strong>
+            <i class="fa-solid fa-brain text-blue-600"></i>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            <strong>Curse of Knowledge：</strong>主管腦中擁有龐大背景脈絡，直覺認為「這應該不用講吧？」，部屬卻因資訊斷層而完全無法理解。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">2. Selective Perception (選擇性知覺)</strong>
+            <i class="fa-solid fa-filter text-amber-600"></i>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            主管說「做得很好，但數據分析要加強」，部屬回家卻只記得「主管覺得我分析很差」。人只會過濾並放大符合自己心理預期的片段。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">3. Information Overload (資訊超載)</strong>
+            <i class="fa-solid fa-layer-group text-purple-600"></i>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            一次會議交代 20 件事，最後部屬一件都沒記住。大腦工作記憶有限，未經架構與優先級排序的資訊等於雜訊。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">4. Wrong Channel (管道選錯)</strong>
+            <i class="fa-solid fa-mobile-screen text-rose-600"></i>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            重大績效問題用 LINE 講，複雜跨部門利益衝突用 Email 來回二十封。<strong>複雜情感與衝突對話必須採用富媒體（面對面/視訊）！</strong>
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2 sm:col-span-2 lg:col-span-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">5. Power Distance (權力差距與沉默效應)</strong>
+            <i class="fa-solid fa-user-shield text-emerald-600"></i>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            主管在會議上問「大家有不同意見嗎？」，全場一片死寂。主管誤以為「大家都同意」，實則是<strong>缺乏心理安全感 (Psychological Safety)</strong>！
+          </p>
+          <div class="p-2.5 rounded-lg bg-slate-900 text-gold-300 font-bold text-center">
+            ⚠️ Silence does not mean agreement. 沉默不代表同意！
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 7: 70–90分 Mini Case 主管說「你自己看著辦」 -->
+    <section id="section-case1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">70–90 min 個案研討</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Mini Case：主管說「你自己看著辦」</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              林經理帶領行銷團隊。部屬小張跑來問：「客戶希望把實體發布會提前一週舉辦，我們要不要答應？」
+            </p>
+            <p>
+              林經理正急著趕去開高層會議，隨口回了一句：「<strong>你自己看著辦。</strong>」小張心想主管充分授權，便答應了客戶。
+            </p>
+            <p>
+              兩天後林經理得知，勃然大怒：「場地和物料根本來不及，這麼重大的決策你怎麼敢自己答應？！」小張委屈答道：「可是主管您叫我自己看著辦啊...」
+            </p>
+            <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-sm">
+              核心反思：曖昧模糊的話語，難道就是所謂的「授權」嗎？
+            </div>
+          </div>
+
+          <!-- 4 Dimensions of Delegation -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved text-blue-600"></i> 真實授權的四大邊界：
+            </h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>1. Decision Rights：</strong>哪些事情可以全權決定？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>2. Boundaries：</strong>什麼底線不能碰、必須回報？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>3. Resources：</strong>可以使用哪些人脈與預算？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>4. Accountability：</strong>何時需對齊進度與產出？</div>
+            </div>
+            <div class="text-[11px] font-bold text-rose-700 pt-1">
+              💡 Ambiguity is not empowerment. 模糊不是授權，而是甩鍋！
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: 90–100分 中場休息 -->
+    <section id="section-break" class="rounded-2xl bg-gradient-to-r from-slate-800 to-blue-950 text-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-blue-400">90–100 min 中場休息</span>
+          <h3 class="text-lg font-bold">10 分鐘 咖啡補給與腦力沉澱</h3>
+          <p class="text-xs text-slate-300 mt-0.5">下半場將進入 Active Listening 傾聽演練、SBI 回饋模型與 Michael 困難對話。</p>
+        </div>
+      </div>
+      <button onclick="startBreakTimer()" class="px-4 py-2 rounded-xl bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs shadow transition flex items-center gap-2">
+        <i class="fa-solid fa-stopwatch"></i> 啟動10分鐘倒數
+      </button>
+    </section>
+
+    <!-- SECTION 9: 100–140分 Active Listening 傾聽三大工具與演練 -->
+    <section id="section-listening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">100–140 min 實戰技巧</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Active Listening：主管真的有在聽嗎？</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs sm:text-sm text-blue-950 space-y-1">
+          <div class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-stethoscope"></i> Don't diagnose before you listen!</div>
+          <p>部屬說「工作做不完」，主管立刻回答「大家都很忙，你時間管理要加強」，這叫尚未聽懂就給藥方。若先問「做不完是量太多，還是哪裡卡住？」，部屬才透露「是新系統不熟」，問題根因瞬間完全改變！</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <span class="font-bold text-blue-900 text-sm">1. Paraphrasing (換句話說)</span>
+            <p class="text-slate-600">不是鸚鵡學舌，而是用自己的話重新整理對方的核心意思，確認 <em>"Did I understand you correctly?"</em></p>
+            <div class="p-2.5 bg-white rounded border border-slate-200 text-slate-800 font-medium">
+              💬 「所以你的意思是，主要瓶頸是在跨部門溝通的時程，而不是專案技術本身，對嗎？」
+            </div>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <span class="font-bold text-indigo-900 text-sm">2. Clarifying (具體澄清)</span>
+            <p class="text-slate-600">將部屬模糊抽象的抱怨或情緒詞彙具體化，鎖定明確事件。</p>
+            <div class="p-2.5 bg-white rounded border border-slate-200 text-slate-800 font-medium">
+              💬 「你剛才提到最近『壓力很大』，能具體告訴我主要壓力是來自哪一個部分嗎？」
+            </div>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <span class="font-bold text-purple-900 text-sm">3. Open-ended Questions (開放式提問)</span>
+            <p class="text-slate-600">不要只問封閉式的「有沒有問題？」，而是透過開放提問獲取深層洞察。</p>
+            <div class="p-2.5 bg-white rounded border border-slate-200 text-slate-800 font-medium">
+              💬 「如果我們要確保下週準時交付，目前你覺得最大的潛在風險是什麼？」
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Activity 2: Listen Before You Lead -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-blue-950 text-white space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-gold-400 uppercase tracking-wider">Activity 2：Listen Before You Lead (兩人分組演練)</span>
+            <span class="text-xs font-mono text-slate-400">3分鐘限時挑戰</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            A 角色分享一個近期工作上的困擾；<strong>B 角色有一項嚴格限制：絕對不能給出任何建議或解法！只能使用 Ask、Paraphrase、Clarify 與 Summarize</strong>。體會「不急著解決問題，而是先真正理解問題」的強大力量！
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 10: 140–160分 SBI 回饋模型與困難對話 -->
+    <section id="section-sbi" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">140–160 min 管理實務</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Feedback & Difficult Conversations（SBI 回饋模型）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <h3 class="text-base font-bold text-slate-900">管理者最實用的武器：Situation ➔ Behavior ➔ Impact</h3>
+          <p class="text-xs text-slate-500 mt-0.5">回饋不是攻擊「你是個有問題的人 (Person)」，而是聚焦於「有一個具體行為我們需要討論 (Behavior)」！</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-1.5">
+            <span class="font-bold text-blue-900 text-sm">S｜Situation (具體情境)</span>
+            <p class="text-slate-600">明確指出發生的時間、地點與場合。</p>
+            <div class="text-[11px] font-mono text-blue-800 bg-white p-2 rounded border border-blue-200">
+              「在今天上午 10:00 的部門週會上...」
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-1.5">
+            <span class="font-bold text-amber-900 text-sm">B｜Behavior (可觀察行為)</span>
+            <p class="text-slate-600">描述攝影機拍得到的具體動作或話語，絕不使用主觀評價詞（如「態度很差」）。</p>
+            <div class="text-[11px] font-mono text-amber-800 bg-white p-2 rounded border border-amber-200">
+              「當 Amy 報告新方案時，你三次打斷她，並說『這我早就講過了』...」
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200 space-y-1.5">
+            <span class="font-bold text-purple-900 text-sm">I｜Impact (造成的實質影響)</span>
+            <p class="text-slate-600">客觀說明該行為對團隊、專案、情緒或信任造成的後果。</p>
+            <div class="text-[11px] font-mono text-purple-800 bg-white p-2 rounded border border-purple-200">
+              「導致會議氣氛變得非常緊張，後續其他成員都不敢再提出不同想法。」
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: 160–170分 Case / Role Play 高績效但難合作的 Michael -->
+    <section id="section-michael" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">160–170 min 角色扮演演練</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Case：高績效但難合作的 Michael（Difficult Conversation）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              <strong>Michael</strong> 是團隊業績第一名的王牌業務，但經常打斷同事、公開嘲諷他人提案、不願分享客戶資訊，新人也非常害怕向他請教。
+            </p>
+            <p>
+              Michael 認為：「我只是要求效率！我業績最好，主管為什麼總愛管我的說話方式？」主管一直隱忍不處理，理由是「他業績很好，怕講了他會跳槽」。最近已經有兩位優秀同仁申請轉組。
+            </p>
+            <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-sm">
+              小組任務：假設你是主管，要與 Michael 進行一場 5 分鐘 Difficult Conversation。你的開場第一句話怎麼說？
+            </div>
+          </div>
+
+          <!-- Role-play Guidelines -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-user-ninja text-blue-600"></i> 對話三大規範：
+            </h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>1. 嚴禁人身評價：</strong>不可說「你態度有問題」。</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>2. 嚴格使用 SBI：</strong>鎖定具體情境與可觀察行為。</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>3. 處理績效衝突：</strong>當 Michael 說「但我業績最好」時，如何平衡個人績效與團隊生態？</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: 170–175分 教師 Debrief 五大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">170–175 min 理論提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週五大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 text-xs">
+        
+        <div class="p-4 rounded-2xl bg-white border border-blue-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+          <h4 class="font-bold text-slate-900">傳送不等於理解</h4>
+          <p class="text-slate-600 leading-relaxed font-mono text-[11px]">Sent ≠ Understood ≠ Agreed ≠ Done。</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-blue-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+          <h4 class="font-bold text-slate-900">意義由接收者決定</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Meaning is created by the receiver.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-blue-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+          <h4 class="font-bold text-slate-900">沉默不代表同意</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Silence does not mean agreement.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-blue-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">4</div>
+          <h4 class="font-bold text-slate-900">先傾聽再下診斷</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Listen before you diagnose.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-blue-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs font-bold">5</div>
+          <h4 class="font-bold text-slate-900">回饋對事不對人</h4>
+          <p class="text-slate-600 leading-relaxed">SBI：處理具體行為，保留對方尊嚴。</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 13: 175–180分 One-Minute Paper 反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-bold">1</span>
+              回顧你的日常管理，你最常犯的溝通問題是「說不清楚（知識詛咒）」，還是「聽不進去（急著給答案）」？
+            </label>
+            <textarea id="paper-w10-q1" rows="3" placeholder="例如：我發現自己很容易急著給建議，部屬才講兩句我就打斷他並提供解法，從沒耐心先聽完他的真正卡點..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-bold">2</span>
+              有沒有哪一句話是你經常對部屬說、但今天學完後發現其實非常模糊且具破壞力的？
+            </label>
+            <textarea id="paper-w10-q2" rows="3" placeholder="例如：我常說『你看著辦』或『這事情你再想一下』，自以為是授權，其實部屬心理非常恐慌與無所適從..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-bold">3</span>
+              下一次面對部屬犯錯或進行 Difficult Conversation 時，你準備具體改變哪一個溝通行為？
+            </label>
+            <textarea id="paper-w10-q3" rows="3" placeholder="例如：我會嚴格使用 SBI 模型，先說情境與可觀察行為，不批評對方態度，並在講完後使用 Paraphrasing 確認對方理解..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Homework Callout -->
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-950 space-y-1">
+            <strong class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-flask"></i> 本週課後微實驗（為 W11「團隊領導」鋪路）：</strong>
+            <p>未來一週在與部屬或同事對話時，刻意做一件事：對方講完後，不要立刻回答，先說：「所以你的意思是……，我理解得對嗎？」觀察對方的反應與後續對話品質。</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交 W10 反思紀錄
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ W10 領導溝通與有效傾聽</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>學習演進：個人領導 ➔ 帶領他人 ➔ 激勵動機 ➔ 領導溝通 ➔ 團隊領導</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘開場破冰思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘一句話四理解實驗')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘實驗</button>
+        <button onclick="setTimerDuration(20, '20分鐘雙人傾聽演練')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">20 分鐘傾聽</button>
+        <button onclick="setTimerDuration(40, '40分鐘溝通理論與障礙講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-blue-700 hover:bg-blue-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 26-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W10 領導溝通與有效傾聽 (26頁簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 26</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W10 Presentation Slide Deck (26 Slides) =================
+    const w10SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "Can You Really Communicate as a Leader?", sub: "領導溝通與有效傾聽 ‧ 碩士在職專班 W10", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-blue-300 to-indigo-300'>Can You Really Communicate as a Leader?</div><p class='text-slate-400 text-sm'>為什麼我說的，和他聽到的不一樣？</p></div>", notes: "開場破題。" },
+      { num: 2, cat: "P2 核心提問", title: "本週核心大哉問", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「我明明已經講得很清楚了，<br>為什麼部屬還是做錯？」</h2></div>", notes: "引導全班思辨溝通斷層。" },
+      { num: 3, cat: "P3 開場金句", title: "「我不是早就跟你說過了嗎？」", sub: "管理者最常說、也最無效的一句話", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-lg font-bold text-rose-400'>講過 ＝ 聽懂嗎？</h4><p>管理者常把『說了』當成對方已經理解甚至承諾落實。</p></div>", notes: "引出開場情境。" },
+      { num: 4, cat: "P4 報告情境", title: "週五報告的衝突", sub: "有說有聽，為什麼依然出錯？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主管說：『重要報告，週五給我。』</p><p>部屬交了，主管怒斥：『怎能給總經理看？』</p><p class='text-gold-300 font-bold'>核心問題：主管腦中的脈絡，並未編碼傳遞給部屬！</p></div>", notes: "分析案例。" },
+      { num: 5, cat: "P5–6 一句話四理解", title: "Activity 1：一句話，四種理解", sub: "Message ≠ Meaning", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto space-y-2 text-xs text-slate-300'><h4 class='text-base font-bold text-white'>「這件事情，你再想一下」</h4><p>否定？拖延？要更多方案？還是委婉拒絕？</p></div>", notes: "展示接收者的主觀濾鏡。" },
+      { num: 6, cat: "P5–6 一句話四理解", title: "意義是由接收者建構的", sub: "Meaning is constructed by the receiver", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p class='font-bold text-teal-300 text-base'>經驗 × 關係 × 情緒 × 預期 × 假設</p><p>接收者的大腦會自動填補空白，產生完全不同的解讀。</p></div>", notes: "核心理論觀念。" },
+      { num: 7, cat: "P7 核心觀念", title: "Communication ≠ Information", sub: "廣播資訊 vs 達成共識", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto space-y-2 text-xs text-slate-300'><h4 class='text-base font-bold text-white'>真正完成溝通的標準</h4><p class='text-gold-300 font-bold'>不是 Message Sent，而是 Shared Understanding！</p></div>", notes: "溝通標準定義。" },
+      { num: 8, cat: "P8–9 溝通流程", title: "Shannon-Weaver 溝通流程模型", sub: "Sender ➔ Encoding ➔ Channel ➔ Receiver ➔ Decoding ➔ Feedback", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主管的想法經過編碼，透過管道送出，由部屬解碼，並透過雙向回饋確認。</p></div>", notes: "講解溝通迴路。" },
+      { num: 9, cat: "P8–9 溝通流程", title: "回饋 (Feedback) 的必要性", sub: "確認彼此在同一個頻道", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>沒有雙向 Feedback 的溝通，只是單向的心靈自嗨。</p></div>", notes: "強調核對。" },
+      { num: 10, cat: "P10 噪音", title: "Noise：無處不在的溝通噪音", sub: "情緒、權力、假設與組織文化", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p class='text-rose-400 font-bold'>噪音會大幅扭曲編碼與解碼過程！</p></div>", notes: "噪音概念。" },
+      { num: 11, cat: "P11 核心警語", title: "Sent ≠ Understood", sub: "管理溝通四層落差", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1.5 font-mono'><p>我說了 (Sent) ≠ 他聽到了 (Heard)</p><p>他聽到了 ≠ 他理解了 (Understood)</p><p>他理解了 ≠ 他認同了 (Agreed)</p><p>他認同了 ≠ 他會做到 (Done)</p></div>", notes: "管理金句四層落差。" },
+      { num: 12, cat: "P12 五大障礙", title: "為什麼管理溝通會失敗？", sub: "組織中的五大溝通障礙", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>1. 知識詛咒 (Assumption)</p><p>2. 選擇性知覺 (Selective Perception)</p><p>3. 資訊超載 (Overload)</p><p>4. 管道選錯 (Wrong Channel)</p><p>5. 權力差距 (Power Distance)</p></div>", notes: "一覽五大障礙。" },
+      { num: 13, cat: "P13 知識詛咒", title: "Curse of Knowledge", sub: "你知道的，別人未必知道", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>知道的人往往無法想像『不知道的人』眼中的世界。</p></div>", notes: "拆解知識詛咒。" },
+      { num: 14, cat: "P14 管道選擇", title: "Wrong Channel：別用 LINE 吵架", sub: "根據複雜度選擇媒介", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>複雜的情緒、考績反饋與衝突，必須面對面溝通！</p></div>", notes: "媒介豐富度。" },
+      { num: 15, cat: "P15 沉默效應", title: "Silence ≠ Agreement", sub: "部屬沉默不代表認同", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-amber-400'>營造心理安全感 (Psychological Safety)</h4><p>權力差距會讓部屬選擇閉嘴自保。</p></div>", notes: "點出心理安全感。" },
+      { num: 16, cat: "P16–17 看著辦案例", title: "Mini Case：「你自己看著辦」", sub: "授權 vs 模糊的致命陷阱", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主管隨口一句看著辦，部屬提前舉辦發布會，引發災難。</p><p class='text-gold-300 font-bold'>Ambiguity is not empowerment. 模糊不是授權！</p></div>", notes: "案例研討。" },
+      { num: 17, cat: "P16–17 看著辦案例", title: "真實授權的四大邊界", sub: "明確遊戲規則", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>1. Decision Rights（可決定什麼）</p><p>2. Boundaries（不可碰什麼）</p><p>3. Resources（可用資源）</p><p>4. Accountability（何時回報）</p></div>", notes: "授權四要素。" },
+      { num: 18, cat: "P18 積極傾聽", title: "Active Listening", sub: "主管真的有在聽嗎？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-white'>Don't diagnose before you listen</h4><p>主管常見的職業病：急著給答案，而非先理解問題。</p></div>", notes: "導入傾聽概念。" },
+      { num: 19, cat: "P19 聽見vs聽懂", title: "Hearing vs. Listening", sub: "生理接收 vs 心理理解", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs text-center'><div class='p-4 bg-slate-900 rounded-xl'><strong class='text-slate-400'>Hearing (聽見)</strong><p class='text-[10px] mt-1'>耳朵接收聲音物理震動</p></div><div class='p-4 bg-slate-900 rounded-xl border border-blue-500'><strong class='text-blue-400'>Listening (聽懂)</strong><p class='text-[10px] mt-1'>大腦解構對方的深層意圖</p></div></div>", notes: "區分兩者。" },
+      { num: 20, cat: "P20 傾聽三工具", title: "三大實戰傾聽工具", sub: "Paraphrase ‧ Clarify ‧ Open Questions", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p><strong>Paraphrase：</strong>『所以你的意思是...』</p><p><strong>Clarify：</strong>『能具體多說一點嗎？』</p><p><strong>Open Questions：</strong>『你覺得最大的瓶頸是什麼？』</p></div>", notes: "實用話術。" },
+      { num: 21, cat: "P21 演練收束", title: "Activity 2：Listen Before You Lead", sub: "Listen to understand, not to reply", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-teal-300'>忍住不給建議的修煉</h4><p>給予部屬被完整聽見與被同理的心理空間。</p></div>", notes: "演練總結。" },
+      { num: 22, cat: "P22 SBI模型", title: "SBI 回饋模型", sub: "Situation ➔ Behavior ➔ Impact", body: "<div class='grid grid-cols-3 gap-2 max-w-2xl mx-auto text-xs text-center'><div class='p-3 bg-slate-900 rounded-xl'><strong>Situation</strong><p class='text-[10px] text-slate-400 mt-1'>何時何地</p></div><div class='p-3 bg-slate-900 rounded-xl'><strong>Behavior</strong><p class='text-[10px] text-slate-400 mt-1'>具體觀察行為</p></div><div class='p-3 bg-slate-900 rounded-xl'><strong>Impact</strong><p class='text-[10px] text-slate-400 mt-1'>實質後果影響</p></div></div>", notes: "最實用工具。" },
+      { num: 23, cat: "P23 回饋比較", title: "Bad vs. Good Feedback", sub: "攻擊人格 vs 討論行為", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-rose-950/60 rounded-xl border border-rose-800'><strong class='text-rose-400'>❌ 糟糕回饋：</strong><p class='text-[11px] mt-1'>『你最近工作態度很差、很不專業！』</p></div><div class='p-4 bg-emerald-950/60 rounded-xl border border-emerald-800'><strong class='text-emerald-400'>✅ SBI 回饋：</strong><p class='text-[11px] mt-1'>『在今早會議上，你三次打斷 Amy，導致大家不敢發言。』</p></div></div>", notes: "對照好壞。" },
+      { num: 24, cat: "P24–25 Michael個案", title: "Case：高績效難搞同仁 Michael", sub: "Difficult Conversation 實戰", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>業績第一但傲慢毒舌，新人恐懼、兩人轉組。如何進行 5 分鐘困難對話？</p><p class='text-gold-300 font-bold'>說出對方不想聽的話，同時保留對方尊嚴！</p></div>", notes: "個案演練。" },
+      { num: 25, cat: "P24–25 Michael個案", title: "個人績效 vs 團隊生態", sub: "Toxic High Performer 的管理", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>當個人績效建立在摧毀團隊信任與協作時，主管必須堅定介入！</p></div>", notes: "困難對話心法。" },
+      { num: 26, cat: "P26 收束反思", title: "Five Takeaways ＆ 課末反思", sub: "領導溝通五大核心", body: "<div class='space-y-1.5 max-w-xl mx-auto text-xs text-slate-300'><p>1. 傳送不等於理解（Shared Understanding 是唯一標準）</p><p>2. 意義由接收者建構（考慮心理濾鏡）</p><p>3. 沉默不代表同意（營造心理安全感）</p><p>4. 先傾聽再下診斷（Listen to understand）</p><p>5. SBI 回饋處理行為、不攻擊人格</p></div>", notes: "宣布放映結束。" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w10SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w10SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w10SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w10SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Interactivity =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW10State();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW10State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+      alert('W10 One-Minute Paper 反思卡提交成功！已儲存至本機。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w10-q1').value;
+      const q2 = document.getElementById('paper-w10-q2').value;
+      const q3 = document.getElementById('paper-w10-q3').value;
+      const text = `【碩士在職專班 領導與管理 W10 反思卡】\n` +
+        `Q1. 最常犯的溝通盲點（說不清楚 vs 聽不進去）：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 曾對部屬說過的模糊話語：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 下次 Difficult Conversation 準備改變的行為：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W10 反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function startBreakTimer() {
+      toggleTimerModal();
+      setTimerDuration(10, '10分鐘中場休息倒數');
+      startTimer();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW10State() {
+      const state = {
+        q1: document.getElementById('paper-w10-q1') ? document.getElementById('paper-w10-q1').value : '',
+        q2: document.getElementById('paper-w10-q2') ? document.getElementById('paper-w10-q2').value : '',
+        q3: document.getElementById('paper-w10-q3') ? document.getElementById('paper-w10-q3').value : '',
+      };
+      localStorage.setItem('LM_W10_State', JSON.stringify(state));
+    }
+
+    function restoreW10State() {
+      try {
+        const raw = localStorage.getItem('LM_W10_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.q1) document.getElementById('paper-w10-q1').value = s.q1;
+        if (s.q2) document.getElementById('paper-w10-q2').value = s.q2;
+        if (s.q3) document.getElementById('paper-w10-q3').value = s.q3;
+      } catch (e) { console.error('Failed to restore W10 state:', e); }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,3129 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - Week 1 互動教學平台</title>
+  
+  <!-- Google Fonts: Noto Sans TC, Plus Jakarta Sans, Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js for Radar Chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f4f9',
+              100: '#dde6f2',
+              200: '#bfd2e6',
+              300: '#94b5d6',
+              400: '#6493c2',
+              500: '#4374ab',
+              600: '#325b8e',
+              700: '#2a4974',
+              800: '#1b3252',
+              900: '#0f1f35',
+              950: '#091322',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            },
+            accent: {
+              red: '#e63946',
+              teal: '#2a9d8f',
+              amber: '#f4a261',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+/* Custom Executive Academic Design Stylesheet */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Custom interactive tags in whiteboard */
+.trait-tag.active {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #0f172a !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transform: scale(1.04);
+}
+
+/* Card Drag / Interactive Sorting Styling */
+.activity-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.activity-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+/* Custom slider input styles */
+input[type=range] {
+  accent-color: #0d9488;
+}
+
+/* Presentation Slide Stage Styling */
+.slide-card {
+  max-width: 960px;
+  width: 100%;
+  animation: slideFade 0.35s ease-out;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Print Stylesheet for Self-Reflection & One-Minute Paper */
+@media print {
+  header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 12pt !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #section-reflection, #section-oneminute {
+    page-break-inside: avoid;
+    margin-bottom: 2cm;
+  }
+
+  .bg-white, .bg-slate-50, .bg-slate-900 {
+    background: transparent !important;
+    border: 1px solid #cccccc !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+  }
+
+  textarea {
+    border: 1px solid #999999 !important;
+    background: transparent !important;
+  }
+}
+
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Sticky Navigation & Facilitator Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left: Course Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-gold-400 flex items-center justify-center shadow-lg shadow-brand-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-compass-drafting text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">115學年度 第1學期</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">Week 1：Management vs. Leadership</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center: Interactive Mode Switcher & Quick Navigation -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-brand-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right: Action Buttons (Timer, PPT Presenter, One-Minute Paper) -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          
+          <!-- Live Class Timer Trigger -->
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <!-- Presentation Mode Trigger (PPT 24 slides) -->
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">24頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <!-- Mobile Menu Toggle -->
+          <button onclick="toggleMobileNav()" class="lg:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white focus:outline-none">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Secondary Sticky Sub-nav (Section Quick Jump) -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-brand-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-icebreaker" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 開場提問</a>
+        <a href="#section-activity1" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 特質分類</a>
+        <a href="#section-theory" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 核心理論</a>
+        <a href="#section-case1" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 王經理個案</a>
+        <a href="#section-case2" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 微軟轉型</a>
+        <a href="#section-activity2" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 新任主管</a>
+        <a href="#section-reflection" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 自評雷達圖</a>
+        <a href="#section-debrief" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 核心總結</a>
+        <a href="#section-oneminute" class="nav-link px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">11 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Notification Banner (Shown when instructor mode active) -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元下方已顯示教學心法、提問引導技巧、學員常見盲點與板書整理提示。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: Week 1 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-brand-800/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-brand-800/80 border border-brand-700 text-brand-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Week 1 核心主題模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-sans leading-tight">
+          從管理者到領導者<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500">
+            Management vs. Leadership
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「一位稱職的管理者，就一定是一位好的領導者嗎？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          歡迎來到碩士在職專班《領導與管理》。本週我們不急於死記管理思想史，而是從每位在職經理人的真實職場經驗出發，建立<strong>「理論－案例－職場經驗－反思」</strong>的雙螺旋學習循環，徹底解構「職位權力」與「實質影響力」的本質差異。
+        </p>
+
+        <!-- Quick Action Bar -->
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm shadow-md hover:shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-activity1" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-cubes-stacked text-gold-400"></i> 開始互動卡片分類
+          </a>
+          <button onclick="openPresentationMode()" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-chalkboard-user"></i> 開啟授課投影片
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 本週課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 6 Core Learning Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left: Course Positioning Card -->
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">破除二分法，建立共同語言</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              第一週的核心在於<strong>「課程導入、建立共同語言、第一次職場經驗反思」</strong>。不灌輸生硬教條，而是讓在職經理人梳理自身帶人與被帶的經歷，理解 Management 與 Leadership 的差異與互補，奠定未來 16 週的研討基調。
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/60">
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-arrows-spin text-brand-500"></i> 16週核心學習模型
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold text-slate-700 text-center">
+              <span class="bg-white px-2 py-1 rounded shadow-xs border border-slate-200">理論</span>
+              <i class="fa-solid fa-arrow-right text-slate-400 text-xs"></i>
+              <span class="bg-white px-2 py-1 rounded shadow-xs border border-slate-200">案例</span>
+              <i class="fa-solid fa-arrow-right text-slate-400 text-xs"></i>
+              <span class="bg-white px-2 py-1 rounded shadow-xs border border-slate-200">職場經驗</span>
+              <i class="fa-solid fa-arrow-right text-slate-400 text-xs"></i>
+              <span class="bg-white px-2 py-1 rounded shadow-xs border border-slate-200">個人反思</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 6 Specific Learning Objectives -->
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 6 大關鍵收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-900">區分核心差異</h4>
+                <p class="text-xs text-slate-600 mt-0.5">精準辨析 Management（做對事）與 Leadership（做對的事）的功能範疇。</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-900">權力 vs. 影響力</h4>
+                <p class="text-xs text-slate-600 mt-0.5">理解職位賦予的合法權力與發自內心的跟隨影響力完全是兩回事。</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-900">掌握管理內在張力</h4>
+                <p class="text-xs text-slate-600 mt-0.5">洞察績效指標、人才培育、組織關係與變革推動之間的動態平衡。</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">4</div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-900">辨識主管行為特徵</h4>
+                <p class="text-xs text-slate-600 mt-0.5">從自身職場中遇過的主管行為，解讀其管理風格是微觀控制還是授權賦能。</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">5</div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-900">自我領導風格初測</h4>
+                <p class="text-xs text-slate-600 mt-0.5">透過 10 項量表繪製個人領導雷達圖，鎖定最想突破的一項領導行為。</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">6</div>
+              <div>
+                <h4 class="text-sm font-semibold text-slate-900">建立跨學期反思機制</h4>
+                <p class="text-xs text-slate-600 mt-0.5">保留第一週自評檔案，作為第 16 週學期末重新審視與蛻變比對的基準點。</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: 3小時完整授課流程與互動時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">Interactive 180-Minute Session Flow & Agenda Tracker</p>
+          </div>
+        </div>
+        
+        <!-- Timer Quick Control Button -->
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <!-- Interactive Agenda Timeline Table -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">模組跳轉</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <!-- 0-15 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">00–15 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">開場：你遇過最好的主管是誰？</div>
+                  <div class="text-xs text-slate-500 mt-0.5">3分鐘思考 3 個核心問題，3-5 位同學分享，白板彙整特徵</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    個人反思 ＋ 全班分享
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-icebreaker" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 15-30 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">15–30 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">Activity 1：好主管是 Manager 還是 Leader？</div>
+                  <div class="text-xs text-slate-500 mt-0.5">8 項主管特質卡片分類（Manager / Leader / Both）</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    小組討論 ＋ 卡片分類
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-activity1" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 30-75 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">30–75 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">核心理論：Management vs. Leadership</div>
+                  <div class="text-xs text-slate-500 mt-0.5">經典四大功能 vs. 願景賦能；情境（營收成長10% vs. 導入AI抵抗）</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    教師核心講授 ＋ 互動提問
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">45 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-theory" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 75-90 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">75–90 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">Mini Case 1：王經理升官了（為什麼失敗？）</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Top Sales 升任主管後的微觀管理陷阱與 3 大核心討論</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                    個案研討 ＋ 全班激盪
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-case1" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 90-100 -->
+              <tr class="bg-slate-50/80">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-slate-500">90–100 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-mug-hot text-amber-600"></i> 中場休息 (Coffee Break)
+                  </div>
+                  <div class="text-xs text-slate-400 mt-0.5">自由交流、咖啡補給</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-600">休息</span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right text-slate-400 text-xs">—</td>
+              </tr>
+
+              <!-- 100-125 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">100–125 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">企業案例：Microsoft 的文化與領導轉型</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Satya Nadella 如何帶領微軟由 Know-it-all 轉為 Learn-it-all</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    企業個案 ＋ 兩難思辨
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-case2" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 125-150 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">125–150 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">Activity 2：你剛升主管（首月3大決策模擬）</div>
+                  <div class="text-xs text-slate-500 mt-0.5">面對 10 人問題團隊，第一個月只能做三件事的決策模擬</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">
+                    小組決策 ＋ 雙欄歸納
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-activity2" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 150-165 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">150–165 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">我的 Leadership Profile：10項自評量表與雷達圖</div>
+                  <div class="text-xs text-slate-500 mt-0.5">1-5分自我評估，即時產生個人領導輪廓，鎖定改進目標（留至第16週）</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
+                    個人深度自評 ＋ 動態雷達圖
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-reflection" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 165-175 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">165–175 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">教師 Debrief：本週三大核心收束</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Deliver Results + Lead People / 職位 ≠ 信任 / 無職權的領導力</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">
+                    理論整合 ＋ 金句提煉
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">10 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-debrief" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+              <!-- 175-180 -->
+              <tr class="hover:bg-brand-50/40 transition group">
+                <td class="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-brand-600">175–180 min</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <div class="font-bold text-slate-900">One-Minute Paper：課堂即時反思卡</div>
+                  <div class="text-xs text-slate-500 mt-0.5">3 題精簡反思，線上填寫並可匯出儲存／列印</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-100 text-gold-900 font-bold">
+                    個人收束 ＋ 課後追蹤
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="#section-oneminute" class="text-brand-600 hover:text-brand-800 font-semibold text-xs inline-flex items-center gap-1">前往 <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分鐘｜開場：從自己的主管經驗開始 -->
+    <section id="section-icebreaker" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">0–15 min 開場破冰</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">從自己的主管經驗開始</h2>
+        </div>
+      </div>
+
+      <!-- Instructor Guidance Note (Toggleable) -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-lightbulb text-amber-600"></i> 教師授課技巧與引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          <strong>不要急著念課綱！</strong>第一週投影片先只呈現破題問題。讓在職學生的真實職場痛點與回憶成為課堂的第一個催化劑。請學生先思考3分鐘，接著抽點3–5位同學分享，並將關鍵字即時鍵入下方的「虛擬電子白板」。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Left: 3-Minute Reflection Guide Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-5">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+            <i class="fa-solid fa-stopwatch text-brand-500"></i> 課堂思考時間：3 分鐘
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900">
+            「到目前為止，你遇過最好的主管，是什麼樣的人？」
+          </h3>
+
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 flex items-start space-x-3">
+              <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-bold shrink-0">1</span>
+              <p class="text-xs sm:text-sm text-slate-700 font-medium">他做了什麼具體的事情？（管理行為與決策方式）</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 flex items-start space-x-3">
+              <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-bold shrink-0">2</span>
+              <p class="text-xs sm:text-sm text-slate-700 font-medium">為什麼你打從心底願意跟他一起工作？（動機與信任來源）</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 flex items-start space-x-3">
+              <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-bold shrink-0">3</span>
+              <p class="text-xs sm:text-sm text-slate-700 font-medium">他讓你的工作表現變好，還是只是讓你感覺很好？</p>
+            </div>
+          </div>
+
+          <!-- Follow-up Prompt Box -->
+          <div class="p-4 rounded-xl bg-rose-50/80 border border-rose-200 text-rose-950 space-y-1.5">
+            <div class="text-xs font-bold uppercase tracking-wider text-rose-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-triangle-exclamation"></i> 接著追問（逆向思考）：
+            </div>
+            <p class="text-sm font-semibold">「那麼，你遇過最糟糕的主管，有哪些共同特徵？」</p>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Live Whiteboard Tags -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-chalkboard text-brand-600"></i> 課堂白板關鍵字彙整
+              </h3>
+              <span class="text-xs text-slate-400">點擊標籤可高亮</span>
+            </div>
+
+            <!-- Good boss traits -->
+            <div class="mt-4 space-y-2">
+              <div class="text-xs font-bold text-emerald-700 uppercase tracking-wide flex items-center gap-1">
+                <i class="fa-solid fa-thumbs-up"></i> 好主管的特徵（點選彙整）
+              </div>
+              <div class="flex flex-wrap gap-2" id="good-traits-container">
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">願意授權</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">主動傾聽</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">專業能力強</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">公平客觀</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">承擔責任／不甩鍋</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">給部屬發揮空間</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">保護部屬</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition">高標準有方向感</span>
+              </div>
+            </div>
+
+            <!-- Bad boss traits -->
+            <div class="mt-5 space-y-2">
+              <div class="text-xs font-bold text-rose-700 uppercase tracking-wide flex items-center gap-1">
+                <i class="fa-solid fa-thumbs-down"></i> 差主管的特徵（微觀控制與推諉）
+              </div>
+              <div class="flex flex-wrap gap-2" id="bad-traits-container">
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">微觀管理 (Micromanagement)</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">情緒化決策</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">絕不授權</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">搶功勞</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">出事甩鍋</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">只看短期數字</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">缺乏透明溝通</span>
+                <span class="trait-tag px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 cursor-pointer hover:bg-rose-100 transition">不做決定延宕</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Pivot Bridge Prompt -->
+          <div class="mt-4 p-4 rounded-xl bg-slate-900 text-white space-y-1">
+            <div class="text-xs text-gold-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-key"></i> 教師一秒切入核心的提問語句
+            </div>
+            <p class="text-sm font-serif italic text-slate-100">
+              「大家剛才談到的這些好壞行為，到底是『管理』問題，還是『領導』問題？」
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–30分鐘｜Activity 1：好主管是 Manager 還是 Leader？ -->
+    <section id="section-activity1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+          <div>
+            <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">15–30 min 小組互動任務</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 1：好主管的 8 項特質卡片分類</h2>
+          </div>
+        </div>
+
+        <button onclick="resetActivity1()" class="text-xs text-slate-500 hover:text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 font-medium">
+          <i class="fa-solid fa-rotate-left"></i> 重設分類
+        </button>
+      </div>
+
+      <!-- Instructor Guidance Note -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師帶領心法
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          每組4–6人進行熱烈討論。<strong>本活動沒有唯一標準答案！</strong>故意設計某些看似灰色地帶的特質（例如「達成KPI」、「建立制度」），引導學生思辨：Leader 不需要達成KPI嗎？建立制度難道不需要領導力嗎？目標在於讓學生在進入理論前先形成個人判斷。
+        </p>
+      </div>
+
+      <!-- Interactive Drag/Click Sorting Board -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <!-- Source Card Deck -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+              <i class="fa-solid fa-layer-group text-brand-500"></i> 待分類特質卡片（點擊下方按鈕或將卡片指派到目標欄）：
+            </span>
+            <span id="unassigned-count" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 rounded text-slate-600">剩餘 8 張卡片</span>
+          </div>
+
+          <div id="deck-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <!-- Dynamic Cards injected by JS -->
+          </div>
+        </div>
+
+        <!-- Target Categorization Buckets -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          
+          <!-- Bucket: Manager -->
+          <div class="rounded-2xl bg-blue-50/70 border-2 border-dashed border-blue-300 p-4 flex flex-col min-h-[220px]">
+            <div class="flex items-center justify-between pb-2 border-b border-blue-200">
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+                <h4 class="font-bold text-blue-950 text-sm">Manager（偏向管理）</h4>
+              </div>
+              <span id="count-manager" class="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">0</span>
+            </div>
+            <p class="text-[11px] text-blue-700/80 my-1">聚焦在組織秩序、流程控制、維持穩定、事情做對</p>
+            <div id="bucket-manager" class="space-y-2 flex-grow pt-2">
+              <!-- Slotted Cards -->
+            </div>
+          </div>
+
+          <!-- Bucket: Leader -->
+          <div class="rounded-2xl bg-purple-50/70 border-2 border-dashed border-purple-300 p-4 flex flex-col min-h-[220px]">
+            <div class="flex items-center justify-between pb-2 border-b border-purple-200">
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+                <h4 class="font-bold text-purple-950 text-sm">Leader（偏向領導）</h4>
+              </div>
+              <span id="count-leader" class="text-xs font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">0</span>
+            </div>
+            <p class="text-[11px] text-purple-700/80 my-1">聚焦在願景描繪、激勵人心、推動改變、做對的事</p>
+            <div id="bucket-leader" class="space-y-2 flex-grow pt-2">
+              <!-- Slotted Cards -->
+            </div>
+          </div>
+
+          <!-- Bucket: Both -->
+          <div class="rounded-2xl bg-emerald-50/70 border-2 border-dashed border-emerald-300 p-4 flex flex-col min-h-[220px]">
+            <div class="flex items-center justify-between pb-2 border-b border-emerald-200">
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
+                <h4 class="font-bold text-emerald-950 text-sm">Both（管理與領導兼具）</h4>
+              </div>
+              <span id="count-both" class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">0</span>
+            </div>
+            <p class="text-[11px] text-emerald-700/80 my-1">兩者交集或互為表裡，需因時制宜的關鍵能力</p>
+            <div id="bucket-both" class="space-y-2 flex-grow pt-2">
+              <!-- Slotted Cards -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Activity 1 Theoretical Insight Callout -->
+        <div id="activity1-insight" class="hidden p-4 rounded-xl bg-slate-900 text-slate-200 text-xs sm:text-sm space-y-2 animate-fadeIn">
+          <div class="flex items-center gap-2 font-bold text-gold-400">
+            <i class="fa-solid fa-graduation-cap"></i> 教師思辨收束：
+          </div>
+          <p class="leading-relaxed">
+            當我們深入探討會發現：<strong>「達成KPI」</strong>表面上看似 Manager 的任務分解與監控，但若要達成突破性目標，往往需要 Leader 賦予團隊崇高意義與士氣；<strong>「建立制度」</strong>看似 Management，但若沒有 Leadership 的信任與對齊，制度往往只會淪為虛應故事的官僚繁文縟節！
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: 30–75分鐘｜核心理論：Management vs. Leadership -->
+    <section id="section-theory" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">30–75 min 核心理論深度講授</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Management vs. Leadership 雙軸比較</h2>
+        </div>
+      </div>
+
+      <!-- Instructor Guidance Note -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教學重點提醒
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          切忌照本宣科念管理史！直接拋出兩種截然不同的企業情境：①「明年營收要成長10%」（標準管理題目）；②「導入AI部門一半人反對」（領導與變革題目）。讓學員立即感受到為何單靠職權與考核無法推動心智轉變。
+        </p>
+      </div>
+
+      <!-- Two Real-world Scenarios (Tabs or Dual Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Scenario A: Management Domain -->
+        <div class="bg-gradient-to-br from-white to-blue-50/40 rounded-2xl p-6 shadow-sm border border-blue-100 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-blue-100 text-blue-800">5.1 Management 經典管理功能</span>
+            <i class="fa-solid fa-chart-line text-blue-500 text-lg"></i>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900">情境一：公司要求明年營收成長 10%</h3>
+          
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            此時主管需要做的是：<strong>Planning（計畫）→ Organizing（組織）→ Leading（領導）→ Controlling（控制）</strong>。
+          </p>
+
+          <div class="p-3.5 rounded-xl bg-white border border-blue-200/80 space-y-2 text-xs">
+            <div class="font-bold text-blue-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-sliders text-blue-600"></i> 管理者採取的具體工作：
+            </div>
+            <ul class="list-disc list-inside text-slate-700 space-y-1">
+              <li>目標分解到各部門與各季度</li>
+              <li>預算編列與資源配置（Budgeting）</li>
+              <li>人力調配與職責分工（Staffing）</li>
+              <li>進度排程、里程碑與 KPI 監控</li>
+              <li>偏差修正與風險控制（Controlling）</li>
+            </ul>
+          </div>
+          
+          <div class="text-xs font-semibold text-blue-800 bg-blue-50 p-2.5 rounded-lg border border-blue-100">
+            📌 核心目的：維持秩序、降低不確定性、確保<strong>事情做對 (Do Things Right)</strong>。
+          </div>
+        </div>
+
+        <!-- Scenario B: Leadership Domain -->
+        <div class="bg-gradient-to-br from-white to-purple-50/40 rounded-2xl p-6 shadow-sm border border-purple-100 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-purple-100 text-purple-800">5.2 Leadership 實質影響力</span>
+            <i class="fa-solid fa-wand-magic-sparkles text-purple-500 text-lg"></i>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900">情境二：公司導入 AI，部門一半的人消極抵抗</h3>
+          
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            你有法定職權要求他們使用，但他們就是陽奉陰違。單靠 Planning 與 Controlling 完全失效！
+          </p>
+
+          <div class="p-3.5 rounded-xl bg-white border border-purple-200/80 space-y-2 text-xs">
+            <div class="font-bold text-purple-900 flex items-center gap-1.5">
+              <i class="fa-solid fa-compass text-purple-600"></i> 領導者必須激發的力量：
+            </div>
+            <ul class="list-disc list-inside text-slate-700 space-y-1">
+              <li>描繪願景（Vision）：讓同仁看見 AI 帶來的成長而非恐懼</li>
+              <li>群體對齊（Alignment）：建立共識、化解焦慮與利益衝突</li>
+              <li>非職權影響（Influence）：以同理心傾聽部屬擔憂</li>
+              <li>賦能授權（Empowerment）：提供實驗與犯錯的安全空間</li>
+              <li>推動改變（Change）：重塑團隊文化與行為慣性</li>
+            </ul>
+          </div>
+
+          <div class="text-xs font-semibold text-purple-800 bg-purple-50 p-2.5 rounded-lg border border-purple-100">
+            📌 核心目的：激勵人心、引導方向、確保<strong>做對的事情 (Do The Right Things)</strong>。
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 5.3 核心比較矩陣表格 (Deep Comparison Matrix) -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="p-4 sm:p-6 bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-gold-400">5.3 第一週核心架構表</span>
+            <h3 class="text-lg sm:text-xl font-bold">Management vs. Leadership 8大向度對照矩陣</h3>
+          </div>
+          <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">非二分法 ‧ 相互依存</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 text-xs font-bold uppercase border-b border-slate-200">
+                <th class="py-3 px-4 sm:px-6 w-1/4">維度 / 任務面向</th>
+                <th class="py-3 px-4 sm:px-6 w-3/8 text-blue-900 bg-blue-50/50">Management (管理)</th>
+                <th class="py-3 px-4 sm:px-6 w-3/8 text-purple-900 bg-purple-50/50">Leadership (領導)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-map text-slate-400 text-xs"></i> 目標與藍圖
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Planning（規劃排程、設定指標）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Vision（描繪願景、定義意義）</td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-network-wired text-slate-400 text-xs"></i> 組織與團隊
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Organizing（組織結構、職權劃分）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Alignment（心智對齊、共識凝聚）</td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-compass text-slate-400 text-xs"></i> 資源與航向
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Budgeting（預算編列、資源控管）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Direction（指引方向、策略洞察）</td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-users text-slate-400 text-xs"></i> 人才與賦權
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Staffing（人員配置、指派工作）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Empowerment（賦能授權、人才育成）</td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-bullseye text-slate-400 text-xs"></i> 執行與驅動
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Controlling（考核監控、績效修正）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Influence（啟發動機、無形影響）</td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-wrench text-slate-400 text-xs"></i> 挑戰與因應
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Problem Solving（排除障礙、維持運作）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Change（推動變革、打破現狀）</td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-bold text-slate-900 flex items-center gap-2">
+                  <i class="fa-solid fa-anchor text-slate-400 text-xs"></i> 組織基調
+                </td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-blue-800 bg-blue-50/20">Stability（可預測性、秩序穩定）</td>
+                <td class="py-3.5 px-4 sm:px-6 font-semibold text-purple-800 bg-purple-50/20">Adaptation（環境適應、敏捷演化）</td>
+              </tr>
+
+              <tr class="bg-amber-50/60 font-bold">
+                <td class="py-4 px-4 sm:px-6 text-slate-900">核心哲學</td>
+                <td class="py-4 px-4 sm:px-6 text-blue-900 text-sm sm:text-base">事情做對 (Do Things Right)</td>
+                <td class="py-4 px-4 sm:px-6 text-purple-900 text-sm sm:text-base">做對的事情 (Do The Right Things)</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottom Highlight Callout -->
+        <div class="p-4 sm:p-5 bg-gradient-to-r from-slate-900 to-brand-950 text-white flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0 text-lg">
+            <i class="fa-solid fa-handshake"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-gold-300">教師關鍵提醒：這絕對不是非此即彼的二選一！</h4>
+            <p class="text-xs text-slate-300">真正卓越的主管從不是 Manager OR Leader，而是 <strong class="text-white underline">Manager AND Leader</strong>。只有管理，組織窒息；只有領導，組織混亂。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 75–90分鐘｜Mini Case 1：王經理升官了 -->
+    <section id="section-case1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">75–90 min 經典個案研討</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Mini Case 1：王經理升官了（為什麼失敗？）</h2>
+        </div>
+      </div>
+
+      <!-- Instructor Guidance Note -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 個案引導指南
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          王經理是幾乎所有在職學生都會遇過（甚至自己犯過）的經典盲點：<strong>「超級業務員（Top Performer）不等於優秀主管」</strong>。引導學生探討：他很認真、工時最長，但為什麼團隊反而癱瘓？
+        </p>
+      </div>
+
+      <!-- Case Narrative Card -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <div class="border-b border-slate-100 pb-4">
+          <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full uppercase tracking-wider">職場真實縮影</span>
+          <h3 class="text-xl font-bold text-slate-900 mt-2">個案背景：最拼命的主管，卻帶出最被動的團隊</h3>
+        </div>
+
+        <div class="prose prose-slate max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-3">
+          <p>
+            王先生原本是公司業績最好的王牌業務員，工作能力強、效率極高、對產品瞭若指掌，深受高階主管信賴肯定。半年前，公司將他拔擢升任為 <strong>12 人業務團隊主管</strong>。
+          </p>
+          <p>
+            上任之後，王經理很快發現部屬做事速度比自己慢許多，簡報品質也達不到他的高標準。為了維持部門業績，他開始：
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-slate-800 font-medium pl-2 bg-slate-50 p-4 rounded-xl border border-slate-200/60">
+            <li>每天巨細靡遺檢查每位部屬的行程與進度（微觀追蹤）</li>
+            <li>親自熬夜修改所有部屬的提案簡報</li>
+            <li>遇到重要大客戶，覺得部屬談不下來，索性自己親自接手</li>
+            <li>要求部門所有大小決策必須先經過他點頭確認</li>
+            <li>部屬遇到問題請示時，直接給予標準答案「你照我說的做就對了」</li>
+          </ul>
+          <p>
+            半年過去了，部門業績雖然維持達標沒有明顯下滑，但<strong>有兩位資深優秀同仁遞出辭呈</strong>，其他團隊成員也越來越少主動提出新想法，凡事都等王經理發號施令。
+          </p>
+          <div class="p-4 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-base sm:text-lg">
+            王經理滿懷委屈與困惑：「我每天比以前當業務時工作更久、更拼命，為什麼團隊士氣反而變差，大家都不願意主動？」
+          </div>
+        </div>
+
+        <!-- 3 Interactive Discussion Prompts -->
+        <div class="pt-4 border-t border-slate-100 space-y-4">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-comments text-brand-600"></i> 小組核心討論題（點擊檢視分析面向）：
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-brand-300 transition space-y-2">
+              <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+              <h5 class="text-sm font-bold text-slate-900">王經理是不是一位「好管理者」？</h5>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                他確實做到 Controlling 與 Plan 執行，業績也達標；但他在 Staffing、授權與長遠組織穩定性上完全失衡。
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-brand-300 transition space-y-2">
+              <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+              <h5 class="text-sm font-bold text-slate-900">問題究竟出在哪裡？</h5>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                角色認同未轉換：他仍以「超級單兵 (Super Individual Contributor)」的心態在工作，把部屬當成自己雙手的延伸。
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-brand-300 transition space-y-2">
+              <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
+              <h5 class="text-sm font-bold text-slate-900">如果你是他的主管，會給他什麼建議？</h5>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                建立「從自己做，轉向透過他人把事做好 (Through Others)」的心態；容許部屬在可控風險內犯錯以換取成長。
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Debrief Golden Rule -->
+          <div class="p-4 rounded-xl bg-brand-900 text-white flex items-center gap-4 shadow-md">
+            <div class="text-2xl text-gold-400 font-bold shrink-0">≠</div>
+            <div>
+              <div class="text-xs uppercase tracking-widest text-gold-400 font-bold">Mini Case 核心定論</div>
+              <div class="text-base font-bold">Best Employee ≠ Best Manager</div>
+              <div class="text-xs text-slate-300 mt-0.5">個人業績拔尖，絕不代表自動具備帶領團隊、授權賦能、培育人才與建立心理安全感的領導力。</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 7: 90–100分鐘｜中場休息 -->
+    <section id="section-break" class="rounded-2xl bg-gradient-to-r from-slate-800 to-slate-900 text-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">90–100 min 中場休息時間</span>
+          <h3 class="text-lg font-bold">10 分鐘 咖啡交流與腦力沉澱</h3>
+          <p class="text-xs text-slate-400 mt-0.5">上半場完成理論與個人個案，下半場將進入跨國企業轉型與新任主管模擬。</p>
+        </div>
+      </div>
+      <button onclick="startBreakTimer()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition flex items-center gap-2">
+        <i class="fa-solid fa-stopwatch"></i> 啟動10分鐘休息倒數
+      </button>
+    </section>
+
+    <!-- SECTION 8: 100–125分鐘｜企業案例：Microsoft 的領導轉型 -->
+    <section id="section-case2" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">100–125 min 跨國企業轉型案例</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Case 2：Microsoft 的文化重塑與領導轉型</h2>
+        </div>
+      </div>
+
+      <!-- Instructor Guidance Note -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教學視角聚焦
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          討論焦點<strong>不是造神 Satya Nadella 個人</strong>，而是探討當一間龐大組織陷入「部門壁壘、內耗競爭、官僚化與自滿依賴」時，領導者如何透過文化變革（Culture Transformation）把巨象推向「持續學習」。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Transformation Analysis -->
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full uppercase tracking-wider">組織心智蛻變</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1">從「無所不知」到「無所不學」</h3>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-mono font-bold text-slate-500">Satya Nadella 領導變革</span>
+            </div>
+          </div>
+
+          <p class="text-slate-600 text-sm leading-relaxed">
+            微軟在 PC 霸權時代建立了巨大的成功，但隨之而來的是嚴重的部門本位主義、排名互踩（Stack Ranking）與創新停滯。2014年 Nadella 接任 CEO 後，最震撼的舉措並非單純更換產品線，而是<strong>全面重塑微軟的靈魂與文化</strong>。
+          </p>
+
+          <!-- Core Mindset Transformation Contrast Card -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="text-xs font-bold uppercase tracking-wider text-rose-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-lock"></i> 過去：Know-it-all (自認已知)
+              </div>
+              <h4 class="text-base font-bold text-slate-900">定型心態 (Fixed Mindset)</h4>
+              <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                <li>證明自己最聰明、捍衛既有地盤</li>
+                <li>部門間各自為政、內部競爭大於外部開拓</li>
+                <li>恐懼失敗與示弱，掩蓋錯誤</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200 space-y-2">
+              <div class="text-xs font-bold uppercase tracking-wider text-indigo-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-seedling"></i> 現在：Learn-it-all (持續學習)
+              </div>
+              <h4 class="text-base font-bold text-indigo-950">成長心態 (Growth Mindset)</h4>
+              <ul class="text-xs text-indigo-900 space-y-1 list-disc list-inside">
+                <li>承認自己不知道答案，以同理心傾聽客戶</li>
+                <li>跨部門協作（One Microsoft），開放擁抱開源</li>
+                <li>從失敗中敏捷學習，將實驗視為常態</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- 3 Tough Executive Dilemma Questions -->
+          <div class="pt-2 space-y-3">
+            <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-scale-unbalanced text-indigo-600"></i> 三大高階經理人決策反思提問：
+            </h4>
+
+            <div class="space-y-2.5">
+              <div class="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50/40 transition border border-slate-200/80 text-xs sm:text-sm text-slate-800">
+                <strong>Q1：</strong>如果微軟的問題本質是「文化問題」，換一位 CEO 真的有用嗎？制度與文化誰先改變？
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50/40 transition border border-slate-200/80 text-xs sm:text-sm text-slate-800">
+                <strong>Q2：</strong>文化是 CEO 可以直接用 KPI 與規章去「管理」出來的嗎？還是需要透過領導去示範與感染？
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50/40 transition border border-slate-200/80 text-xs sm:text-sm text-slate-800 font-medium text-rose-950 bg-rose-50/30 border-rose-200">
+                <strong>Q3（經典兩難）：</strong>如果公司裡業績最好、最會幫公司賺錢的主管，同時也是最會製造內部對立與衝突的有毒員工，你會留下他嗎？為什麼？
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 1 Col: Key Reflection Summary -->
+        <div class="lg:col-span-1 bg-gradient-to-b from-slate-900 to-indigo-950 text-white rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300">
+              <i class="fa-solid fa-quote-left text-lg"></i>
+            </div>
+            <h4 class="text-lg font-bold text-gold-300 font-serif italic leading-snug">
+              「Don't be a Know-It-All; be a Learn-It-All.」
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              領導者最重要的責任不是宣稱自己掌握所有答案，而是創造一個能讓所有人都敢於承認無知、敢於探索未知的<strong>心理安全環境 (Psychological Safety)</strong>。
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 space-y-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-indigo-300">組織層級的領導意涵</div>
+            <p class="text-xs text-slate-200 leading-relaxed">
+              管理可以管好一個業務流程；但要讓龐大的跨國巨艦轉向，唯有靠深入骨髓的<strong>文化共鳴與共同價值觀</strong>。
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 9: 125–150分鐘｜Activity 2：你剛升主管（首月3件事決策模擬） -->
+    <section id="section-activity2" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">125–150 min 決策模擬工作坊</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 2：你剛升主管（首月 3 大決策模擬）</h2>
+        </div>
+      </div>
+
+      <!-- Instructor Guidance Note -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師引導與雙欄歸納技巧
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          讓小組激烈辯論：當資源與時間極度受限時，你到底先抓「制度/流程」還是先抓「人心/信任」？各組報告後，教師將大家提出的點子即時歸納在<strong> Management 欄位</strong>（KPI、會議制度、工時）與<strong> Leadership 欄位</strong>（1-on-1、傾聽、共同願景），最後點出兩者平衡的真諦。
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <!-- Scenario Setup Box -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-slate-50 to-blue-50 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-200/60 px-2.5 py-0.5 rounded">實戰挑戰情境</span>
+            <span class="text-xs font-mono font-semibold text-slate-600">10人部門 ‧ 績效達標但士氣崩潰</span>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900">
+            你剛被空降或升任為部門主管，麾下共有 10 位部屬：
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-1">
+              <div class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-history text-slate-400"></i> 前任主管風格</div>
+              <div class="text-slate-600">極度嚴苛、微觀控制、所有決策一意孤行，部屬習於被動。</div>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-1">
+              <div class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-medal text-amber-500"></i> 2 位資深老將</div>
+              <div class="text-slate-600">業務與專業能力都比你強，對你可能抱持觀望甚至不服氣態度。</div>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-1">
+              <div class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-user-xmark text-rose-500"></i> 1 位低績效成員</div>
+              <div class="text-slate-600">長期表現不佳，影響整體產出，但前任主管未予妥善處理。</div>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-1">
+              <div class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-door-open text-purple-500"></i> 1 位年輕潛力之星</div>
+              <div class="text-slate-600">能力極強但對組織心灰意冷，私下已在積極面試準備跳槽離職。</div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-brand-900 text-white rounded-xl flex items-center justify-between text-xs sm:text-sm font-semibold">
+            <span>🎯 公司董事會核心要求：<strong>要求你在 6 個月內，讓部門整體績效再度提升 15%！</strong></span>
+          </div>
+        </div>
+
+        <!-- Task & Interactive Action Selection -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                任務：上任後第一個月，你只能做 3 件事，你會選哪 3 件？
+              </h4>
+              <p class="text-xs text-slate-500 mt-0.5">請在下列 8 項常見主管行動中挑選 3 項，並觀察系統自動診斷的管理與領導配比：</p>
+            </div>
+            <div class="text-xs font-bold px-3 py-1 bg-brand-50 text-brand-700 rounded-full border border-brand-200" id="activity2-selected-count">
+              已選擇 0 / 3 項
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="actions-pool">
+            
+            <!-- Option 1 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="1on1" data-type="leadership" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">與 10 位成員分別進行深度一對一面談 (1-on-1)</div>
+                <div class="text-[11px] text-slate-500">傾聽個人心聲、痛點與工作期待，建立心理安全感與個別信任。</div>
+                <span class="text-[10px] font-semibold text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded mt-1 inline-block">Leadership</span>
+              </div>
+            </label>
+
+            <!-- Option 2 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="kpi" data-type="management" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">重新審視並拆解 +15% KPI 與各項工作流程</div>
+                <div class="text-[11px] text-slate-500">制定清晰的任務目標、排程與里程碑，落實每週工作追蹤。</div>
+                <span class="text-[10px] font-semibold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded mt-1 inline-block">Management</span>
+              </div>
+            </label>
+
+            <!-- Option 3 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="retain_star" data-type="leadership" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">私下約談準備離職的年輕潛力之星，量身規劃舞台</div>
+                <div class="text-[11px] text-slate-500">了解其受挫原因，給予核心專案主導權與成長願景以全力挽留。</div>
+                <span class="text-[10px] font-semibold text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded mt-1 inline-block">Leadership</span>
+              </div>
+            </label>
+
+            <!-- Option 4 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="align_seniors" data-type="leadership" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">主動向 2 位資深前輩請益，尋求支持並賦予導師角色</div>
+                <div class="text-[11px] text-slate-500">承認其專業優勢，化解潛在權力競爭，將其轉化為改革同盟。</div>
+                <span class="text-[10px] font-semibold text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded mt-1 inline-block">Leadership</span>
+              </div>
+            </label>
+
+            <!-- Option 5 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="handle_underperformer" data-type="management" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">啟動低績效員工的 PIP 改善計畫或職務調整</div>
+                <div class="text-[11px] text-slate-500">設定 30 天明確檢核點，若未改善則果斷處置，樹立團隊標準。</div>
+                <span class="text-[10px] font-semibold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded mt-1 inline-block">Management</span>
+              </div>
+            </label>
+
+            <!-- Option 6 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="meeting_rules" data-type="management" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">改革會議制度，減少無效會報，建立透明資訊看板</div>
+                <div class="text-[11px] text-slate-500">簡化前任主管冗長行政手續，提升團隊日常運作效率。</div>
+                <span class="text-[10px] font-semibold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded mt-1 inline-block">Management</span>
+              </div>
+            </label>
+
+            <!-- Option 7 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="townhall_vision" data-type="leadership" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">召開全體願景共創會議 (Town Hall)，宣示新文化</div>
+                <div class="text-[11px] text-slate-500">向團隊公開說明自己的帶領理念，承諾授權與開放溝通。</div>
+                <span class="text-[10px] font-semibold text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded mt-1 inline-block">Leadership</span>
+              </div>
+            </label>
+
+            <!-- Option 8 -->
+            <label class="action-card flex items-start space-x-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white cursor-pointer transition">
+              <input type="checkbox" name="act2-choice" value="audit_resources" data-type="management" onchange="updateActivity2Selection()" class="mt-1 w-4 h-4 text-brand-600 rounded">
+              <div>
+                <div class="text-xs font-bold text-slate-900">盤點部門所有進行中專案與資源配置（Audit）</div>
+                <div class="text-[11px] text-slate-500">清點虧損或低投報專案，立即停損止血並重分配預算。</div>
+                <span class="text-[10px] font-semibold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded mt-1 inline-block">Management</span>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Dynamic Feedback Output -->
+        <div id="activity2-result-box" class="p-4 rounded-xl bg-slate-900 text-white space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-gold-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-scale-balanced"></i> 決策配比與診斷回饋
+            </span>
+            <span id="ratio-tag" class="text-xs font-semibold px-2 py-0.5 bg-slate-800 rounded text-slate-300">請選滿 3 項</span>
+          </div>
+
+          <p id="ratio-feedback" class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+            請在上方挑選 3 項您認為第一個月最關鍵的行動。
+          </p>
+
+          <!-- Dual Column Synthesis Preview -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800 text-xs">
+            <div class="p-2.5 rounded-lg bg-blue-950/60 border border-blue-800/60">
+              <strong class="text-blue-300">Management 面向：</strong> KPI、工作分配、流程、績效考核、會議制度。
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-950/60 border border-purple-800/60">
+              <strong class="text-purple-300">Leadership 面向：</strong> 1-on-1 面談、建立信任、願景對齊、授權、傾聽與留才。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 10: 150–165分鐘｜Leadership Self-Reflection 10項自評量表與雷達圖 -->
+    <section id="section-reflection" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+          <div>
+            <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">150–165 min 個人反思與盤點</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">我的 Leadership Profile 自評量表與動態雷達圖</h2>
+          </div>
+        </div>
+
+        <button onclick="saveAndExportProfile()" class="px-3.5 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-floppy-disk"></i> 儲存自評檔案 (第16週比對)
+        </button>
+      </div>
+
+      <!-- Instructor Guidance Note -->
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提醒與首尾呼應設計
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          本量表非心理測驗，無須繳交給老師打分數，請學生<strong>「完全誠實面對自己」</strong>。這份雷達圖將保存在瀏覽器本地，並在第 16 週學期最後一堂課重新施測，前後比對這學期的蛻變痕跡！
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left 7 Cols: 10 Items Sliders -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-list-ol text-teal-600"></i> 10 項領導行為自評（1–5 分）
+            </h3>
+            <span class="text-xs text-slate-400">1: 極不符合 ➔ 5: 完全符合</span>
+          </div>
+
+          <div class="space-y-3.5" id="rating-sliders-container">
+            <!-- Injected by JS: 10 dynamic items -->
+          </div>
+
+          <!-- Bottom Focus Improvement Selection -->
+          <div class="pt-4 border-t border-slate-100 space-y-2">
+            <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider">
+              🎯 關鍵反思提問：如果要在這學期成為更好的領導者，你最想優先改善哪一項？
+            </label>
+            <select id="priority-improvement-select" onchange="updatePriorityImprovement()" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm font-medium text-slate-800 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <option value="">-- 請選擇一項最渴望突破的領導行為 --</option>
+              <option value="1">1. 我擅長設定明確目標。(Planning/Goal)</option>
+              <option value="2">2. 我擅長追蹤工作進度。(Controlling/Tracking)</option>
+              <option value="3">3. 我願意充分授權。(Empowerment/Delegation)</option>
+              <option value="4">4. 我能接受部屬用不同方法完成工作。(Flexibility/Trust)</option>
+              <option value="5">5. 我會主動傾聽部屬。(Active Listening)</option>
+              <option value="6">6. 我能有效處理團隊衝突。(Conflict Resolution)</option>
+              <option value="7">7. 我能清晰說明「為什麼要做」。(Vision & Purpose)</option>
+              <option value="8">8. 我願意承認自己不知道答案。(Intellectual Humility)</option>
+              <option value="9">9. 我願意培養可能比自己更強的人。(Talent Development)</option>
+              <option value="10">10. 面對改變時，我能帶領別人一起改變。(Leading Change)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Dynamic Radar Chart & Stats Card -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-chart-radar text-teal-600"></i> 即時個人領導力雷達圖
+              </h3>
+              <span id="average-score-badge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">均分: 3.0</span>
+            </div>
+
+            <!-- Radar Canvas -->
+            <div class="relative w-full aspect-square max-w-[340px] mx-auto mt-2">
+              <canvas id="leadershipRadarChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Dual Dimension Breakdown (Management Index vs Leadership Index) -->
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center justify-between">
+              <span>面向維度指數：</span>
+              <span id="profile-tendency" class="text-brand-700 font-bold">均衡型經理人</span>
+            </div>
+
+            <div class="space-y-1.5 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-600">🎯 管理維度 (Q1, Q2, Q4):</span>
+                <span id="mgmt-score" class="font-mono font-bold text-blue-700">3.0 / 5.0</span>
+              </div>
+              <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                <div id="mgmt-bar" class="bg-blue-600 h-1.5 rounded-full" style="width: 60%"></div>
+              </div>
+
+              <div class="flex items-center justify-between pt-1">
+                <span class="text-slate-600">✨ 領導維度 (Q3, Q5~Q10):</span>
+                <span id="lead-score" class="font-mono font-bold text-purple-700">3.0 / 5.0</span>
+              </div>
+              <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                <div id="lead-bar" class="bg-purple-600 h-1.5 rounded-full" style="width: 60%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-500 text-center">
+            💾 本自評資料已自動同步至本機暫存，可在學期末隨時重新載入。
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 11: 165–175分鐘｜教師 Debrief：本週三大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+        <div>
+          <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">165–175 min 課堂收束與精華提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週 180 分鐘三大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <!-- 3 Master Takeaways Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Takeaway 1 -->
+        <div class="bg-gradient-to-b from-white to-blue-50/50 rounded-2xl p-6 sm:p-7 shadow-sm border border-blue-100 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-blue-500/20">
+              1
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">
+              Management 與 Leadership 不相同，但絕不能分開！
+            </h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              管理提供秩序與穩定，領導提供願景與變革。真正卓越的主管必須兩手抓，同時做到：
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-blue-900 text-white font-bold text-center text-sm tracking-wide">
+            Deliver Results + Lead People
+          </div>
+        </div>
+
+        <!-- Takeaway 2 -->
+        <div class="bg-gradient-to-b from-white to-purple-50/50 rounded-2xl p-6 sm:p-7 shadow-sm border border-purple-100 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-purple-500/20">
+              2
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">
+              職位絕對不等於領導力！
+            </h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              組織名片上的 Title 只能買到部屬表面上的服從（Compliance），卻買不到部屬發自內心的敬重與信任：
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-purple-900 text-white font-bold text-center text-sm tracking-wide">
+            公司能任命你為 Manager，但不能命令別人 Trust You
+          </div>
+        </div>
+
+        <!-- Takeaway 3 -->
+        <div class="bg-gradient-to-b from-white to-emerald-50/50 rounded-2xl p-6 sm:p-7 shadow-sm border border-emerald-100 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-emerald-500/20">
+              3
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">
+              領導不是只有主管才需要！
+            </h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              領導力本質上是一種「引領改變的影響力」。即使你目前沒有正式管理職位，依然可以透過專業與同理心：
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-emerald-900 text-white font-bold text-center text-sm tracking-wide">
+            無職權的影響力 (Influence Without Authority)
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Final Deep Question Callout -->
+      <div class="rounded-2xl bg-gradient-to-r from-brand-950 via-slate-900 to-brand-900 text-white p-6 sm:p-8 shadow-xl border border-brand-800 flex items-center justify-between gap-6">
+        <div class="space-y-2">
+          <span class="text-xs font-bold uppercase tracking-widest text-gold-400 flex items-center gap-2">
+            <i class="fa-solid fa-gem"></i> 本週最後留在心中的靈魂之問
+          </span>
+          <p class="text-lg sm:text-2xl font-serif italic text-slate-100 leading-snug">
+            「你希望別人是因為你的『職位』而服從你，還是因為『相信你』而願意跟隨你？」
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: 175–180分鐘｜One-Minute Paper 線上反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">11</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="printOrExportPaper()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <div class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          請花 5 分鐘，為今天的學習寫下最真實的心得。每一題只需簡短數句話，幫助自己將課堂理論轉化為具體的職場行動方案：
+        </div>
+
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          
+          <!-- Q1 -->
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-100 text-brand-700 text-xs flex items-center justify-center font-bold">1</span>
+              今天哪一個觀念，最劇烈地改變了你原本對「主管」這份角色的想法？
+            </label>
+            <textarea id="paper-q1" rows="3" placeholder="例如：原本以為當主管就是把進度盯好，今天才體會到只做管理會扼殺團隊主動性..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Q2 -->
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-100 text-brand-700 text-xs flex items-center justify-center font-bold">2</span>
+              想到目前工作中的一位主管（或合作夥伴），他比較像 Manager 還是 Leader？為什麼？
+            </label>
+            <textarea id="paper-q2" rows="3" placeholder="例如：直屬長官偏向 Manager，在拆解目標與排程非常厲害；但部門協同往往缺乏更宏觀的願景..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Q3 -->
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-100 text-brand-700 text-xs flex items-center justify-center font-bold">3</span>
+              如果明天回到工作崗位上，只能改變自己的一個領導行為，你會改什麼？
+            </label>
+            <textarea id="paper-q3" rows="3" placeholder="例如：明天開會時，我會克制自己第一時間給答案的衝動，多問一句『你們覺得這件事該怎麼做更好？』..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-bold text-sm shadow-md hover:shadow-lg transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交反思紀錄
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+    <!-- SECTION 13: 第一週 PPT 建議架構（約24頁）與投影片清單 -->
+    <section id="section-slides" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">第一週 PPT 建議簡報架構（24 頁對照表）</h2>
+            <p class="text-xs text-slate-500">24-Slide Deck Mapping & Fullscreen Presentation Preview</p>
+          </div>
+        </div>
+
+        <button onclick="openPresentationMode()" class="px-4 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-xs shadow-md transition flex items-center gap-2">
+          <i class="fa-solid fa-play"></i> 進入全螢幕播放
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4 sm:p-6 bg-slate-50/50">
+          
+          <div onclick="openPresentationMode(1)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P1–3</span>
+            <h4 class="text-xs font-bold text-slate-900">開場與課程核心問題</h4>
+            <p class="text-[11px] text-slate-500">課程定位、學習路徑、破題大哉問</p>
+          </div>
+
+          <div onclick="openPresentationMode(4)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P4–6</span>
+            <h4 class="text-xs font-bold text-slate-900">我的最好／最差主管</h4>
+            <p class="text-[11px] text-slate-500">3分鐘思考引導、行為白板分類</p>
+          </div>
+
+          <div onclick="openPresentationMode(7)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P7–8</span>
+            <h4 class="text-xs font-bold text-slate-900">Activity 1: Manager / Leader / Both</h4>
+            <p class="text-[11px] text-slate-500">8項特質分類與破題思辨</p>
+          </div>
+
+          <div onclick="openPresentationMode(9)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P9–14</span>
+            <h4 class="text-xs font-bold text-slate-900">Management vs. Leadership 核心理論</h4>
+            <p class="text-[11px] text-slate-500">經典四大功能、AI抵抗情境、8大對照矩陣</p>
+          </div>
+
+          <div onclick="openPresentationMode(15)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P15–16</span>
+            <h4 class="text-xs font-bold text-slate-900">Mini Case: 王經理個案</h4>
+            <p class="text-[11px] text-slate-500">Best Employee ≠ Best Manager</p>
+          </div>
+
+          <div onclick="openPresentationMode(17)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P17–19</span>
+            <h4 class="text-xs font-bold text-slate-900">Microsoft / Satya Nadella</h4>
+            <p class="text-[11px] text-slate-500">Know-it-all ➔ Learn-it-all 文化重塑</p>
+          </div>
+
+          <div onclick="openPresentationMode(20)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P20–21</span>
+            <h4 class="text-xs font-bold text-slate-900">Activity 2: 新任主管決策活動</h4>
+            <p class="text-[11px] text-slate-500">10人部門首月3件事決策模擬</p>
+          </div>
+
+          <div onclick="openPresentationMode(22)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P22</span>
+            <h4 class="text-xs font-bold text-slate-900">Leadership Self-Reflection</h4>
+            <p class="text-[11px] text-slate-500">10項自評雷達圖、鎖定改進項目</p>
+          </div>
+
+          <div onclick="openPresentationMode(23)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P23</span>
+            <h4 class="text-xs font-bold text-slate-900">Three Takeaways</h4>
+            <p class="text-[11px] text-slate-500">三大核心金句與靈魂拷問</p>
+          </div>
+
+          <div onclick="openPresentationMode(24)" class="p-3.5 bg-white rounded-xl border border-slate-200 hover:border-brand-500 hover:shadow-md cursor-pointer transition space-y-1">
+            <span class="text-[10px] font-bold font-mono text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">P24</span>
+            <h4 class="text-xs font-bold text-slate-900">One-Minute Paper</h4>
+            <p class="text-[11px] text-slate-500">三題課末反思卡與學期導航</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 14: 教師備課提醒與教學心法 -->
+    <section id="section-tips" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師備課提醒與教學心法 (Facilitation Checklist)</h2>
+          <p class="text-xs text-slate-500">Essential Teaching Notes & In-Class Dynamic Principles</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <div class="text-xs font-bold text-amber-600 uppercase tracking-wider flex items-center gap-1">
+            <i class="fa-solid fa-clock"></i> 原則一
+          </div>
+          <h4 class="text-sm font-bold text-slate-900">控制講授時間</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            第一週避免連續單向講授超過 45 分鐘，重點在於建立全員高度參與的課堂文化。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <div class="text-xs font-bold text-amber-600 uppercase tracking-wider flex items-center gap-1">
+            <i class="fa-solid fa-briefcase"></i> 原則二
+          </div>
+          <h4 class="text-sm font-bold text-slate-900">經驗即最佳教材</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            在職專班學生的職場經驗本身就是最珍貴的案例，教師角色是將零散經驗昇華至理論架構。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <div class="text-xs font-bold text-amber-600 uppercase tracking-wider flex items-center gap-1">
+            <i class="fa-solid fa-question"></i> 原則三
+          </div>
+          <h4 class="text-sm font-bold text-slate-900">不急於給標準答案</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            案例研討時多追問學生「為什麼」以及「如果情境與產業改變，原答案是否依然成立」。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <div class="text-xs font-bold text-amber-600 uppercase tracking-wider flex items-center gap-1">
+            <i class="fa-solid fa-compass-drafting"></i> 原則四
+          </div>
+          <h4 class="text-sm font-bold text-slate-900">首尾呼應機制</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            第 1 週建立的 Leadership Self-Reflection 務必請學員妥善留存，於第 16 週重新檢視對比。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <div class="text-xs font-bold text-amber-600 uppercase tracking-wider flex items-center gap-1">
+            <i class="fa-solid fa-arrows-spin"></i> 原則五
+          </div>
+          <h4 class="text-sm font-bold text-slate-900">五步教學循環主軸</h4>
+          <p class="text-xs text-slate-600 leading-relaxed font-mono text-[11px]">
+            PPT提供框架 ➔ 教師提問 ➔ 學員帶入經驗 ➔ 同儕討論 ➔ 教師理論重構。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ Week 1 完整授課與互動平台</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>設計宗旨：理論－案例－職場經驗－個人反思</div>
+        <div class="mt-0.5">授課教材及網站系統由 授課團隊 與 AI 協同設計</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODALS & POPUPS ================= -->
+
+  <!-- 1. Live Class Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <!-- Giant Digital Display -->
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+
+      <!-- Quick Preset Stage Buttons -->
+      <div class="space-y-1.5">
+        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">快速載入課堂單元時長：</div>
+        <div class="grid grid-cols-3 gap-2 text-xs">
+          <button onclick="setTimerDuration(3, '3分鐘開場個人思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+          <button onclick="setTimerDuration(10, '10分鐘休息／快速討論')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+          <button onclick="setTimerDuration(15, '15分鐘小組活動討論')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘小組</button>
+          <button onclick="setTimerDuration(25, '25分鐘個案深入思辨')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">25 分鐘個案</button>
+          <button onclick="setTimerDuration(45, '45分鐘核心理論講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">45 分鐘講授</button>
+          <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-brand-700 hover:bg-brand-600 text-white font-bold">180 分鐘完整</button>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Presentation Mode (24-Slide Deck Fullscreen Overlay) -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    
+    <!-- Top Presentation Header Bar -->
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜領導與管理 (Week 1 簡報模式)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 24</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Main Slide Body -->
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage">
+      <!-- Dynamic Slide Injected here -->
+    </div>
+
+    <!-- Bottom Controls & Slide Thumbnails Navigator -->
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="flex items-center space-x-2 text-xs text-slate-400">
+        <span>鍵盤快捷鍵：</span>
+        <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁
+        <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition flex items-center gap-1.5">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+/**
+ * 24-Slide Deck Presentation Engine
+ * 碩士在職專班｜領導與管理 Week 1 完整投影片
+ */
+
+const slideDeck = [
+  // P1
+  {
+    slideNumber: 1,
+    category: "P1–3 開場與核心問題",
+    title: "碩士在職專班｜領導與管理",
+    subtitle: "Week 1：從管理者到領導者 (Management vs. Leadership)",
+    content: `
+      <div class="text-center space-y-6 max-w-2xl mx-auto py-8">
+        <div class="inline-block px-4 py-1 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold uppercase tracking-widest border border-gold-500/30">
+          Executive Master Program ‧ 115學年度
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
+          從管理者到領導者<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500">
+            Management vs. Leadership
+          </span>
+        </h1>
+        <p class="text-slate-400 text-sm">
+          超越職位的法定權力，解構實質影響力的生成與實踐
+        </p>
+      </div>
+    `,
+    instructorNotes: "簡報開場，營造沈穩高階的商學院研討氛圍。"
+  },
+  // P2
+  {
+    slideNumber: 2,
+    category: "P1–3 開場與核心問題",
+    title: "本課程 16 週核心學習架構",
+    subtitle: "拒絕死記教條，建立雙螺旋學習循環",
+    content: `
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 py-6 text-center">
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto text-lg font-bold">1</div>
+          <h3 class="font-bold text-white text-base">理論架構</h3>
+          <p class="text-xs text-slate-400">提供系統性思維模型與學術根基</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto text-lg font-bold">2</div>
+          <h3 class="font-bold text-white text-base">經典案例</h3>
+          <p class="text-xs text-slate-400">解析標竿企業與真實經理人困境</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-lg font-bold">3</div>
+          <h3 class="font-bold text-white text-base">職場經驗</h3>
+          <p class="text-xs text-slate-400">帶入同儕真實管理現場與痛點激盪</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center mx-auto text-lg font-bold">4</div>
+          <h3 class="font-bold text-white text-base">個人反思</h3>
+          <p class="text-xs text-slate-400">轉化為自身領導行為的微調與蛻變</p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "強調 EMBA 同學豐富的實務經驗是課堂共同創造價值的源泉。"
+  },
+  // P3
+  {
+    slideNumber: 3,
+    category: "P1–3 開場與核心問題",
+    title: "本週破題核心提問",
+    subtitle: "Core Provocative Question",
+    content: `
+      <div class="flex items-center justify-center py-12">
+        <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-900 to-brand-950 border border-brand-800 text-center max-w-3xl space-y-4 shadow-2xl">
+          <i class="fa-solid fa-quote-left text-3xl text-gold-400"></i>
+          <h2 class="text-2xl sm:text-4xl font-serif font-bold text-white leading-relaxed">
+            「一位稱職的管理者，<br>就一定是一位好的領導者嗎？」
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            請將這個問題放在心中，它將貫穿我們今天的 180 分鐘。
+          </p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "不要直接給答案，留白 10 秒讓學生沉思。"
+  },
+  // P4
+  {
+    slideNumber: 4,
+    category: "P4–6 我的最好／最差主管",
+    title: "課堂思考（3 分鐘）：最好主管的特徵",
+    subtitle: "請回想你至今為止的職業生涯",
+    content: `
+      <div class="max-w-2xl mx-auto space-y-4 py-4">
+        <h3 class="text-xl font-bold text-gold-300 text-center">「到目前為止，你遇過最好的主管是什麼樣的人？」</h3>
+        <div class="space-y-3 pt-2">
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center space-x-3 text-slate-200">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">1</span>
+            <span>他做了什麼讓你印象深刻的具體行為？</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center space-x-3 text-slate-200">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">2</span>
+            <span>為什麼你打從心底願意跟他一起並肩作戰？</span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center space-x-3 text-slate-200">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">3</span>
+            <span>他讓你的工作表現變好，還是只是讓你在過程中感覺良好？</span>
+          </div>
+        </div>
+      </div>
+    `,
+    instructorNotes: "計時 3 分鐘，邀請 3-5 位同學分享。"
+  },
+  // P5
+  {
+    slideNumber: 5,
+    category: "P4–6 我的最好／最差主管",
+    title: "課堂彙整：好主管的共同特徵",
+    subtitle: "從學員經驗提煉出的正向領導行為",
+    content: `
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 py-6 max-w-3xl mx-auto">
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200 font-bold text-center text-sm">願意充分授權</div>
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200 font-bold text-center text-sm">主動傾聽與同理</div>
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200 font-bold text-center text-sm">專業強但給空間</div>
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200 font-bold text-center text-sm">公平客觀不偏頗</div>
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200 font-bold text-center text-sm">關鍵時刻承擔責任</div>
+        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200 font-bold text-center text-sm">高標準且指引方向</div>
+      </div>
+    `,
+    instructorNotes: "白板同步標註，引導大家看出這些特質多半屬於「關係與信任」。"
+  },
+  // P6
+  {
+    slideNumber: 6,
+    category: "P4–6 我的最好／最差主管",
+    title: "反向鏡像：差主管的典型盲點",
+    subtitle: "大家剛才提到的行為，究竟是『管理』問題，還是『領導』問題？",
+    content: `
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-6 max-w-3xl mx-auto">
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">微觀管理 (Micromanage)</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">情緒化決策</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">絕不授權防部屬</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">搶功勞 ‧ 出事甩鍋</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">只看冷冰冰的數字</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">缺乏透明雙向溝通</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">不做決定 ‧ 延宕逃避</div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-200 text-xs font-bold text-center">扼殺團隊創新</div>
+      </div>
+    `,
+    instructorNotes: "拋出關鍵句：「這些到底是管理問題，還是領導問題？」"
+  },
+  // P7
+  {
+    slideNumber: 7,
+    category: "P7–8 Activity 1 特質分類",
+    title: "Activity 1：好主管是 Manager 還是 Leader？",
+    subtitle: "請小組將下列 8 項特質歸入：Manager / Leader / Both",
+    content: `
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-6 max-w-3xl mx-auto">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">達成 KPI</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">建立制度</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">控制成本</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">解決問題</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">激勵員工</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">建立願景</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">培養人才</div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 font-bold text-center text-sm">推動改變</div>
+      </div>
+    `,
+    instructorNotes: "給予小組 8-10 分鐘討論並進行卡片分類。"
+  },
+  // P8
+  {
+    slideNumber: 8,
+    category: "P7–8 Activity 1 特質分類",
+    title: "Activity 1 教師思辨收束",
+    subtitle: "沒有唯一標準答案，探究表象背後的本質",
+    content: `
+      <div class="space-y-4 max-w-3xl mx-auto py-4">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+          <h4 class="font-bold text-gold-300 text-sm">❓ 達成 KPI 真的只是 Manager 的事嗎？</h4>
+          <p class="text-xs text-slate-300">常態目標靠管理拆解；突破性目標則需要領導者喚起團隊的內在熱情與使命感。</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+          <h4 class="font-bold text-gold-300 text-sm">❓ 建立制度只是冰冷的 Management 嗎？</h4>
+          <p class="text-xs text-slate-300">沒有領導力所凝聚的「信任與對齊」，再嚴密的制度只會變成同仁鑽漏洞與應付的官僚遊戲。</p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "破除單純的二分標籤，進入嚴謹的理論體系。"
+  },
+  // P9
+  {
+    slideNumber: 9,
+    category: "P9–14 Management vs Leadership 核心理論",
+    title: "5.1 Management（管理）的核心功能",
+    subtitle: "經典四大管理循環：秩序、穩定與可預測性",
+    content: `
+      <div class="flex items-center justify-center py-6">
+        <div class="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-bold text-slate-100">
+          <div class="p-4 rounded-2xl bg-blue-950 border border-blue-800 text-center w-36">
+            <i class="fa-solid fa-map text-blue-400 text-lg block mb-1"></i> Planning<br><span class="text-xs text-slate-400">計畫設定</span>
+          </div>
+          <i class="fa-solid fa-arrow-right text-slate-600"></i>
+          <div class="p-4 rounded-2xl bg-blue-950 border border-blue-800 text-center w-36">
+            <i class="fa-solid fa-network-wired text-blue-400 text-lg block mb-1"></i> Organizing<br><span class="text-xs text-slate-400">組織分工</span>
+          </div>
+          <i class="fa-solid fa-arrow-right text-slate-600"></i>
+          <div class="p-4 rounded-2xl bg-blue-950 border border-blue-800 text-center w-36">
+            <i class="fa-solid fa-users text-blue-400 text-lg block mb-1"></i> Leading<br><span class="text-xs text-slate-400">督導執行</span>
+          </div>
+          <i class="fa-solid fa-arrow-right text-slate-600"></i>
+          <div class="p-4 rounded-2xl bg-blue-950 border border-blue-800 text-center w-36">
+            <i class="fa-solid fa-sliders text-blue-400 text-lg block mb-1"></i> Controlling<br><span class="text-xs text-slate-400">考核修正</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-xs text-slate-400">管理的核心目的：降低複雜度、減少誤差、確保組織按部就班運轉。</p>
+    `,
+    instructorNotes: "強調 Management 的不可或缺性，沒有管理組織會分崩離析。"
+  },
+  // P10
+  {
+    slideNumber: 10,
+    category: "P9–14 Management vs Leadership 核心理論",
+    title: "管理情境：公司要求明年營收成長 10%",
+    subtitle: "此時考驗的是精準的管理落實能力",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 py-6">
+        <h4 class="text-sm font-bold text-blue-400">🎯 管理者的標準工具箱：</h4>
+        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-300 space-y-2">
+          <li><strong>目標分解：</strong>將 +10% 拆解到各季度、各事業部與產品線</li>
+          <li><strong>預算規劃：</strong>核算行銷與研發支出，控制營運成本</li>
+          <li><strong>人力配置：</strong>招募業務新血，重新劃分責任轄區</li>
+          <li><strong>監控修正：</strong>每週業務漏斗會報，落後時即刻介入修正</li>
+        </ul>
+      </div>
+    `,
+    instructorNotes: "這是在職經理人每天最熟悉的作戰流程。"
+  },
+  // P11
+  {
+    slideNumber: 11,
+    category: "P9–14 Management vs Leadership 核心理論",
+    title: "5.2 Leadership（領導）的實質範疇",
+    subtitle: "激發動機、凝聚心智、推動變革",
+    content: `
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6 max-w-3xl mx-auto">
+        <div class="p-5 rounded-2xl bg-purple-950/60 border border-purple-800/80 text-center space-y-2">
+          <i class="fa-solid fa-eye text-purple-400 text-xl"></i>
+          <h4 class="text-sm font-bold text-white">Vision (願景)</h4>
+          <p class="text-xs text-slate-300">描繪未來吸引人的可能性，給予工作意義</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-purple-950/60 border border-purple-800/80 text-center space-y-2">
+          <i class="fa-solid fa-handshake text-purple-400 text-xl"></i>
+          <h4 class="text-sm font-bold text-white">Alignment (對齊)</h4>
+          <p class="text-xs text-slate-300">凝聚不同利益關係人，朝共同方向前進</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-purple-950/60 border border-purple-800/80 text-center space-y-2">
+          <i class="fa-solid fa-fire text-purple-400 text-xl"></i>
+          <h4 class="text-sm font-bold text-white">Motivation (激勵)</h4>
+          <p class="text-xs text-slate-300">滿足人類基本心理需求，激發自驅力</p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "領導關乎人心的變革與信任建立。"
+  },
+  // P12
+  {
+    slideNumber: 12,
+    category: "P9–14 Management vs Leadership 核心理論",
+    title: "領導情境：公司導入 AI，部門一半的人抗拒",
+    subtitle: "此時職權命令與考核監控徹底失靈",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 py-6">
+        <div class="text-xs font-bold text-purple-400">⚡ 為什麼管理工具無效？</div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          你有職權要求部屬在日常工作使用 AI 工具，但他們內心充滿恐懼（害怕被取代、害怕能力不足出醜），於是採取「消極抵抗、形式主義」。
+        </p>
+        <div class="pt-2 text-xs sm:text-sm text-gold-300 font-bold border-t border-slate-800">
+          👉 領導解法：建立心理安全感、同理擔憂、將「焦慮」轉化為「自我賦能升級」的共同願景。
+        </div>
+      </div>
+    `,
+    instructorNotes: "引導學生共鳴：在組織變革中，人心才是最難跨越的鴻溝。"
+  },
+  // P13
+  {
+    slideNumber: 13,
+    category: "P9–14 Management vs Leadership 核心理論",
+    title: "5.3 核心比較矩陣",
+    subtitle: "Management vs. Leadership 8 大向度深度對照",
+    content: `
+      <div class="overflow-x-auto max-w-3xl mx-auto py-2">
+        <table class="w-full text-xs text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-800 text-slate-300 font-bold">
+              <th class="p-2.5">面向</th>
+              <th class="p-2.5 text-blue-400">Management</th>
+              <th class="p-2.5 text-purple-400">Leadership</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr><td class="p-2 font-bold">藍圖</td><td class="p-2">Planning (計畫排程)</td><td class="p-2">Vision (願景方向)</td></tr>
+            <tr><td class="p-2 font-bold">團隊</td><td class="p-2">Organizing (組織分工)</td><td class="p-2">Alignment (心智對齊)</td></tr>
+            <tr><td class="p-2 font-bold">資源</td><td class="p-2">Budgeting (預算控管)</td><td class="p-2">Direction (策略指引)</td></tr>
+            <tr><td class="p-2 font-bold">人才</td><td class="p-2">Staffing (人員配置)</td><td class="p-2">Empowerment (賦能授權)</td></tr>
+            <tr><td class="p-2 font-bold">驅動</td><td class="p-2">Controlling (考核控制)</td><td class="p-2">Influence (激勵影響)</td></tr>
+            <tr><td class="p-2 font-bold">挑戰</td><td class="p-2">Problem solving (排除障礙)</td><td class="p-2">Change (推動變革)</td></tr>
+            <tr class="bg-slate-900/80 font-bold text-white"><td class="p-2">哲學</td><td class="p-2 text-blue-300">事情做對 (Do things right)</td><td class="p-2 text-purple-300">做對的事 (Do the right things)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    instructorNotes: "這頁是本週最具學術代表性的對比架構。"
+  },
+  // P14
+  {
+    slideNumber: 14,
+    category: "P9–14 Management vs Leadership 核心理論",
+    title: "第一週核心金句",
+    subtitle: "打破非此即彼的錯誤思維",
+    content: `
+      <div class="flex items-center justify-center py-10">
+        <div class="p-8 rounded-3xl bg-gradient-to-r from-blue-950 to-purple-950 border border-slate-700 text-center max-w-2xl space-y-4">
+          <div class="text-xs uppercase tracking-widest text-gold-400 font-bold">The Golden Rule</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            不是 Manager <span class="text-rose-400 underline">OR</span> Leader<br>
+            而是 Manager <span class="text-emerald-400 underline">AND</span> Leader！
+          </h2>
+          <p class="text-xs text-slate-300">
+            只有管理，組織窒息僵化；只有領導，組織熱血混亂。
+          </p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "提醒同學：成熟的經理人必須雙軌並行。"
+  },
+  // P15
+  {
+    slideNumber: 15,
+    category: "P15–16 王經理個案",
+    title: "Mini Case 1：王經理升官了",
+    subtitle: "超級業務員升任主管後的困境",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 py-4 text-xs sm:text-sm text-slate-300">
+        <p><strong>背景：</strong>王先生曾是業績第一的王牌業務員，升任 12 人團隊主管。</p>
+        <p><strong>行為：</strong>嫌部屬慢 ➔ 每天微觀檢查 ➔ 親自改簡報 ➔ 重要客戶自己接 ➔ 所有決策親自點頭 ➔ 給予標準答案。</p>
+        <p><strong>結果：</strong>半年後業績雖達標，但<strong>2位優秀同仁離職</strong>，其餘成員不再主動思考，全等他下令。</p>
+        <div class="p-3 rounded-xl bg-slate-950 text-gold-300 font-serif italic text-center">
+          「我每天比以前更拼命，為什麼團隊反而變差？」
+        </div>
+      </div>
+    `,
+    instructorNotes: "請同學小組討論 3 個問題。"
+  },
+  // P16
+  {
+    slideNumber: 16,
+    category: "P15–16 王經理個案",
+    title: "個案核心結論",
+    subtitle: "從超級單兵到卓越教練的身份轉變",
+    content: `
+      <div class="flex items-center justify-center py-10">
+        <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center max-w-2xl space-y-4">
+          <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-amber-500">
+            Best Employee ≠ Best Manager
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            優秀的個人執行力，絕不等於具備<strong>「透過他人完成目標 (Get things done through others)」</strong>的能力。主管的核心職責不再是自己把球踢進，而是打造一支能打勝仗的球隊！
+          </p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "強調授權與容錯的重要性。"
+  },
+  // P17
+  {
+    slideNumber: 17,
+    category: "P17–19 Microsoft / Satya Nadella",
+    title: "企業案例：微軟霸權時代的陰影",
+    subtitle: "當大型成功企業陷入官僚化與內部內耗",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 py-4 text-xs sm:text-sm text-slate-300">
+        <h4 class="font-bold text-rose-400">⚠️ 微軟轉型前的組織病態：</h4>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>部門壁壘 (Silos)：</strong>Windows、Office 各自為政，內部敵意大於外部競爭</li>
+          <li><strong>殘酷排名 (Stack Ranking)：</strong>迫使員工踩著同儕往上爬，扼殺團隊協作</li>
+          <li><strong>成功依賴：</strong>死守 PC 與授權金舊獲利模式，錯失行動與雲端浪潮</li>
+        </ul>
+      </div>
+    `,
+    instructorNotes: "帶入大型企業普遍面臨的組織僵化挑戰。"
+  },
+  // P18
+  {
+    slideNumber: 18,
+    category: "P17–19 Microsoft / Satya Nadella",
+    title: "Nadella 的文化重塑核心",
+    subtitle: "由「自認全知」轉向「終身學習」",
+    content: `
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 max-w-3xl mx-auto">
+        <div class="p-6 rounded-2xl bg-rose-950/40 border border-rose-800 text-center space-y-2">
+          <div class="text-xs font-bold text-rose-400">過去的微軟文化</div>
+          <h3 class="text-xl font-bold text-white">Know-It-All</h3>
+          <p class="text-xs text-slate-400">自認最聰明、證明自己、害怕示弱掩蓋錯誤</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-indigo-950/60 border border-indigo-800 text-center space-y-2">
+          <div class="text-xs font-bold text-indigo-400">重塑後的微軟文化</div>
+          <h3 class="text-xl font-bold text-white">Learn-It-All</h3>
+          <p class="text-xs text-slate-400">以同理心傾聽、勇於承認無知、在實驗中敏捷學習</p>
+        </div>
+      </div>
+    `,
+    instructorNotes: "文化不是寫在牆上的標語，而是主管日常的示範。"
+  },
+  // P19
+  {
+    slideNumber: 19,
+    category: "P17–19 Microsoft / Satya Nadella",
+    title: "高階經理人決策兩難",
+    subtitle: "如果組織中最強的業務員同時也是文化破壞者...",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 py-6">
+        <div class="text-sm font-bold text-gold-400">🔥 課堂思辨題目：</div>
+        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-serif italic">
+          「如果公司裡業績最好、最會賺錢的主管，同時也是最會製造內部對立、辱罵部屬的有毒員工，你會留下他嗎？」
+        </p>
+        <p class="text-xs text-slate-400">
+          留下來：短期業績保證，但長期文化與頂尖人才被摧毀。<br>
+          請他走：彰顯組織真正的核心價值觀，但承受短期營收陣痛。
+        </p>
+      </div>
+    `,
+    instructorNotes: "讓同學舉手表態，進行即時觀點交鋒。"
+  },
+  // P20
+  {
+    slideNumber: 20,
+    category: "P20–21 新任主管決策活動",
+    title: "Activity 2：你剛升主管（實戰模擬）",
+    subtitle: "10 人問題部門，6 個月內績效需提升 15%",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 py-4 text-xs sm:text-sm text-slate-300">
+        <h4 class="font-bold text-gold-300">團隊現況盤點：</h4>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="p-2.5 rounded bg-slate-950">2位資深老將能力比你強</div>
+          <div class="p-2.5 rounded bg-slate-950">1位低績效員工拖累進度</div>
+          <div class="p-2.5 rounded bg-slate-950">1位年輕明日之星準備離職</div>
+          <div class="p-2.5 rounded bg-slate-950">前任主管極端高壓微觀控制</div>
+        </div>
+        <div class="pt-2 text-xs font-bold text-white">
+          🎯 核心任務：上任第一個月，你只能挑選 3 件事做，你的策略是什麼？
+        </div>
+      </div>
+    `,
+    instructorNotes: "啟動小組討論 10 分鐘，各組挑出 3 大優先事項。"
+  },
+  // P21
+  {
+    slideNumber: 21,
+    category: "P20–21 新任主管決策活動",
+    title: "新任主管決策雙欄歸納",
+    subtitle: "將學員提案分類至 Management vs. Leadership",
+    content: `
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 max-w-3xl mx-auto text-xs">
+        <div class="p-5 rounded-2xl bg-blue-950/50 border border-blue-800 space-y-2">
+          <h4 class="font-bold text-blue-400 text-sm">Management 策略</h4>
+          <ul class="list-disc list-inside space-y-1 text-slate-300">
+            <li>拆解 KPI 與工作排程追蹤</li>
+            <li>改革會議機制，減少虛耗</li>
+            <li>啟動低績效員工的 PIP 改善計畫</li>
+            <li>盤點資源與中止低投報專案</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-2xl bg-purple-950/50 border border-purple-800 space-y-2">
+          <h4 class="font-bold text-purple-400 text-sm">Leadership 策略</h4>
+          <ul class="list-disc list-inside space-y-1 text-slate-300">
+            <li>展開深度 1-on-1 面談建立信任</li>
+            <li>親自約談挽留關鍵年輕戰將</li>
+            <li>向資深前輩請益賦予導師舞台</li>
+            <li>召開全體願景共創會議</li>
+          </ul>
+        </div>
+      </div>
+    `,
+    instructorNotes: "強調第一個月若完全忽略人心與信任，後續管理機制無法落地。"
+  },
+  // P22
+  {
+    slideNumber: 22,
+    category: "P22 自我評估",
+    title: "Leadership Self-Reflection",
+    subtitle: "10 項領導行為自評 ‧ 繪製個人領導雷達圖",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center space-y-4 py-6">
+        <i class="fa-solid fa-chart-pie text-3xl text-teal-400"></i>
+        <h3 class="text-xl font-bold text-white">誠實面對自己的領導長短板</h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          請在網頁端完成 10 題 1-5 分自評量表。系統將自動計算管理與領導指數，並儲存本機檔案。<br>
+          <strong class="text-gold-300">此檔案將留存至第 16 週最後一堂課再次檢視比對！</strong>
+        </p>
+      </div>
+    `,
+    instructorNotes: "給予學員 10 分鐘安靜線上填寫量表。"
+  },
+  // P23
+  {
+    slideNumber: 23,
+    category: "P23 本週核心收束",
+    title: "Three Takeaways：本週三大收束",
+    subtitle: "將 180 分鐘的精華濃縮為三個核心心法",
+    content: `
+      <div class="space-y-3 max-w-3xl mx-auto py-4 text-xs sm:text-sm">
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
+          <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+          <div>
+            <strong class="text-white">Management 與 Leadership 互為表裡：</strong>
+            <span class="text-slate-400">卓越主管必須同時做到 Deliver Results + Lead People。</span>
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
+          <span class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+          <div>
+            <strong class="text-white">職位絕對不等於領導力：</strong>
+            <span class="text-slate-400">公司可以任命你為 Manager，但不能命令別人 Trust you。</span>
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+          <div>
+            <strong class="text-white">領導不是只有主管才需要：</strong>
+            <span class="text-slate-400">人人皆可實踐「無職權的影響力 (Influence without Authority)」。</span>
+          </div>
+        </div>
+      </div>
+    `,
+    instructorNotes: "課堂收尾金句，語氣要堅定且充滿啟發感。"
+  },
+  // P24
+  {
+    slideNumber: 24,
+    category: "P24 課末反思",
+    title: "One-Minute Paper 課堂反思",
+    subtitle: "在網頁端填寫 3 題精簡反思，為下週研討奠基",
+    content: `
+      <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 py-6 text-xs sm:text-sm">
+        <h4 class="font-bold text-gold-400">今日反思 3 題：</h4>
+        <ol class="list-decimal list-inside space-y-2 text-slate-300">
+          <li>今天哪一個觀念最劇烈改變了你原本對「主管」的想法？</li>
+          <li>身邊的一位主管比較像 Manager 還是 Leader？為什麼？</li>
+          <li>如果明天只能改變自己的一個領導行為，你會改什麼？</li>
+        </ol>
+        <div class="pt-2 text-center text-xs text-slate-400">
+          感謝大家的熱烈參與，我們下週見！
+        </div>
+      </div>
+    `,
+    instructorNotes: "放映結束，請學員在教學網站填寫並提交反思卡。"
+  }
+];
+
+let currentSlideIndex = 0;
+
+function openPresentationMode(slideNum = 1) {
+  currentSlideIndex = Math.max(0, Math.min(slideDeck.length - 1, slideNum - 1));
+  renderCurrentSlide();
+  const overlay = document.getElementById("presentation-overlay");
+  overlay.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closePresentationMode() {
+  const overlay = document.getElementById("presentation-overlay");
+  overlay.classList.add("hidden");
+  document.body.style.overflow = "auto";
+}
+
+function nextSlide() {
+  if (currentSlideIndex < slideDeck.length - 1) {
+    currentSlideIndex++;
+    renderCurrentSlide();
+  }
+}
+
+function prevSlide() {
+  if (currentSlideIndex > 0) {
+    currentSlideIndex--;
+    renderCurrentSlide();
+  }
+}
+
+function renderCurrentSlide() {
+  const slide = slideDeck[currentSlideIndex];
+  const stage = document.getElementById("slide-content-stage");
+  const indicator = document.getElementById("slide-number-indicator");
+
+  indicator.innerText = `Slide ${slide.slideNumber} / ${slideDeck.length}`;
+
+  stage.innerHTML = `
+    <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+          <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${slide.category}</span>
+          <span class="text-xs font-mono text-slate-500">P.${slide.slideNumber}</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${slide.title}</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">${slide.subtitle}</p>
+      </div>
+
+      <div class="flex-grow flex items-center justify-center">
+        <div class="w-full">${slide.content}</div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+        <i class="fa-solid fa-chalkboard-user"></i>
+        <span><strong>教師提場提示：</strong>${slide.instructorNotes}</span>
+      </div>
+    </div>
+  `;
+}
+
+// Keyboard shortcuts for presentation mode
+window.addEventListener("keydown", (e) => {
+  const overlay = document.getElementById("presentation-overlay");
+  if (!overlay || overlay.classList.contains("hidden")) return;
+
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+    e.preventDefault();
+    nextSlide();
+  } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+    e.preventDefault();
+    prevSlide();
+  } else if (e.key === "Escape") {
+    closePresentationMode();
+  }
+});
+
+</script>
+  <script>
+/**
+ * Main Application Logic & Interactivity
+ * 碩士在職專班｜領導與管理 (Week 1)
+ */
+
+// Global State
+let appMode = 'student'; // 'student' | 'instructor'
+let timerInterval = null;
+let timerSecondsRemaining = 180 * 60;
+let isTimerRunning = false;
+let radarChartInstance = null;
+
+// Activity 1 Traits Data
+const activity1Traits = [
+  { id: 'kpi', name: '達成 KPI', desc: '指標拆解與交付結果', target: null },
+  { id: 'system', name: '建立制度', desc: '規範SOP與運作流程', target: null },
+  { id: 'cost', name: '控制成本', desc: '預算控管與精實營運', target: null },
+  { id: 'problem', name: '解決問題', desc: '障礙排除與維持穩定', target: null },
+  { id: 'inspire', name: '激勵員工', desc: '點燃熱情與心理激勵', target: null },
+  { id: 'vision', name: '建立願景', desc: '描繪未來與定義意義', target: null },
+  { id: 'talent', name: '培養人才', desc: '賦能授權與梯隊養成', target: null },
+  { id: 'change', name: '推動改變', desc: '打破現狀與心智重塑', target: null },
+];
+
+// Self-Reflection 10 Items
+const reflectionItems = [
+  { id: 1, text: '1. 我擅長設定明確目標。', dimension: 'mgmt', defaultScore: 3 },
+  { id: 2, text: '2. 我擅長追蹤工作進度。', dimension: 'mgmt', defaultScore: 3 },
+  { id: 3, text: '3. 我願意充分授權。', dimension: 'lead', defaultScore: 3 },
+  { id: 4, text: '4. 我能接受部屬用不同方法完成工作。', dimension: 'mgmt', defaultScore: 3 },
+  { id: 5, text: '5. 我會主動傾聽部屬。', dimension: 'lead', defaultScore: 3 },
+  { id: 6, text: '6. 我能有效處理團隊衝突。', dimension: 'lead', defaultScore: 3 },
+  { id: 7, text: '7. 我能清晰說明「為什麼要做」。', dimension: 'lead', defaultScore: 3 },
+  { id: 8, text: '8. 我願意承認自己不知道答案。', dimension: 'lead', defaultScore: 3 },
+  { id: 9, text: '9. 我願意培養可能比自己更強的人。', dimension: 'lead', defaultScore: 3 },
+  { id: 10, text: '10. 面對改變時，我能帶領別人一起改變。', dimension: 'lead', defaultScore: 3 },
+];
+
+let userScores = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
+
+// Initialization
+document.addEventListener('DOMContentLoaded', () => {
+  initWhiteboardTags();
+  initActivity1();
+  initReflectionSliders();
+  initRadarChart();
+  restoreSavedState();
+  updateTimerDisplay();
+});
+
+// Mode Switcher (Student vs Instructor)
+function setAppMode(mode) {
+  appMode = mode;
+  const studentBtn = document.getElementById('mode-student-btn');
+  const instructorBtn = document.getElementById('mode-instructor-btn');
+  const banner = document.getElementById('instructor-banner');
+  const notes = document.querySelectorAll('.instructor-note');
+
+  if (mode === 'instructor') {
+    studentBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+    instructorBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-amber-600 text-white shadow-sm flex items-center gap-1.5';
+    banner.classList.remove('hidden');
+    notes.forEach(note => note.classList.remove('hidden'));
+  } else {
+    studentBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-brand-600 text-white shadow-sm flex items-center gap-1.5';
+    instructorBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+    banner.classList.add('hidden');
+    notes.forEach(note => note.classList.add('hidden'));
+  }
+}
+
+// Whiteboard Tag Interactions
+function initWhiteboardTags() {
+  document.querySelectorAll('.trait-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      tag.classList.toggle('active');
+    });
+  });
+}
+
+// ================= ACTIVITY 1: CARD SORTING =================
+function initActivity1() {
+  renderActivity1();
+}
+
+function renderActivity1() {
+  const deckContainer = document.getElementById('deck-container');
+  const managerBucket = document.getElementById('bucket-manager');
+  const leaderBucket = document.getElementById('bucket-leader');
+  const bothBucket = document.getElementById('bucket-both');
+
+  deckContainer.innerHTML = '';
+  managerBucket.innerHTML = '';
+  leaderBucket.innerHTML = '';
+  bothBucket.innerHTML = '';
+
+  let unassignedCount = 0;
+  let managerCount = 0;
+  let leaderCount = 0;
+  let bothCount = 0;
+
+  activity1Traits.forEach(trait => {
+    const cardEl = createTraitCardElement(trait);
+
+    if (!trait.target) {
+      unassignedCount++;
+      deckContainer.appendChild(cardEl);
+    } else if (trait.target === 'manager') {
+      managerCount++;
+      managerBucket.appendChild(cardEl);
+    } else if (trait.target === 'leader') {
+      leaderCount++;
+      leaderBucket.appendChild(cardEl);
+    } else if (trait.target === 'both') {
+      bothCount++;
+      bothBucket.appendChild(cardEl);
+    }
+  });
+
+  document.getElementById('unassigned-count').innerText = `剩餘 ${unassignedCount} 張卡片`;
+  document.getElementById('count-manager').innerText = managerCount;
+  document.getElementById('count-leader').innerText = leaderCount;
+  document.getElementById('count-both').innerText = bothCount;
+
+  const insight = document.getElementById('activity1-insight');
+  if (unassignedCount === 0) {
+    insight.classList.remove('hidden');
+  } else {
+    insight.classList.add('hidden');
+  }
+}
+
+function createTraitCardElement(trait) {
+  const div = document.createElement('div');
+  div.className = 'activity-card p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2';
+  div.innerHTML = `
+    <div class="flex items-center justify-between">
+      <h5 class="text-xs font-bold text-slate-900">${trait.name}</h5>
+      <span class="text-[10px] text-slate-400 font-mono">${trait.target ? trait.target.toUpperCase() : '未指派'}</span>
+    </div>
+    <p class="text-[11px] text-slate-500">${trait.desc}</p>
+    <div class="flex items-center gap-1 pt-1 border-t border-slate-100 text-[10px]">
+      <button onclick="setTraitCategory('${trait.id}', 'manager')" class="px-1.5 py-0.5 rounded ${trait.target === 'manager' ? 'bg-blue-600 text-white font-bold' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}">M</button>
+      <button onclick="setTraitCategory('${trait.id}', 'leader')" class="px-1.5 py-0.5 rounded ${trait.target === 'leader' ? 'bg-purple-600 text-white font-bold' : 'bg-purple-50 text-purple-700 hover:bg-purple-100'}">L</button>
+      <button onclick="setTraitCategory('${trait.id}', 'both')" class="px-1.5 py-0.5 rounded ${trait.target === 'both' ? 'bg-emerald-600 text-white font-bold' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'}">Both</button>
+      ${trait.target ? `<button onclick="setTraitCategory('${trait.id}', null)" class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 hover:bg-slate-200 ml-auto" title="撤回"><i class="fa-solid fa-rotate-left"></i></button>` : ''}
+    </div>
+  `;
+  return div;
+}
+
+function setTraitCategory(traitId, category) {
+  const trait = activity1Traits.find(t => t.id === traitId);
+  if (trait) {
+    trait.target = category;
+    renderActivity1();
+    saveToLocalStorage();
+  }
+}
+
+function resetActivity1() {
+  activity1Traits.forEach(t => t.target = null);
+  renderActivity1();
+  saveToLocalStorage();
+}
+
+// ================= ACTIVITY 2: SELECTION & FEEDBACK =================
+function updateActivity2Selection() {
+  const checkboxes = document.querySelectorAll('input[name="act2-choice"]:checked');
+  const countBadge = document.getElementById('activity2-selected-count');
+  const count = checkboxes.length;
+
+  countBadge.innerText = `已選擇 ${count} / 3 項`;
+
+  // Limit max 3
+  if (count > 3) {
+    alert('上任首月資源極其有限，至多只能專注挑選 3 項最關鍵的行動！');
+    event.target.checked = false;
+    updateActivity2Selection();
+    return;
+  }
+
+  let mgmtCount = 0;
+  let leadCount = 0;
+  checkboxes.forEach(cb => {
+    if (cb.dataset.type === 'management') mgmtCount++;
+    if (cb.dataset.type === 'leadership') leadCount++;
+  });
+
+  const feedback = document.getElementById('ratio-feedback');
+  const ratioTag = document.getElementById('ratio-tag');
+
+  if (count === 3) {
+    ratioTag.innerText = `配置：${mgmtCount} 項 Management + ${leadCount} 項 Leadership`;
+    ratioTag.className = 'text-xs font-bold px-2 py-0.5 rounded bg-gold-500/20 text-gold-300 border border-gold-500/30';
+
+    if (mgmtCount === 3) {
+      feedback.innerHTML = `<span class="text-blue-300 font-bold">【極端管理偏向】</span> 您全數選擇了流程、KPI與審計機制。這能迅速建立業務秩序，但面對士氣低落、年輕戰將想離職、資深老將觀望的現況，過於冰冷的管理手段極易引發集體反彈或人才加速出走！`;
+    } else if (leadCount === 3) {
+      feedback.innerHTML = `<span class="text-purple-300 font-bold">【極端領導偏向】</span> 您全數聚焦在 1-on-1、願景與關係修復。這能極佳地暖化人心與留住關鍵人才，但請務必注意公司給予的 6 個月 +15% 績效硬指標，缺少流程與追蹤可能導致進度失控。`;
+    } else {
+      feedback.innerHTML = `<span class="text-emerald-300 font-bold">【互補兼備的雙軌策略】</span> 恭喜！您兼顧了人心的修復（${leadCount} 項 Leadership）與目標秩序的落實（${mgmtCount} 項 Management）。這正是 Deliver Results + Lead People 的經典實踐！`;
+    }
+  } else {
+    ratioTag.innerText = `已選 ${count} / 3 項`;
+    ratioTag.className = 'text-xs font-semibold px-2 py-0.5 bg-slate-800 rounded text-slate-300';
+    feedback.innerText = '請在上方挑選 3 項您認為第一個月最關鍵的行動。';
+  }
+
+  saveToLocalStorage();
+}
+
+// ================= LEADERSHIP SELF-REFLECTION & RADAR CHART =================
+function initReflectionSliders() {
+  const container = document.getElementById('rating-sliders-container');
+  container.innerHTML = '';
+
+  reflectionItems.forEach((item, index) => {
+    const row = document.createElement('div');
+    row.className = 'p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1.5';
+    row.innerHTML = `
+      <div class="flex items-center justify-between text-xs">
+        <span class="font-semibold text-slate-800">${item.text}</span>
+        <span id="score-val-${index}" class="font-mono font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">${userScores[index]} 分</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="text-[10px] text-slate-400">1分</span>
+        <input type="range" min="1" max="5" step="1" value="${userScores[index]}" oninput="handleScoreChange(${index}, this.value)" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+        <span class="text-[10px] text-slate-400">5分</span>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function handleScoreChange(index, value) {
+  userScores[index] = parseInt(value, 10);
+  document.getElementById(`score-val-${index}`).innerText = `${value} 分`;
+  updateRadarChart();
+  calculateIndices();
+  saveToLocalStorage();
+}
+
+function calculateIndices() {
+  // Mgmt: Q1, Q2, Q4 (indices 0, 1, 3)
+  const mgmtAvg = ((userScores[0] + userScores[1] + userScores[3]) / 3).toFixed(1);
+  // Lead: Q3, Q5, Q6, Q7, Q8, Q9, Q10 (indices 2, 4, 5, 6, 7, 8, 9)
+  const leadAvg = ((userScores[2] + userScores[4] + userScores[5] + userScores[6] + userScores[7] + userScores[8] + userScores[9]) / 7).toFixed(1);
+  const totalAvg = (userScores.reduce((a, b) => a + b, 0) / 10).toFixed(1);
+
+  document.getElementById('average-score-badge').innerText = `均分: ${totalAvg}`;
+  document.getElementById('mgmt-score').innerText = `${mgmtAvg} / 5.0`;
+  document.getElementById('lead-score').innerText = `${leadAvg} / 5.0`;
+
+  document.getElementById('mgmt-bar').style.width = `${(mgmtAvg / 5) * 100}%`;
+  document.getElementById('lead-bar').style.width = `${(leadAvg / 5) * 100}%`;
+
+  const tendencyEl = document.getElementById('profile-tendency');
+  if (mgmtAvg > leadAvg + 0.5) {
+    tendencyEl.innerText = '偏向執行型管理者 (Execution Focused)';
+    tendencyEl.className = 'text-blue-700 font-bold';
+  } else if (leadAvg > mgmtAvg + 0.5) {
+    tendencyEl.innerText = '偏向影響型領導者 (Influence Focused)';
+    tendencyEl.className = 'text-purple-700 font-bold';
+  } else {
+    tendencyEl.innerText = '均衡型經理人 (Balanced Leader)';
+    tendencyEl.className = 'text-teal-700 font-bold';
+  }
+}
+
+function initRadarChart() {
+  const ctx = document.getElementById('leadershipRadarChart').getContext('2d');
+  
+  const labels = [
+    '1.設定目標',
+    '2.追蹤進度',
+    '3.充分授權',
+    '4.接受不同方法',
+    '5.主動傾聽',
+    '6.處理衝突',
+    '7.說明為什麼',
+    '8.承認不知答案',
+    '9.培養強者',
+    '10.帶領改變'
+  ];
+
+  radarChartInstance = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '個人自評得分',
+        data: userScores,
+        backgroundColor: 'rgba(13, 148, 136, 0.25)',
+        borderColor: '#0d9488',
+        borderWidth: 2,
+        pointBackgroundColor: '#0f766e',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#0f766e',
+        pointRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        r: {
+          min: 0,
+          max: 5,
+          ticks: {
+            stepSize: 1,
+            display: false
+          },
+          grid: {
+            color: 'rgba(148, 163, 184, 0.3)'
+          },
+          angleLines: {
+            color: 'rgba(148, 163, 184, 0.3)'
+          },
+          pointLabels: {
+            font: {
+              size: 10,
+              family: "'Plus Jakarta Sans', 'Noto Sans TC', sans-serif",
+              weight: 'bold'
+            },
+            color: '#334155'
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+
+  calculateIndices();
+}
+
+function updateRadarChart() {
+  if (radarChartInstance) {
+    radarChartInstance.data.datasets[0].data = userScores;
+    radarChartInstance.update();
+  }
+}
+
+function updatePriorityImprovement() {
+  saveToLocalStorage();
+}
+
+function saveAndExportProfile() {
+  saveToLocalStorage();
+  if (typeof confetti === 'function') {
+    confetti({ particleCount: 80, spread: 60, origin: { y: 0.8 } });
+  }
+  alert('您的個人 Leadership Profile 已成功保存在本機瀏覽器中！\n請保留這份檔案，我們將在第 16 週學期末重新施測比對。');
+}
+
+// ================= ONE-MINUTE PAPER =================
+function handleOneMinuteSubmit(e) {
+  e.preventDefault();
+  saveToLocalStorage();
+
+  const status = document.getElementById('paper-saved-status');
+  status.classList.remove('opacity-0');
+  setTimeout(() => {
+    status.classList.add('opacity-0');
+  }, 4000);
+
+  if (typeof confetti === 'function') {
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+  }
+  alert('One-Minute Paper 反思卡提交成功！已為您儲存至本機。');
+}
+
+function copyOneMinutePaperText() {
+  const q1 = document.getElementById('paper-q1').value;
+  const q2 = document.getElementById('paper-q2').value;
+  const q3 = document.getElementById('paper-q3').value;
+
+  const content = `【碩士在職專班 領導與管理 Week 1 反思卡 (One-Minute Paper)】\n\n` +
+    `Q1. 改變對主管角色的想法：\n${q1 || '(未填寫)'}\n\n` +
+    `Q2. 身邊主管的 Manager/Leader 觀察：\n${q2 || '(未填寫)'}\n\n` +
+    `Q3. 明天最想微調的一個領導行為：\n${q3 || '(未填寫)'}\n`;
+
+  navigator.clipboard.writeText(content).then(() => {
+    alert('已將 One-Minute Paper 反思內容複製到剪貼簿！');
+  }).catch(() => {
+    alert('複製失敗，請手動選取文字。');
+  });
+}
+
+function printOrExportPaper() {
+  window.print();
+}
+
+// ================= LIVE CLASS TIMER =================
+function toggleTimerModal() {
+  const modal = document.getElementById('timer-modal');
+  modal.classList.toggle('hidden');
+}
+
+function setTimerDuration(minutes, title = '') {
+  pauseTimer();
+  timerSecondsRemaining = minutes * 60;
+  if (title) {
+    document.getElementById('timer-stage-title').innerText = title;
+  }
+  updateTimerDisplay();
+}
+
+function toggleTimerRunning() {
+  if (isTimerRunning) {
+    pauseTimer();
+  } else {
+    startTimer();
+  }
+}
+
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  isTimerRunning = true;
+
+  document.getElementById('timer-btn-label').innerText = '暫停計時';
+  document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+  document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+
+  timerInterval = setInterval(() => {
+    if (timerSecondsRemaining > 0) {
+      timerSecondsRemaining--;
+      updateTimerDisplay();
+    } else {
+      pauseTimer();
+      alert('⏰ 課堂時段時間已到！');
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  isTimerRunning = false;
+  if (timerInterval) clearInterval(timerInterval);
+  document.getElementById('timer-btn-label').innerText = '開始計時';
+  document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+  document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+}
+
+function resetTimer() {
+  pauseTimer();
+  timerSecondsRemaining = 180 * 60;
+  document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+  updateTimerDisplay();
+}
+
+function startBreakTimer() {
+  toggleTimerModal();
+  setTimerDuration(10, '10分鐘中場休息倒數');
+  startTimer();
+}
+
+function updateTimerDisplay() {
+  const mins = Math.floor(timerSecondsRemaining / 60);
+  const secs = timerSecondsRemaining % 60;
+  const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  const big = document.getElementById('timer-display-big');
+  const mini = document.getElementById('timer-display-mini');
+  if (big) big.innerText = timeStr;
+  if (mini) mini.innerText = timeStr;
+}
+
+// ================= LOCALSTORAGE PERSISTENCE =================
+function saveToLocalStorage() {
+  const state = {
+    scores: userScores,
+    priority: document.getElementById('priority-improvement-select') ? document.getElementById('priority-improvement-select').value : '',
+    paperQ1: document.getElementById('paper-q1') ? document.getElementById('paper-q1').value : '',
+    paperQ2: document.getElementById('paper-q2') ? document.getElementById('paper-q2').value : '',
+    paperQ3: document.getElementById('paper-q3') ? document.getElementById('paper-q3').value : '',
+    traits: activity1Traits.map(t => ({ id: t.id, target: t.target }))
+  };
+  localStorage.setItem('LM_Week1_State', JSON.stringify(state));
+}
+
+function restoreSavedState() {
+  try {
+    const raw = localStorage.getItem('LM_Week1_State');
+    if (!raw) return;
+    const state = JSON.parse(raw);
+
+    if (state.scores && Array.isArray(state.scores)) {
+      userScores = state.scores;
+      initReflectionSliders();
+      calculateIndices();
+    }
+
+    if (state.priority && document.getElementById('priority-improvement-select')) {
+      document.getElementById('priority-improvement-select').value = state.priority;
+    }
+
+    if (state.paperQ1 && document.getElementById('paper-q1')) {
+      document.getElementById('paper-q1').value = state.paperQ1;
+    }
+    if (state.paperQ2 && document.getElementById('paper-q2')) {
+      document.getElementById('paper-q2').value = state.paperQ2;
+    }
+    if (state.paperQ3 && document.getElementById('paper-q3')) {
+      document.getElementById('paper-q3').value = state.paperQ3;
+    }
+
+    if (state.traits && Array.isArray(state.traits)) {
+      state.traits.forEach(savedT => {
+        const found = activity1Traits.find(t => t.id === savedT.id);
+        if (found) found.target = savedT.target;
+      });
+      renderActivity1();
+    }
+  } catch (e) {
+    console.error('Failed to restore state:', e);
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W13 權力、影響力與組織政治：沒有職權也能領導嗎？</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+              950: '#2e1065',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #7c3aed !important;
+      background-color: #f5f3ff !important;
+      box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-stakeholder, #section-maincase, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-purple-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-sitemap text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">W13 ‧ 11/29 授課</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W13：Leading Without Authority 權力、影響力與組織政治</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-purple-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">28頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W12_衝突管理談判與協商_好主管應該避免衝突嗎.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W12">
+            <i class="fa-solid fa-arrow-left"></i> W12
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-purple-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 王經理跨部門</a>
+        <a href="#section-activity1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 誰有Power</a>
+        <a href="#section-powerbases" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 5大權力基礎</a>
+        <a href="#section-profile" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 Power Profile</a>
+        <a href="#section-tactics" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 6大影響策略</a>
+        <a href="#section-stakeholder" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 利害關係人地圖</a>
+        <a href="#section-politics" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 組織政治與倫理</a>
+        <a href="#section-maincase" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 CRM主個案</a>
+        <a href="#section-debrief" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">11 六大收束</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">12 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、French & Raven 權力情境分析、Stakeholder 2x2 時間配置陷阱與 CRM 策略配對心法。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W13 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-purple-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-purple-900/80 border border-purple-700 text-purple-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+          <span>Week 13 ‧ 第 8 主題模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Leading Without Authority<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-purple-300 to-indigo-300">
+            權力、影響力與組織政治：沒有職權也能領導嗎？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「如果對方不是你的部屬，你沒有權力命令他，還能不能讓事情往前走？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          現代組織最常見的痛點：<strong>You are responsible, but you are not in charge.</strong>（你必須對成果負責，但合作者不歸你管）。本週探索 <strong>French & Raven 5 大權力基礎、Position Power vs. Personal Power、6 大 Influence Tactics、Stakeholder Mapping（利害關係人地圖）</strong> 與 <strong>Ethical Influence Test</strong>！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-stakeholder" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-chart-line text-gold-400"></i> Stakeholder 矩陣
+          </a>
+          <a href="#section-maincase" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-diagram-project"></i> 跨部門 CRM 專案個案
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 10 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">當職權不夠時，領導力才真正現身</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              <strong class="text-purple-950">Power ➔ Influence ➔ Stakeholders ➔ Organizational Politics ➔ Ethics</strong><br>
+              傳統管理靠職權獲取被動服從（Authority ➔ Compliance）；跨部門領導則靠影響力激發主動承諾（Influence ➔ Commitment）。
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200/70 text-xs font-semibold text-purple-950 space-y-1.5">
+            <div class="font-bold text-purple-700 flex items-center gap-1.5"><i class="fa-solid fa-crown"></i> 本週金句心法：</div>
+            <p>Leadership becomes visible when authority is insufficient. 沒有職權也能推動事情，才是真實力！</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 10 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">區分權威、權力與影響力：</strong>理解 Authority、Power 與 Influence 的本質差別。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">區分職位權力與個人權力：</strong>Position Power（職稱/獎懲）vs. Personal Power（專業/信任）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">掌握 French & Raven 5 權力源：</strong>Legitimate、Reward、Coercive、Expert、Referent。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">評估自身 Power Profile：</strong>自省若拿掉職稱，自己還剩下哪些能打動他人的底牌。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">熟練 6 大 Influence Tactics：</strong>理性說服、願景感召、諮詢參與、資源交換、聯盟結盟、個人情誼。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">繪製 Stakeholder Map：</strong>以 Power × Interest 矩陣精準配置時間與溝通資源。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">重塑組織政治認知：</strong>理解資源有限下的政治中性本質，從防衛走向建設性推動。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">堅守倫理影響界線：</strong>運用 4 題 Ethical Test 區分 Influence（正面影響）與 Manipulation（操弄）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100 sm:col-span-2">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">9</div>
+              <div><strong class="text-slate-900">跨部門專案落地策略：</strong>在無權命令 IT、業務、財務與高層時，設計客製化影響戰術推動 CRM 落地。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W13 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：沒有職權，還能領導嗎？</strong><div class="text-xs text-slate-500">王經理跨部門數位轉型專案，各單位已讀不回；Compliance vs Commitment</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">情境＋投票</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：誰比較有 Power？（4 角色權力剖析）</strong><div class="text-xs text-slate-500">部門經理 vs 資深工程師 vs 董事長秘書 vs 15年好人緣老員工</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">權力判斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-activity1" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">30–55 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：French & Raven 五大權力基礎</strong><div class="text-xs text-slate-500">Legitimate, Reward, Coercive, Expert, Referent Power</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">核心理論講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-powerbases" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">55–75 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：Position vs. Personal Power ＆ Power Profile</strong><div class="text-xs text-slate-500">自省若拿掉職稱還剩下什麼？5 維度雷達診斷</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">自我評估診斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-profile" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">75–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：沒有人向我報告，但我要負責</strong><div class="text-xs text-slate-500">Option A (總經理令) vs Option B (施壓回報) vs Option C (拜訪傾聽顧慮)</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">個案思辨</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">100–125 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 3：6 大 Influence Tactics 影響策略</strong><div class="text-xs text-slate-500">理性說服、願景感召、諮詢參與、資源交換、結盟、個人情誼</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">情境配對</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-tactics" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">125–145 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>管理實務工具：Stakeholder Mapping 利害關係人地圖</strong><div class="text-xs text-slate-500">Power × Interest 2x2 矩陣：Manage Closely, Keep Satisfied, Keep Informed, Monitor</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800 font-bold">工具演練</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-stakeholder" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">145–160 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 4：Organizational Politics ＆ Ethical Influence Test</strong><div class="text-xs text-slate-500">政治中性論 ＋ 4 題倫理檢驗（Transparency, Truth, Mutuality, Respect）</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">深度探討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-politics" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">160–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Main Case：跨部門數位轉型 CRM 專案決策</strong><div class="text-xs text-slate-500">IT、Sales、Finance、Frontline 阻力突圍；排定各利害人客製戰術</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">分組決策</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-maincase" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>教師 Debrief：六大核心 Takeaways</strong><div class="text-xs text-slate-500">職位≠領導 / 權力多源 / 個人權力持久 / 策略因人而異 / 政治中性 / 無職權領導</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800 font-bold">核心提煉</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-debrief" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>One-Minute Paper：課堂即時反思卡</strong><div class="text-xs text-slate-500">3 題精簡反思 ＋ 課後職場跨部門影響微作業</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-100 text-gold-900">課末收束</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 王經理跨部門數位轉型專案 -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">沒有職權，還能領導嗎？（王經理的難題）</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          呈現王經理的窘境：總經理指派他負責全公司數位轉型，但他沒有任何一個部門的管轄權。週五寄信催資料，IT沒回、財務說忙、行銷辦活動、HR要請示主管。追問：<strong>「王經理有 Authority 嗎？如果職權有限，他靠什麼把專案推動完畢？」</strong>點出：<strong>Leadership becomes visible when authority is insufficient！</strong>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded">傳統管理模式</span>
+            <i class="fa-solid fa-stamp text-slate-400 text-lg"></i>
+          </div>
+          <h4 class="text-base font-bold text-slate-900">Authority ➔ Compliance</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            依賴組織正式職權下達命令，部屬往往出於「不得不做」而產生被動服從 (Compliance)。一旦不在職權範圍內，指令立刻失效。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-800 bg-purple-100 px-2.5 py-0.5 rounded">跨部門領導模式</span>
+            <i class="fa-solid fa-handshake-angle text-purple-600 text-lg"></i>
+          </div>
+          <h4 class="text-base font-bold text-purple-950">Influence ➔ Commitment</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            依賴專業、願景、互惠交換與諮詢參與，促使同儕與跨部門夥伴出於「我們共同要達成」而產生主動承諾 (Commitment)！
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–30分 Activity 1 誰比較有 Power？ -->
+    <section id="section-activity1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">15–30 min 觀念破除</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 1：誰比較有 Power？</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <span class="font-bold text-slate-900 text-sm">A. 部門經理</span>
+          <p class="text-slate-600">正式管理 30 位同仁，擁有考核打考績與核假權限。</p>
+          <div class="p-2 bg-blue-50 text-blue-900 rounded font-bold">➔ Legitimate / Reward Power</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <span class="font-bold text-slate-900 text-sm">B. 資深工程師</span>
+          <p class="text-slate-600">無任何管理職稱，但全公司只有他最懂核心老系統。</p>
+          <div class="p-2 bg-purple-50 text-purple-900 rounded font-bold">➔ Expert Power (專家權力)</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <span class="font-bold text-slate-900 text-sm">C. 董事長秘書</span>
+          <p class="text-slate-600">無專屬部門，但精準掌握高層行程、關注焦點與資訊流。</p>
+          <div class="p-2 bg-amber-50 text-amber-900 rounded font-bold">➔ Information / Connection Power</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <span class="font-bold text-slate-900 text-sm">D. 15年資深同仁</span>
+          <p class="text-slate-600">非主管，但跨部門人脈深厚、人緣極佳，遇難題大家都先找他。</p>
+          <div class="p-2 bg-emerald-50 text-emerald-900 rounded font-bold">➔ Referent Power (認同權力)</div>
+        </div>
+      </div>
+
+      <div class="p-3.5 bg-slate-900 text-gold-300 rounded-xl text-xs font-serif italic text-center">
+        Power does not come only from position. 權力從不只來自職位與頭銜！
+      </div>
+    </section>
+
+    <!-- SECTION 5: 30–55分 核心理論 1：French & Raven 五大權力基礎 -->
+    <section id="section-powerbases" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">30–55 min 核心理論</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">French & Raven 五大權力基礎 (Five Power Bases)</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3.5 text-xs">
+        
+        <div class="p-4 bg-white rounded-2xl border border-blue-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-blue-950 text-sm">1. Legitimate</strong>
+            <span class="text-[10px] font-bold bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">職位權力</span>
+          </div>
+          <p class="text-slate-600">「因為我是主管。」源自組織階層結構，離職或轉調後立刻消失。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-amber-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-amber-950 text-sm">2. Reward</strong>
+            <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">獎酬權力</span>
+          </div>
+          <p class="text-slate-600">「因為我能給資源。」掌握升遷、獎金、好任務或預算配置。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-rose-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-rose-950 text-sm">3. Coercive</strong>
+            <span class="text-[10px] font-bold bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded">強制權力</span>
+          </div>
+          <p class="text-slate-600">「因為我能懲罰你。」產生負面考核、剝奪資源；僅能換來應付，難有熱情。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border-2 border-purple-300 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-purple-950 text-sm">4. Expert</strong>
+            <span class="text-[10px] font-bold bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded font-bold">專家權力</span>
+          </div>
+          <p class="text-slate-600">「因為你真的懂。」深厚的專業知識與解決問題能力，具高度公信力。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border-2 border-emerald-300 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-emerald-950 text-sm">5. Referent</strong>
+            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">認同權力</span>
+          </div>
+          <p class="text-slate-600">「因為信任尊敬你。」來自人格魅力、誠信作風與深厚人際互信。</p>
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-100 text-slate-800">
+          <strong class="text-slate-900 block mb-1">Position Power (職位權力)：Legitimate ‧ Reward ‧ Coercive</strong>
+          由組織制度賦予，換來的是基本「Compliance (服從)」。
+        </div>
+        <div class="p-4 rounded-xl bg-purple-50 text-purple-950 border border-purple-200">
+          <strong class="text-purple-900 block mb-1">Personal Power (個人權力)：Expert ‧ Referent</strong>
+          由個人專業與人品淬鍊，能激發出深層的「Commitment (投入承諾)」，且隨身攜帶不隨離職消失！
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 55–75分 Power Profile 自我快速診斷 -->
+    <section id="section-profile" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+          <div>
+            <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">55–75 min 動態雷達自評</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Power Profile：五大權力來源自我評估</h2>
+          </div>
+        </div>
+        <button onclick="savePowerProfile()" class="px-3.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-floppy-disk"></i> 儲存自評結果
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="text-xs sm:text-sm text-slate-600">
+          請為您目前在組織中行使領導力時，各項權力來源的依賴程度評分（1 分最低，5 分最高）：
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Sliders -->
+          <div class="lg:col-span-7 space-y-3 text-xs">
+            
+            <div class="flex items-center justify-between gap-4 p-2.5 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">1. Legitimate (職位權力)</span>
+              <input type="range" min="1" max="5" value="4" oninput="updatePowerChart()" id="pp-1" class="w-2/5">
+              <span id="pp-val-1" class="w-1/5 text-right font-mono font-bold text-purple-600">4 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2.5 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">2. Reward (獎酬權力)</span>
+              <input type="range" min="1" max="5" value="3" oninput="updatePowerChart()" id="pp-2" class="w-2/5">
+              <span id="pp-val-2" class="w-1/5 text-right font-mono font-bold text-purple-600">3 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2.5 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">3. Coercive (強制權力)</span>
+              <input type="range" min="1" max="5" value="2" oninput="updatePowerChart()" id="pp-3" class="w-2/5">
+              <span id="pp-val-3" class="w-1/5 text-right font-mono font-bold text-purple-600">2 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2.5 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">4. Expert (專家權力)</span>
+              <input type="range" min="1" max="5" value="4" oninput="updatePowerChart()" id="pp-4" class="w-2/5">
+              <span id="pp-val-4" class="w-1/5 text-right font-mono font-bold text-purple-600">4 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2.5 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">5. Referent (認同權力)</span>
+              <input type="range" min="1" max="5" value="4" oninput="updatePowerChart()" id="pp-5" class="w-2/5">
+              <span id="pp-val-5" class="w-1/5 text-right font-mono font-bold text-purple-600">4 分</span>
+            </div>
+
+          </div>
+
+          <!-- Radar Chart -->
+          <div class="lg:col-span-5 flex flex-col items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-200">
+            <div class="w-full max-w-[260px] h-[260px]">
+              <canvas id="powerRadarChart"></canvas>
+            </div>
+            <div id="power-summary-text" class="text-xs text-slate-600 font-semibold mt-2 text-center">
+              💡 自省：如果明天拿掉職稱，你最主要靠什麼影響他人？
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: 100–125分 核心理論 3：6 大 Influence Tactics 影響策略 -->
+    <section id="section-tactics" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">100–125 min 實戰戰術</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">6 大 Influence Tactics（影響力策略與情境配對）</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-chart-pie text-blue-600"></i> 1. Rational Persuasion (理性說服)</strong>
+          <p class="text-slate-600 leading-relaxed">使用 Data、客觀事證與邏輯分析。「延後三個月預估成本增加 12%。」適合專業技術與財務決策。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-bullhorn text-purple-600"></i> 2. Inspirational Appeal (願景感召)</strong>
+          <p class="text-slate-600 leading-relaxed">連結核心價值與使命願景。「這不只是換系統，而是讓客戶不用再等三天！」激發跨部門同理心。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-comments text-teal-600"></i> 3. Consultation (諮詢參與)</strong>
+          <p class="text-slate-600 leading-relaxed">不直接交代方案，而是問「你覺得怎麼做比較可行？」邀請對方共同設計，建立 Ownership。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-arrow-right-arrow-left text-amber-600"></i> 4. Exchange (互惠交換)</strong>
+          <p class="text-slate-600 leading-relaxed">「如果你協助我完成 A，下半年我可以支援你 B。」合理的資源互惠交換是跨部門合作的常態。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-people-arrows text-indigo-600"></i> 5. Coalition (聯合結盟)</strong>
+          <p class="text-slate-600 leading-relaxed">取得其他關鍵部門或高層的支持背書。「財務與營運部門已共同支持。」慎防濫用為結黨施壓。</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-heart-circle-check text-rose-600"></i> 6. Relationship Appeal (人際信任)</strong>
+          <p class="text-slate-600 leading-relaxed">運用過去累積的信任存摺。「這件事我真的需要你的幫忙。」平時有情誼，關鍵時刻有支援。</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 8: 125–145分 Stakeholder Mapping 利害關係人地圖 -->
+    <section id="section-stakeholder" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">125–145 min 職場實戰工具</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Stakeholder Mapping（利害關係人 2×2 地圖）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <p class="text-xs text-slate-500">以 <strong>Power（影響力大小）</strong> 為縱軸，<strong>Interest（對此事的關注程度）</strong> 為橫軸：</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          
+          <div class="p-5 rounded-2xl bg-amber-50/80 border-2 border-amber-300 space-y-2">
+            <div class="flex items-center justify-between">
+              <strong class="text-amber-950 text-sm">High Power × Low Interest</strong>
+              <span class="font-mono text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-bold">Keep Satisfied</span>
+            </div>
+            <p class="text-slate-700"><strong>管理策略：令其滿意，確保不成為阻力。</strong></p>
+            <p class="text-slate-600">定期報告摘要進度，不要過度打擾，但絕對不能讓他感到意外或利益受損。</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-emerald-50/80 border-2 border-emerald-300 space-y-2">
+            <div class="flex items-center justify-between">
+              <strong class="text-emerald-950 text-sm">High Power × High Interest</strong>
+              <span class="font-mono text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded font-bold">Manage Closely</span>
+            </div>
+            <p class="text-slate-700"><strong>管理策略：緊密溝通，列為核心夥伴。</strong></p>
+            <p class="text-slate-600">深度參與決策、頻繁對齊目標，其支持是專案成敗的生命線。</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between">
+              <strong class="text-slate-800 text-sm">Low Power × Low Interest</strong>
+              <span class="font-mono text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-bold">Monitor</span>
+            </div>
+            <p class="text-slate-700"><strong>管理策略：定期監測，最低管理資源。</strong></p>
+            <p class="text-slate-600">透過常規管道公告即可，不需耗費過多精力和時間。</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-blue-50/80 border-2 border-blue-300 space-y-2">
+            <div class="flex items-center justify-between">
+              <strong class="text-blue-950 text-sm">Low Power × High Interest</strong>
+              <span class="font-mono text-[10px] bg-blue-200 text-blue-900 px-2 py-0.5 rounded font-bold">Keep Informed</span>
+            </div>
+            <p class="text-slate-700"><strong>管理策略：保持告知，培養潛在同盟。</strong></p>
+            <p class="text-slate-600">前線同仁或特定使用者，給予充分資訊與諮詢，能成為熱情的基層倡導者。</p>
+          </div>
+
+        </div>
+
+        <div class="p-3.5 bg-slate-900 text-gold-300 rounded-xl text-xs text-center font-mono">
+          ⚠️ 盲點警示：你過去是不是把最多時間花在「最反對你、但其實 Power 很低」的人身上？
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: 145–160分 Organizational Politics ＆ 4 大 Ethical Test -->
+    <section id="section-politics" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">145–160 min 倫理界線</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Organizational Politics（組織政治）＆ Ethical Influence Test</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
+          <div class="space-y-3">
+            <h4 class="text-sm font-bold text-slate-900">組織政治的本質：政治一定不好嗎？</h4>
+            <p class="text-slate-600 leading-relaxed">
+              搶功、結黨營私、操弄資訊屬於 <strong>Dysfunctional Politics</strong>。然而，只要組織存在<strong>稀缺資源、不同目標、高度互賴與不確定性</strong>，合理的利害關係人協調與聯盟就是必然的管理行為。
+            </p>
+            <p class="text-slate-600 leading-relaxed">
+              真正的考驗不是「要不要政治」，而是 <strong>How do you use influence ethically?</strong>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-purple-50 border border-purple-200 space-y-2.5">
+            <h4 class="text-sm font-bold text-purple-950 flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced text-purple-700"></i> 4 大倫理影響檢驗 (Ethical Test)：</h4>
+            <ul class="text-purple-900 space-y-1.5 list-disc list-inside">
+              <li><strong>1. Transparency (透明性)：</strong>如果我的推進做法被完全公開，我能坦然接受嗎？</li>
+              <li><strong>2. Truthfulness (真實性)：</strong>我有沒有刻意隱瞞關鍵數據或扭曲事實？</li>
+              <li><strong>3. Mutuality (互惠性)：</strong>只有我個人獲益，還是組織與對方也共同受益？</li>
+              <li><strong>4. Respect (尊重選擇)：</strong>我有沒有尊重對方的專業判斷與選擇自由？</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: 160–170分 Main Case 跨部門數位轉型 CRM 專案決策 -->
+    <section id="section-maincase" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">160–170 min 綜合個案實戰</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Main Case：跨部門數位轉型 CRM 專案推動</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          王經理負責 6 個月內導入全新 CRM 系統。<strong>限制：各部門皆無正式管轄權，且嚴禁回答「請總經理下死命令」！</strong>各利害人面臨的阻力與應對戰術：
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+            <strong class="text-slate-900">IT 部門 (工作量過大)</strong>
+            <p class="text-slate-600">戰術：<strong>Consultation ＋ 理性說服</strong>。共同評估 API 開發時程，協助爭取外包支援。</p>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+            <strong class="text-slate-900">業務 Sales (嫌系統繁瑣)</strong>
+            <p class="text-slate-600">戰術：<strong>Consultation ＋ 願景感召</strong>。邀請 Top Sales 參與介面設計，強調自動生成報表能節省 30% 填表時間。</p>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+            <strong class="text-slate-900">財務 Finance (預算吃緊)</strong>
+            <p class="text-slate-600">戰術：<strong>Rational Persuasion (ROI 模型)</strong>。以精準數據證明客戶續約率提升 5% 即可在 8 個月回本。</p>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+            <strong class="text-slate-900">高層 CEO (口頭支持)</strong>
+            <p class="text-slate-600">戰術：<strong>Coalition ＋ 願景結盟</strong>。爭取在全體大會公開背書，將 CRM 列為全公司年度重點戰略指標。</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: 170–175分 教師 Debrief 六大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">170–175 min 理論提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週六大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+        
+        <div class="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+          <h4 class="font-bold text-slate-900">職位 ≠ 領導</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Authority ≠ Leadership.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+          <h4 class="font-bold text-slate-900">權力來源多元</h4>
+          <p class="text-slate-600 leading-relaxed">Position is only one source of power.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+          <h4 class="font-bold text-slate-900">個人權力持久</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Expert & Referent Power matter.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs font-bold">4</div>
+          <h4 class="font-bold text-slate-900">影響力因人適配</h4>
+          <p class="text-slate-600 leading-relaxed">Influence requires situation and stakeholder fit.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">5</div>
+          <h4 class="font-bold text-slate-900">政治是中性的</h4>
+          <p class="text-slate-600 leading-relaxed">Use influence ethically and constructively.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-purple-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs font-bold">6</div>
+          <h4 class="font-bold text-slate-900">無職權領導是真正考驗</h4>
+          <p class="text-slate-600 leading-relaxed">Leadership without authority is the real test.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 12: 175–180分 One-Minute Paper 反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs flex items-center justify-center font-bold">1</span>
+              如果明天拿掉你的職位頭銜，你在組織中主要還剩下哪一種權力（Expert 或 Referent）？
+            </label>
+            <textarea id="paper-w13-q1" rows="3" placeholder="例如：我最主要剩下 Expert Power（深厚的法規與技術架構知識），但 Referent Power 還需要再加強跨部門的人際信任建立..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs flex items-center justify-center font-bold">2</span>
+              你目前工作中最需要影響、但完全不歸你管轄的關鍵利害關係人是誰？他在 Stakeholder Map 中屬於哪一象限？
+            </label>
+            <textarea id="paper-w13-q2" rows="3" placeholder="例如：資訊處處長，他屬於 High Power × Low Interest（Keep Satisfied），因為他掌握系統資源但目前對我們的新專案不感興趣..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs flex items-center justify-center font-bold">3</span>
+              下次面對這個關鍵人物，你打算改用哪一種 Influence Tactic（例如 Consultation 或 Rational Persuasion）？
+            </label>
+            <textarea id="paper-w13-q3" rows="3" placeholder="例如：我會改用 Consultation（諮詢參與），先帶初步構想去請教他的專業意見：『處長，我們打算做這項優化，想先請教資訊處在架構上有什麼建議？』..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Homework Callout -->
+          <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-950 space-y-1">
+            <strong class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-chess-knight"></i> 本週課後微作業（為 W14「管理決策與偏誤」鋪路）：</strong>
+            <p>找一件「需要別人配合但不能命令他」的事，回答 5 題：① Who? ② What? ③ Why would they care? ④ What power do I have? ⑤ What influence tactic should I use?</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交 W13 反思紀錄
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ W13 權力、影響力與組織政治</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>學習演進：衝突談判 ➔ 權力與影響力 ➔ 管理決策 ➔ EQ ➔ 組織文化與變革</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘開場破冰思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘誰有Power分析')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘分析</button>
+        <button onclick="setTimerDuration(20, '20分鐘Stakeholder地圖繪製')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">20 分鐘演練</button>
+        <button onclick="setTimerDuration(40, '40分鐘權力與影響力理論講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-purple-700 hover:bg-purple-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 28-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W13 權力、影響力與組織政治 (28頁簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 28</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W13 Presentation Slide Deck (28 Slides) =================
+    const w13SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "Leading Without Authority", sub: "權力、影響力與組織政治 ‧ 碩士在職專班 W13", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-purple-300 to-indigo-300'>Leading Without Authority</div><p class='text-slate-400 text-sm'>沒有職權也能領導嗎？</p></div>", notes: "開場破題。" },
+      { num: 2, cat: "P2 核心提問", title: "本週核心大哉問", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「如果對方不是你的部屬，<br>你沒有權力命令他，還能不能讓事情往前走？」</h2></div>", notes: "引導全班思索影響力本質。" },
+      { num: 3, cat: "P3–4 王經理案例", title: "王經理的跨部門專案", sub: "負責全公司數位轉型，但無人向他報告", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>催資料時：IT沒回、財務說忙、行銷辦活動、HR要請示主管。</p><p class='text-gold-300 font-bold'>You are responsible, but you are not in charge!</p></div>", notes: "引起同學強烈共鳴。" },
+      { num: 4, cat: "P3–4 王經理案例", title: "職權有限時，靠什麼完成目標？", sub: "Leadership becomes visible when authority is insufficient", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>當不能說『因為我是主管』時，才真正看得出領導力！</p></div>", notes: "第一核心心法。" },
+      { num: 5, cat: "P5 服從模式", title: "Authority ➔ Compliance", sub: "傳統管理下的被動服從", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>依賴組織職稱命令，部屬出於『不得不做』，難有主動熱情。</p></div>", notes: "職權的侷限。" },
+      { num: 6, cat: "P6 承諾模式", title: "Influence ➔ Commitment", sub: "跨部門領導的主動投入", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-purple-400'>以專業、願景與互惠激發自主承諾</h4></div>", notes: "影響力的真諦。" },
+      { num: 7, cat: "P7–8 誰有Power", title: "Activity 1：誰比較有 Power？", sub: "4 角色權力判斷", body: "<div class='grid grid-cols-2 gap-2 max-w-xl mx-auto text-xs'><div class='p-3 bg-slate-900 rounded-lg'>部門經理 ➔ 職位/獎酬</div><div class='p-3 bg-purple-950 rounded-lg border border-purple-700'>資深工程師 ➔ 專家權力</div><div class='p-3 bg-slate-900 rounded-lg'>董秘 ➔ 資訊/高層連結</div><div class='p-3 bg-purple-950 rounded-lg border border-purple-700'>15年員工 ➔ 認同權力</div></div>", notes: "打破職位迷思。" },
+      { num: 8, cat: "P7–8 誰有Power", title: "Power does not come only from position", sub: "權力來源極為多元", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>專家、資訊、人脈與信任，都是強大的權力底牌！</p></div>", notes: "引出權力基礎。" },
+      { num: 9, cat: "P9 權力來源", title: "Where Does Power Come From?", sub: "French & Raven 經典架構", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>五大權力基礎：Legitimate, Reward, Coercive, Expert, Referent。</p></div>", notes: "模型總覽。" },
+      { num: 10, cat: "P10 Legitimate", title: "1. Legitimate Power (職位權力)", sub: "因為我是你的主管", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>來自職稱與階層；離開職位即消失。</p></div>", notes: "職位權力。" },
+      { num: 11, cat: "P11 Reward", title: "2. Reward Power (獎酬權力)", sub: "因為我能提供資源與機會", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>獎金、考績、升遷、專案分配。</p></div>", notes: "獎酬權力。" },
+      { num: 12, cat: "P12 Coercive", title: "3. Coercive Power (強制權力)", sub: "因為我能施加懲罰", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>負面考核、剝奪資源；易產生防衛與應付。</p></div>", notes: "強制權力。" },
+      { num: 13, cat: "P13 Expert", title: "4. Expert Power (專家權力)", sub: "因為你真的懂！", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-purple-400'>深度專業知識與解決問題實力</h4></div>", notes: "專家權力。" },
+      { num: 14, cat: "P14 Referent", title: "5. Referent Power (認同/關係權力)", sub: "因為信任與認同你", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-emerald-400'>人品誠信、同理心與深厚信任存摺</h4></div>", notes: "認同權力。" },
+      { num: 15, cat: "P15 五權力總表", title: "Five Power Bases 對照表", sub: "為什麼別人願意聽你的？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>職位 (Legitimate) ‧ 資源 (Reward) ‧ 懲罰 (Coercive) ‧ 專業 (Expert) ‧ 信任 (Referent)</p></div>", notes: "五權力彙整。" },
+      { num: 16, cat: "P16 兩大陣營", title: "Position Power vs. Personal Power", sub: "制度賦予 vs 個人淬鍊", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-slate-900 rounded-xl'><strong class='text-slate-400'>Position Power</strong><p class='text-[10px] mt-1'>職位、獎懲 ➔ Compliance</p></div><div class='p-4 bg-purple-950/60 rounded-xl border border-purple-700'><strong class='text-purple-300'>Personal Power</strong><p class='text-[10px] mt-1'>專家、認同 ➔ Commitment</p></div></div>", notes: "兩大分類。" },
+      { num: 17, cat: "P17 自評診斷", title: "Power Profile 自我診斷", sub: "如果明天拿掉頭銜，你還剩什麼？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-400'>打造個人持久的專業與信任底氣</h4></div>", notes: "自我反思。" },
+      { num: 18, cat: "P18 影響戰術", title: "6 大 Influence Tactics 總覽", sub: "當不能命令時，你還能怎麼做？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>理性說服 ‧ 願景感召 ‧ 諮詢參與 ‧ 互惠交換 ‧ 結盟 ‧ 人際信任</p></div>", notes: "影響策略。" },
+      { num: 19, cat: "P19 理性與感召", title: "Rational Persuasion ＆ Inspirational Appeal", sub: "用數據說服 vs 用願景打動", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p><strong>理性說服：</strong>邏輯數據與 ROI；<strong>願景感召：</strong>意義與客戶價值。</p></div>", notes: "前兩大戰術。" },
+      { num: 20, cat: "P20 諮詢與交換", title: "Consultation ＆ Exchange", sub: "共同設計 vs 互惠支援", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p><strong>諮詢參與：</strong>建立主人翁意識；<strong>互惠交換：</strong>合理的資源支援。</p></div>", notes: "參與與互惠。" },
+      { num: 21, cat: "P21 結盟與情誼", title: "Coalition ＆ Relationship Appeal", sub: "借力打力 vs 信任存摺", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p><strong>結盟：</strong>跨部門共識支持；<strong>人際情誼：</strong>平時累積的合作情分。</p></div>", notes: "結盟與關係。" },
+      { num: 22, cat: "P22 利害關係人", title: "Stakeholder Mapping (2×2 矩陣)", sub: "Power × Interest 策略框架", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>Manage Closely ‧ Keep Satisfied ‧ Keep Informed ‧ Monitor</p></div>", notes: "工具總覽。" },
+      { num: 23, cat: "P23 四象限策略", title: "四象限管理策略重點", sub: "精準配置管理精力與時間", body: "<div class='grid grid-cols-2 gap-2 max-w-xl mx-auto text-xs'><div class='p-3 bg-slate-900 rounded-lg'>高權低利 ➔ Keep Satisfied</div><div class='p-3 bg-purple-950 rounded-lg border border-purple-700'>高權高利 ➔ Manage Closely</div><div class='p-3 bg-slate-900 rounded-lg'>低權低利 ➔ Monitor</div><div class='p-3 bg-purple-950 rounded-lg border border-purple-700'>低權高利 ➔ Keep Informed</div></div>", notes: "四象限對策。" },
+      { num: 24, cat: "P24 組織政治", title: "Organizational Politics：政治一定不好嗎？", sub: "資源有限下的中性協調", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>只要資源稀缺與目標不同，利害關係人協商就是必然常態。</p></div>", notes: "政治中性觀。" },
+      { num: 25, cat: "P25 影響vs操弄", title: "Influence vs. Manipulation", sub: "正面影響與惡意操弄的界線", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p class='text-rose-400 font-bold'>依靠欺騙、威脅與隱瞞，就跨入了 Manipulation！</p></div>", notes: "界線區分。" },
+      { num: 26, cat: "P26 倫理檢驗", title: "4 大 Ethical Influence Test", sub: "透明 ‧ 真實 ‧ 互惠 ‧ 尊重", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>1. Transparency 做法能否公開？</p><p>2. Truthfulness 是否隱瞞事實？</p><p>3. Mutuality 組織與對方是否受益？</p><p>4. Respect 是否尊重對方選擇？</p></div>", notes: "倫理四自檢。" },
+      { num: 27, cat: "P27 CRM主個案", title: "CRM 跨部門專案戰術配對", sub: "客製化影響策略落地", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>CFO ➔ 理性說服 (ROI) ； Sales ➔ 諮詢參與</p><p>IT ➔ 諮詢＋理性 ； CEO ➔ 願景結盟背書</p></div>", notes: "個案落地。" },
+      { num: 28, cat: "P28 收束反思", title: "Six Takeaways ＆ 課末反思", sub: "無職權領導六大核心", body: "<div class='space-y-1 max-w-xl mx-auto text-xs text-slate-300'><p>1. 職位 ≠ 領導（職權不夠時見真章）</p><p>2. 權力來源多元</p><p>3. 個人權力持久（專業與信任）</p><p>4. 影響策略因人而異</p><p>5. 組織政治是中性的（堅守倫理）</p><p>6. 無職權領導是真正考驗</p></div>", notes: "宣布放映結束。" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w13SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w13SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w13SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w13SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Functions =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+    let powerRadarChartInstance = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW13State();
+      initPowerRadarChart();
+      updatePowerChart();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function initPowerRadarChart() {
+      const ctx = document.getElementById('powerRadarChart');
+      if (!ctx) return;
+      powerRadarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['職位權力', '獎酬權力', '強制權力', '專家權力', '認同權力'],
+          datasets: [{
+            label: '權力來源倚賴度',
+            data: [4, 3, 2, 4, 4],
+            backgroundColor: 'rgba(147, 51, 234, 0.25)',
+            borderColor: 'rgba(147, 51, 234, 0.9)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(147, 51, 234, 1)',
+            pointRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 5,
+              ticks: { stepSize: 1, display: false },
+              pointLabels: { font: { size: 10, family: 'Plus Jakarta Sans' } }
+            }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function updatePowerChart() {
+      const vals = [];
+      for (let i = 1; i <= 5; i++) {
+        const elem = document.getElementById(`pp-${i}`);
+        const v = elem ? parseInt(elem.value, 10) : 3;
+        vals.push(v);
+        const textElem = document.getElementById(`pp-val-${i}`);
+        if (textElem) textElem.innerText = `${v} 分`;
+      }
+      if (powerRadarChartInstance) {
+        powerRadarChartInstance.data.datasets[0].data = vals;
+        powerRadarChartInstance.update();
+      }
+      saveW13State();
+    }
+
+    function savePowerProfile() {
+      saveW13State();
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 60, origin: { y: 0.8 } });
+      alert('Power Profile 權力來源自評結果已成功儲存至本機！');
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW13State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+      alert('W13 One-Minute Paper 反思卡提交成功！已儲存至本機。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w13-q1').value;
+      const q2 = document.getElementById('paper-w13-q2').value;
+      const q3 = document.getElementById('paper-w13-q3').value;
+      const text = `【碩士在職專班 領導與管理 W13 反思卡】\n` +
+        `Q1. 拿掉職稱後剩餘之個人權力來源：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 最需影響之跨部門關鍵人物與象限：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 下一步預計採取之 Influence Tactic：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W13 反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW13State() {
+      const vals = {};
+      for (let i = 1; i <= 5; i++) {
+        const elem = document.getElementById(`pp-${i}`);
+        vals[`pp${i}`] = elem ? elem.value : '3';
+      }
+      const state = {
+        powerProfile: vals,
+        q1: document.getElementById('paper-w13-q1') ? document.getElementById('paper-w13-q1').value : '',
+        q2: document.getElementById('paper-w13-q2') ? document.getElementById('paper-w13-q2').value : '',
+        q3: document.getElementById('paper-w13-q3') ? document.getElementById('paper-w13-q3').value : '',
+      };
+      localStorage.setItem('LM_W13_State', JSON.stringify(state));
+    }
+
+    function restoreW13State() {
+      try {
+        const raw = localStorage.getItem('LM_W13_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.powerProfile) {
+          for (let i = 1; i <= 5; i++) {
+            if (s.powerProfile[`pp${i}`] && document.getElementById(`pp-${i}`)) {
+              document.getElementById(`pp-${i}`).value = s.powerProfile[`pp${i}`];
+            }
+          }
+        }
+        if (s.q1 && document.getElementById('paper-w13-q1')) document.getElementById('paper-w13-q1').value = s.q1;
+        if (s.q2 && document.getElementById('paper-w13-q2')) document.getElementById('paper-w13-q2').value = s.q2;
+        if (s.q3 && document.getElementById('paper-w13-q3')) document.getElementById('paper-w13-q3').value = s.q3;
+      } catch (e) { console.error('Failed to restore W13 state:', e); }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W16 組織文化與變革領導：為什麼員工抗拒改變？（學期大收官）</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+              950: '#2e1065',
+            },
+            tealTheme: {
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              900: '#134e4a',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #7c3aed !important;
+      background-color: #f5f3ff !important;
+      box-shadow: 0 4px 6px -1px rgba(124, 58, 237, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-kotter, #section-simulation, #section-system, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-purple-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-crown text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-purple-300 font-bold hidden sm:inline">W16 ‧ 12/20 學期大收官</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W16：Leading Change 組織文化與變革領導</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-purple-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">30頁收官簡報</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W15_情緒智商與領導_高EQ真的能帶出高績效嗎.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W15">
+            <i class="fa-solid fa-arrow-left"></i> W15
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-purple-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 抗拒是情報</a>
+        <a href="#section-culture" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 文化三層次</a>
+        <a href="#section-resistance" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 6大抗拒診斷</a>
+        <a href="#section-minicase" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 AI客服個案</a>
+        <a href="#section-kotter" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 Kotter 4階段</a>
+        <a href="#section-comm" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 變革溝通梯子</a>
+        <a href="#section-stakeholder" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 變革利害人</a>
+        <a href="#section-simulation" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 AI大轉型模擬</a>
+        <a href="#section-system" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition font-bold text-gold-300">11 領導系統總圖</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">12 終極反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、Resistance is Information 拆解心法、Announcement ≠ Communication 演練重點與全學期 16 週領導系統整合總綱。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W16 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-purple-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-purple-900/80 border border-purple-700 text-purple-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+          <span>Week 16 ‧ 學期大收官 Capstone 模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Leading Change<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-purple-300 to-indigo-300">
+            組織文化與變革領導：為什麼員工抗拒改變？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「明明大家都知道公司需要改變，為什麼真正開始改的時候，大家還是抗拒？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          變革管理不是技術問題，而是 <strong>People + Culture + Power + Emotion + Uncertainty</strong>！本週進入全學期整合大收官：<strong>Resistance Is Information（抗拒是重要情報）</strong>、<strong>Culture Is What Gets Rewarded, Punished, Repeated & Tolerated</strong>、Edgar Schein 文化三層次、<strong>Kotter 4 階段變革邏輯</strong>、變革溝通梯子（Announcement ≠ Communication），以及 <strong>AI 全面轉型 10 分鐘大作戰</strong>！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-system" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-sitemap"></i> 檢視全學期領導系統圖
+          </a>
+          <a href="#section-simulation" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-network-wired"></i> AI 變革綜合演練
+          </a>
+          <a href="#section-oneminute" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-pen-nib text-gold-400"></i> 學期終極反思卡
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 10 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full uppercase tracking-wider">收官宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">領導是一套連動的管理系統</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              <strong class="text-purple-950">Culture ➔ Change ➔ Resistance ➔ Leadership ➔ Implementation</strong><br>
+              整合前十週：情境領導、激勵、溝通、團隊、衝突、影響力、決策除錯與情緒修練，帶領團隊實現真正的組織變革！
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200/70 text-xs font-semibold text-purple-950 space-y-1.5">
+            <div class="font-bold text-purple-700 flex items-center gap-1.5"><i class="fa-solid fa-gem"></i> 本週金句心法：</div>
+            <p>Leadership is not about having all the answers. It is about helping people move forward together.</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 10 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">破除文化標語迷思：</strong>理解文化不是牆上的宣傳，而是被獎勵與容忍的實際行為。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">掌握文化三層次：</strong>區分 Artifacts (文物)、Espoused Values (宣稱) 與 Underlying Assumptions (潛規則)。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">體認 Resistance Is Information：</strong>抗拒不是員工難搞，而是傳遞恐懼、不信任與利益受損的信號。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">診斷 6 大抗拒來源：</strong>失控感、能力喪失恐懼、地位威脅、未來不確定、缺乏信任、變革疲乏。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">解答 What Happens to Me?：</strong>掌握員工最核心的切身焦慮，不再只空談宏大願景。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">實踐 Kotter 4 階段變革邏輯：</strong>Create Need ➔ Build Support ➔ Enable Action ➔ Make It Stick。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">理解 Announcement ≠ Communication：</strong>回答 Why, What, When, How, WIIFM 與 Help 6 大問題。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">鎖定 High Power + Passive Resistance：</strong>精準應對表面配合、暗中杯葛的關鍵阻礙者。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100 sm:col-span-2">
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0 mt-0.5">9</div>
+              <div><strong class="text-slate-900">全學期領導系統大整合：</strong>Lead Yourself ➔ Lead People ➔ Lead Teams ➔ Lead Change，確立個人 3 個詞領導品牌！</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W16 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：大家都知道要改，為什麼還是抗拒？</strong><div class="text-xs text-slate-500">AI轉型案例；Resistance is not irrational, Resistance is Information</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">情境＋投票</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：公司的文化到底在哪裡？</strong><div class="text-xs text-slate-500">文化不是牆上的標語，而是被獎勵、懲罰與容忍的實際行為</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">文化辨識</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-culture" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">30–50 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：Organizational Culture 三層次</strong><div class="text-xs text-slate-500">文物 (Artifacts) ➔ 宣稱價值 ➔ 底層假設 (Underlying Assumptions)</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">核心理論講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-culture" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">50–70 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：Why People Resist Change（6大抗拒診斷）</strong><div class="text-xs text-slate-500">失控感、能力恐懼、地位威脅、不確定性、缺乏信任、變革疲乏</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">抗拒診斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-resistance" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">70–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：AI 客服導入，員工為何反對？</strong><div class="text-xs text-slate-500">主管談 AI 很好，員工問 What happens to me？</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">個案研討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-minicase" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">100–125 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 3：Leading Change（Kotter 4 階段變革邏輯）</strong><div class="text-xs text-slate-500">Create Need ➔ Build Support ➔ Enable Action ➔ Make It Stick</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">變革邏輯</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-kotter" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">125–145 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>實務工具 1：Change Communication ＆ 參與梯子</strong><div class="text-xs text-slate-500">公告≠溝通；改寫一封失敗的變革 Email；Inform ➔ Empower</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">改寫工作坊</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-comm" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">145–160 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>實務工具 2：Change Stakeholder Map</strong><div class="text-xs text-slate-500">Power × Attitude；鎖定 High Power + Passive Resistance 表面配合者</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">地圖分析</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-stakeholder" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">160–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Final Simulation：AI Transformation 跨部門變革大演練</strong><div class="text-xs text-slate-500">全學期工具大整合：Urgency, Resistance, Influence, EQ, Negotiation</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-gold-100 text-gold-900 font-bold">終極模擬</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-simulation" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Semester Integration：Leadership Is a System</strong><div class="text-xs text-slate-500">16週11主題全景圖；Three Words 一年後部屬形容你的3個詞</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800 font-bold">全景大整合</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-system" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-purple-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-purple-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Final Reflection：學期終極反思卡</strong><div class="text-xs text-slate-500">3 題大收官反思 ＋ 未來 3 個月具體領導行為承諾</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-500 text-slate-950">終極收官</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-purple-600 hover:text-purple-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 大家都知道要改，為什麼還是抗拒？ -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">大家都知道要改，為什麼真正開始時還是抗拒？</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          情境描述：總經理宣布全面導入 AI 提高效率，三個月後資深員工說以前好好的、中階說沒時間、年輕人怕被裁、IT抱怨需求一直改。追問：<strong>「這些人是在無理抗拒嗎？他們真正為什麼抗拒？」</strong>點出：<strong>Resistance is not always irrational; Resistance is Information！</strong>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded">傳統主管的視角</span>
+            <i class="fa-solid fa-triangle-exclamation text-slate-400 text-lg"></i>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            把抗拒當成「員工不配合、守舊、搞破壞」，試圖用高壓命令強行過關。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-800 bg-purple-100 px-2.5 py-0.5 rounded">高階領導者的視角</span>
+            <i class="fa-solid fa-tower-broadcast text-purple-600 text-lg"></i>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            <strong>Resistance Is Information！</strong> 抗拒是重要信號，代表員工正在表達：我不理解、我害怕失去、我不相信、我需要支援！
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–50分 核心理論 1：文化到底在哪裡？三層次 -->
+    <section id="section-culture" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">15–50 min 核心理論</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">公司的文化到底在哪裡？（Edgar Schein 文化三層次）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="p-4 bg-purple-50/80 rounded-2xl border border-purple-200 text-xs sm:text-sm text-purple-950 font-semibold text-center">
+          Culture is not what is written on the wall.<br>
+          <span class="text-base font-bold text-purple-700">Culture is what gets rewarded, punished, repeated, and tolerated.</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+            <span class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded">Level 1 外顯文物</span>
+            <strong class="text-slate-900 text-sm block">Artifacts (看得到)</strong>
+            <p class="text-slate-600 leading-relaxed">
+              穿著風格、辦公室格局、會議形式、用語習慣、儀式與象徵。
+            </p>
+          </div>
+
+          <div class="p-5 bg-blue-50/70 rounded-2xl border border-blue-200 space-y-2">
+            <span class="text-[10px] font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Level 2 宣稱價值</span>
+            <strong class="text-blue-950 text-sm block">Espoused Values (說得好聽)</strong>
+            <p class="text-slate-600 leading-relaxed">
+              公司官網與牆上標語：創新、誠信、客戶第一、團隊合作、開放溝通。
+            </p>
+          </div>
+
+          <div class="p-5 bg-purple-50/70 rounded-2xl border-2 border-purple-400 space-y-2">
+            <span class="text-[10px] font-bold bg-purple-200 text-purple-900 px-2 py-0.5 rounded">Level 3 底層假定</span>
+            <strong class="text-purple-950 text-sm block">Underlying Assumptions (真正潛規則)</strong>
+            <p class="text-slate-600 leading-relaxed font-bold">
+              「不要犯錯」、「不要公開挑戰主管」、「業績比跨部門合作重要」、「出事會抓戰犯」。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 50–70分 6 大抗拒來源診斷 -->
+    <section id="section-resistance" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">50–70 min 診斷工具</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Why People Resist Change（6 大抗拒來源診斷）</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <strong class="text-slate-900 text-sm block">1. Loss of Control (失控感)</strong>
+          <p class="text-slate-600">「以前我知道怎麼做，現在完全被剝奪主導權。」</p>
+          <div class="p-1.5 bg-purple-50 text-purple-900 rounded font-semibold text-[11px]">➔ 解方：提供參與空間 (Involve)</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <strong class="text-slate-900 text-sm block">2. Fear of Competence Loss</strong>
+          <p class="text-slate-600">「我以前是系統專家，改用 AI 我還算專家嗎？」</p>
+          <div class="p-1.5 bg-purple-50 text-purple-900 rounded font-semibold text-[11px]">➔ 解方：提供充足培訓與容錯期</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <strong class="text-slate-900 text-sm block">3. Loss of Status / Power</strong>
+          <p class="text-slate-600">「新流程會不會削弱我們部門的重要性？」</p>
+          <div class="p-1.5 bg-purple-50 text-purple-900 rounded font-semibold text-[11px]">➔ 解方：重新定位新角色價值</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <strong class="text-slate-900 text-sm block">4. Uncertainty (高度不確定)</strong>
+          <p class="text-slate-600">「到底改完以後，每天具體要做什麼？」</p>
+          <div class="p-1.5 bg-purple-50 text-purple-900 rounded font-semibold text-[11px]">➔ 解方：透明溝通時程與具體影響</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <strong class="text-slate-900 text-sm block">5. Lack of Trust (缺乏信任)</strong>
+          <p class="text-slate-600">「高層說不裁員，但去年也是這麼說的……」</p>
+          <div class="p-1.5 bg-purple-50 text-purple-900 rounded font-semibold text-[11px]">➔ 解方：用小步兌現建立可信度</div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <strong class="text-slate-900 text-sm block">6. Change Fatigue (變革疲乏)</strong>
+          <p class="text-slate-600">「去年才改一次系統，今年又來折騰大家！」</p>
+          <div class="p-1.5 bg-purple-50 text-purple-900 rounded font-semibold text-[11px]">➔ 解方：聚焦關鍵戰役，給予修整</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 70–90分 Mini Case AI 客服導入 -->
+    <section id="section-minicase" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">70–90 min 個案思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Mini Case：公司導入 AI 客服，員工為何集體反對？</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              管理層宣布：「AI 會自動處理 80% 的標準客服問題，大家不用擔心，AI 只是輔助工具。」
+            </p>
+            <p>
+              員工私下質疑：「如果 80% 都自動化了，那公司還需要我們嗎？」主管回答：「不要想太多，公司已經決定了。」三個月後，培訓出席率低落，系統使用率只有 35%。
+            </p>
+            <div class="p-3.5 bg-slate-900 text-gold-300 rounded-xl text-xs font-serif italic">
+              <strong>核心盲點：</strong>主管一直在宣傳「AI 有多好」，但員工心中真正在問的是<strong>「那我會怎麼樣？ (What happens to me?)」</strong>
+            </div>
+          </div>
+
+          <div class="lg:col-span-1 bg-purple-50 rounded-2xl p-5 border border-purple-200 space-y-2 text-xs text-purple-950">
+            <h4 class="font-bold uppercase tracking-wider">變革溝通黃金法則：</h4>
+            <p class="font-serif italic text-sm">"Leaders talk about the future.<br>Employees ask about their future."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: 100–125分 Kotter 4 階段變革邏輯 -->
+    <section id="section-kotter" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">100–125 min 變革架構</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Leading Change：Kotter 4 階段變革落地邏輯</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="p-5 bg-white rounded-2xl border-t-4 border-purple-500 shadow-sm space-y-2">
+          <span class="text-[10px] font-bold text-purple-700 uppercase">Phase 1</span>
+          <strong class="text-slate-900 text-sm block">Create the Need</strong>
+          <p class="text-slate-600">建立危機緊迫感 (Urgency)。不是「老闆要改」，而是「如果我們不改，公司與大家會面臨什麼代價？」</p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-t-4 border-indigo-500 shadow-sm space-y-2">
+          <span class="text-[10px] font-bold text-indigo-700 uppercase">Phase 2</span>
+          <strong class="text-slate-900 text-sm block">Build Support</strong>
+          <p class="text-slate-600">建立引導同盟 (Guiding Coalition)。變革不能只靠 CEO，需要專家、非正式領袖與 Key Users 共同推動。</p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-t-4 border-teal-500 shadow-sm space-y-2">
+          <span class="text-[10px] font-bold text-teal-700 uppercase">Phase 3</span>
+          <strong class="text-slate-900 text-sm block">Enable Action</strong>
+          <p class="text-slate-600">賦能行動與掃除障礙。提供充足的資源、時間、系統培訓與跨部門協調，不讓員工孤軍奮戰。</p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-t-4 border-emerald-500 shadow-sm space-y-2">
+          <span class="text-[10px] font-bold text-emerald-700 uppercase">Phase 4</span>
+          <strong class="text-slate-900 text-sm block">Make It Stick</strong>
+          <p class="text-slate-600">固化成為新常態。變革不是上線就結束，而是將新行為納入制度、獎酬與日常工作，真正沉澱為新文化。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: 125–145分 Change Communication 梯子 -->
+    <section id="section-comm" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">125–145 min 溝通工具</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Announcement ≠ Communication（變革溝通與參與梯子）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6 text-xs">
+        <div class="p-4 bg-slate-900 text-white rounded-2xl space-y-2">
+          <strong class="text-gold-400 block text-sm">💡 真正的變革溝通必須完整回答 6 個問題：</strong>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-slate-300">
+            <div>1. <strong>Why?</strong> 為什麼必須改？</div>
+            <div>2. <strong>What?</strong> 到底要改什麼？</div>
+            <div>3. <strong>When?</strong> 具體時間表？</div>
+            <div>4. <strong>How?</strong> 我該怎麼做？</div>
+            <div>5. <strong>WIIFM?</strong> 對我有何影響？</div>
+            <div>6. <strong>Help?</strong> 遇到困難誰支援？</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 bg-rose-50 rounded-xl border border-rose-200 space-y-2">
+            <strong class="text-rose-900 text-sm">❌ 失敗的變革 Email 公告：</strong>
+            <p class="text-slate-600 font-mono text-[11px] p-2 bg-white rounded border border-rose-200">
+              「因應公司數位轉型政策，自下月起全面導入 AI 作業系統，請各部門配合辦理。」
+            </p>
+            <p class="text-rose-800 text-[11px]">➔ 只有單向命令，毫無背景說明、支援配套與對員工影響的交代。</p>
+          </div>
+
+          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-300 space-y-2">
+            <strong class="text-emerald-900 text-sm">✅ 成功的變革引導溝通：</strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              說明外部競爭危機 ➔ 明確界定 AI 負責繁瑣雜務、同仁轉型高價值諮詢 ➔ 提供 3 個月完整培訓 ➔ 保證不因 AI 裁員 ➔ 邀請各部門推派 Key User 參與設計。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: 145–160分 Change Stakeholder Map -->
+    <section id="section-stakeholder" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">145–160 min 利害關係人</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Change Stakeholder Map（變革利害關係人矩陣）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-4 text-xs">
+        <div class="p-4 bg-amber-50 rounded-xl border border-amber-300 text-amber-950 font-bold flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600 text-base"></i>
+          <span>誰是變革中最危險的群體？不是公開反對者，而是「高權力 ＋ 被動消極抵抗 (High Power + Passive Resistance)」的中階主管！</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-800 font-bold uppercase">
+                <th class="p-3">利害關係人群體</th>
+                <th class="p-3">組織權力 (Power)</th>
+                <th class="p-3">對變革真實態度</th>
+                <th class="p-3">領導者因應策略</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-3 font-semibold">CEO / 高層</td>
+                <td class="p-3 text-purple-700 font-bold">High</td>
+                <td class="p-3 text-emerald-700 font-bold">強烈支持 (Support)</td>
+                <td class="p-3">爭取持續資源承諾與公開背書</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold">中階主管群</td>
+                <td class="p-3 text-purple-700 font-bold">High</td>
+                <td class="p-3 text-rose-700 font-bold">被動消極抵抗 (Passive Resistance)</td>
+                <td class="p-3 font-bold text-purple-900">重點諮詢參與 (Involve)、減輕KPI雙重壓力</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold">資深資深員工</td>
+                <td class="p-3 text-slate-600 font-bold">Medium</td>
+                <td class="p-3 text-amber-700 font-bold">公開質疑 (Open Resister)</td>
+                <td class="p-3">個別深度對談、賦予系統導師新角色</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold">年輕新進員工</td>
+                <td class="p-3 text-slate-500 font-bold">Low</td>
+                <td class="p-3 text-blue-700 font-bold">既期待又怕受傷害</td>
+                <td class="p-3">培訓賦能、建立成功案例 (Quick Wins)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: 160–170分 Final Change Simulation -->
+    <section id="section-simulation" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">10</div>
+        <div>
+          <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">160–170 min 終極實戰演練</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Final Simulation：公司全面導入 AI 轉型大作戰</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="space-y-3 text-sm text-slate-700 leading-relaxed">
+          <p>
+            CEO 要求：「全公司 6 個月內全面導入 AI 平台，提升 20% 效率並降低成本！」但各方劇烈反彈：
+          </p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+            <div class="p-2.5 bg-slate-50 rounded border">資深同仁：這只是管理噱頭</div>
+            <div class="p-2.5 bg-slate-50 rounded border">年輕同仁：AI 會取代我嗎</div>
+            <div class="p-2.5 bg-slate-50 rounded border">中階主管：績效壓力大沒時間</div>
+            <div class="p-2.5 bg-slate-50 rounded border">IT 團隊：6 個月根本不可能</div>
+            <div class="p-2.5 bg-slate-50 rounded border">財務長：ROI 到底在哪裡</div>
+            <div class="p-2.5 bg-slate-50 rounded border">HR 團隊：同仁需要全面重訓</div>
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-900 text-white rounded-2xl space-y-2 text-xs">
+          <strong class="text-gold-400 text-sm block">⚔️ 小組整合任務：10 分鐘制定變革領導藍圖</strong>
+          <p class="text-slate-300">不能只回答「多溝通」！必須整合全學期工具：① 如何建立緊迫感？ ② 如何運用第 8 堂 Influence 說服中階？ ③ 如何用第 15 堂 EQ 安撫基層焦慮？ ④ 如何用第 12 堂談判化解 IT 與財務分歧？</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: 170–175分 全學期領導系統總圖 -->
+    <section id="section-system" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">170–175 min 全學期大收官</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Leadership Is a System（全學期 16 週 11 大主題總圖譜）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W2 Management vs Leadership</strong>
+            <p class="text-slate-500 mt-0.5">秩序管理 ➔ 願景引領</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W3 Leadership Style</strong>
+            <p class="text-slate-500 mt-0.5">認識自我風格與盲點</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W5 Situational Leadership</strong>
+            <p class="text-slate-500 mt-0.5">不同能力意願情境帶人</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W7 Motivation</strong>
+            <p class="text-slate-500 mt-0.5">激勵保健與內在動機</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W10 Communication</strong>
+            <p class="text-slate-500 mt-0.5">同頻溝通與有效傾聽</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W11 Team Leadership</strong>
+            <p class="text-slate-500 mt-0.5">群體成團隊與心理安全</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W12 Conflict & Negotiation</strong>
+            <p class="text-slate-500 mt-0.5">整合談判與擴大餅圖</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W13 Power & Influence</strong>
+            <p class="text-slate-500 mt-0.5">無職權領導與利害人</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W14 Decision Making</strong>
+            <p class="text-slate-500 mt-0.5">認知偏誤與驗屍除錯</p>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <strong class="text-purple-900 block font-bold">W15 Emotional Intelligence</strong>
+            <p class="text-slate-500 mt-0.5">自覺調節與同理領導</p>
+          </div>
+          <div class="p-3.5 bg-purple-100 rounded-xl border-2 border-purple-500 sm:col-span-2">
+            <strong class="text-purple-950 block font-bold text-sm">W16 Change Leadership (大收官)</strong>
+            <p class="text-purple-800 mt-0.5 font-bold">引領組織文化與變革轉型！</p>
+          </div>
+        </div>
+
+        <div class="p-4 bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white rounded-2xl text-center space-y-2">
+          <span class="text-xs uppercase tracking-widest text-gold-400 font-bold">One Year from Today</span>
+          <h3 class="text-xl sm:text-2xl font-serif italic text-gold-300">「一年後，你希望你的部屬用哪 3 個詞來形容你的領導風格？」</h3>
+          <p class="text-xs text-slate-300">例如：Fair / Calm / Trustworthy 或 Decisive / Supportive / Accountable</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: 175–180分 Final Reflection 終極反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 學期大結業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Final Reflection：學期終極反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出結業紀錄
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs flex items-center justify-center font-bold">1</span>
+              回顧這 16 週的領導與管理課程，哪一個觀念最顛覆、或最深刻地改變了你原本的管理思維？
+            </label>
+            <textarea id="paper-w16-q1" rows="3" placeholder="例如：我最震撼的是『Resistance Is Information』與『Sunk Cost 沉沒成本』，讓我明白過去很多無效執著只是在加碼護短..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs flex items-center justify-center font-bold">2</span>
+              在這一系列的個人與團隊領導探索中，你發現自己目前最大的 Leadership Blind Spot（領導盲點）是什麼？
+            </label>
+            <textarea id="paper-w16-q2" rows="3" placeholder="例如：我發現自己在高壓下容易過早表態，扼殺團隊的心理安全感，導致大家產生 Groupthink 假共識..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs flex items-center justify-center font-bold">3</span>
+              接下來三個月，你準備在真實職場中具體改變哪一個 Leadership Behavior（領導行為）？
+            </label>
+            <textarea id="paper-w16-q3" rows="3" placeholder="例如：在每一次重大專案會議中，我會強制最後一個發言，並指派一位同仁擔任 Devil's Advocate（魔鬼代言人）..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-award"></i> 提交學期大收官反思
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ 16 週全課程圓滿結業</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div class="text-gold-400 font-bold">Lead Yourself ‧ Lead People ‧ Lead Teams ‧ Lead Change</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘開場破冰思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘文化三層次診斷')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘診斷</button>
+        <button onclick="setTimerDuration(20, '20分鐘AI變革大演練')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">20 分鐘演練</button>
+        <button onclick="setTimerDuration(40, '40分鐘Kotter變革講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-purple-700 hover:bg-purple-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 30-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W16 組織文化與變革領導 (30頁收官簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 30</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W16 Presentation Slide Deck (30 Slides) =================
+    const w16SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "Leading Change", sub: "組織文化與變革領導 ‧ 碩士在職專班 W16 學期大收官", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-purple-300 to-indigo-300'>Leading Change</div><p class='text-slate-400 text-sm'>為什麼員工抗拒改變？</p></div>", notes: "學期收官開場。" },
+      { num: 2, cat: "P2 核心提問", title: "大家都知道要改，為何還是抗拒？", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「明明大家都知道公司需要改變，<br>為什麼真正開始改的時候，大家還是抗拒？」</h2></div>", notes: "引導全班深層反思。" },
+      { num: 3, cat: "P3–4 AI轉型案例", title: "AI Transformation 開場案例", sub: "高層宣布全面導入 AI 提高效率", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>資深說舊的好、中階說沒時間、年輕人怕被裁、IT抱怨需求一直改。</p></div>", notes: "引發共鳴。" },
+      { num: 4, cat: "P5 抗拒是情報", title: "Resistance Is Information", sub: "抗拒不是無理取鬧", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-purple-400'>Resistance is not irrational. Resistance is Information!</h4></div>", notes: "核心觀念。" },
+      { num: 5, cat: "P6–7 文化在哪裡", title: "公司的文化到底在哪裡？", sub: "牆上的標語 vs 真實的行為", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>寫著創新，但提新想法被罵；寫著開放，但反對主管被邊緣化。</p></div>", notes: "標語 vs 現實。" },
+      { num: 6, cat: "P8 文化真實定義", title: "Culture Is Not the Poster", sub: "真正塑造文化的四個力量", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-300'>Culture is what gets rewarded, punished, repeated, and tolerated.</h4></div>", notes: "文化定義。" },
+      { num: 7, cat: "P9 文化三層次", title: "Three Levels of Culture (Edgar Schein)", sub: "文物 ➔ 宣稱 ➔ 底層假定", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>從可見的文物，到深層理所當然的潛規則。</p></div>", notes: "Schein 架構。" },
+      { num: 8, cat: "P10 外顯文物", title: "Level 1: Artifacts (文物與表象)", sub: "看得到的文化", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>辦公室格局、服裝規定、會議形式、用語習慣。</p></div>", notes: "第一層次。" },
+      { num: 9, cat: "P11 宣稱價值", title: "Level 2: Espoused Values (宣稱價值)", sub: "公開宣告的信念", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>創新、客戶至上、團隊合作、誠信正直。</p></div>", notes: "第二層次。" },
+      { num: 10, cat: "P12 底層假設", title: "Level 3: Underlying Assumptions (底層假定)", sub: "真正驅動行為的潛規則", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-rose-400'>『不要犯錯、不要挑戰主管、出事會找戰犯』</h4></div>", notes: "第三層次。" },
+      { num: 11, cat: "P13 抗拒原因", title: "Why People Resist Change", sub: "抗拒的深層心理機制", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>不是怕改變，而是怕失去！</p></div>", notes: "抗拒心理。" },
+      { num: 12, cat: "P14 6大來源", title: "Six Sources of Resistance", sub: "六大抗拒來源矩陣", body: "<div class='grid grid-cols-2 gap-2 max-w-xl mx-auto text-xs'><div class='p-2 bg-slate-900 rounded'>失控感</div><div class='p-2 bg-slate-900 rounded'>能力喪失</div><div class='p-2 bg-slate-900 rounded'>地位威脅</div><div class='p-2 bg-slate-900 rounded'>高度不確定</div><div class='p-2 bg-slate-900 rounded'>缺乏信任</div><div class='p-2 bg-slate-900 rounded'>變革疲乏</div></div>", notes: "六大來源。" },
+      { num: 13, cat: "P15 抗拒診斷", title: "Resistance Diagnostic", sub: "對抗拒對症下藥", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>不同的抗拒來源，需要不同的領導回應。</p></div>", notes: "診斷表。" },
+      { num: 14, cat: "P16–17 AI客服", title: "Mini Case：AI 客服導入抗拒", sub: "管理層宣布 AI 處理 80% 問題", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>『不要想太多，公司已經決定了。』結果使用率僅 35%。</p></div>", notes: "個案研討。" },
+      { num: 15, cat: "P18 關鍵問題", title: "What Happens to Me?", sub: "員工最深層的提問", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-300'>Leaders talk about the future.<br>Employees ask about their future.</h4></div>", notes: "核心盲點。" },
+      { num: 16, cat: "P19 變革架構", title: "Leading Change 實務架構", sub: "Kotter 變革 4 階段邏輯", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>Create Need ➔ Build Support ➔ Enable Action ➔ Make It Stick</p></div>", notes: "四階段總覽。" },
+      { num: 17, cat: "P20 階段一", title: "Phase 1: Create the Need", sub: "建立危機緊迫感 (Urgency)", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>回答：『如果我們不改，會發生什麼嚴重後果？』</p></div>", notes: "階段一。" },
+      { num: 18, cat: "P21 階段二", title: "Phase 2: Build Support", sub: "建立引導同盟 (Guiding Coalition)", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>結合正式領袖、專家、非正式領袖與 Key Users。</p></div>", notes: "階段二。" },
+      { num: 19, cat: "P22 階段三", title: "Phase 3: Enable Action", sub: "賦能行動與排除障礙", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>提供時間、資源、培訓與跨部門協調。</p></div>", notes: "階段三。" },
+      { num: 20, cat: "P23 階段四", title: "Phase 4: Make It Stick", sub: "固化成為新常態與新文化", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>New behavior becomes normal behavior.</p></div>", notes: "階段四。" },
+      { num: 21, cat: "P24 變革溝通", title: "Change Communication", sub: "回答 6 大核心問題", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1'><p>Why ‧ What ‧ When ‧ How ‧ WIIFM ‧ Help</p></div>", notes: "溝通六問。" },
+      { num: 22, cat: "P25 公告≠溝通", title: "Announcement ≠ Communication", sub: "單向宣布不等於溝通", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-rose-400'>寄一封 Email 不代表變革溝通已完成！</h4></div>", notes: "公告盲點。" },
+      { num: 23, cat: "P26 參與梯子", title: "Participation Ladder", sub: "Inform ➔ Consult ➔ Involve ➔ Empower", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>永遠只有 Inform，員工永遠不會有 Ownership！</p></div>", notes: "參與梯子。" },
+      { num: 24, cat: "P27 變革地圖", title: "Change Stakeholder Map", sub: "鎖定最危險的群體", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-amber-400'>High Power + Passive Resistance（表面配合者）！</h4></div>", notes: "利害關係人。" },
+      { num: 25, cat: "P28–29 終極模擬", title: "AI Transformation Final Simulation", sub: "全學期 16 週工具大整合演練", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>6 個月全面導入 AI：資深反對、年輕人恐慌、中階沒時間、IT抗拒。</p></div>", notes: "大模擬。" },
+      { num: 26, cat: "P28–29 終極模擬", title: "變革領導藍圖產出", sub: "Urgency ‧ Influence ‧ EQ ‧ Negotiation", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>將全學期領導工具整合到同一個複雜組織情境中！</p></div>", notes: "演練收束。" },
+      { num: 27, cat: "P30 系統總圖", title: "Leadership Is a System", sub: "16 週 11 大主題全景總綱", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1'><p>自我 ➔ 個人 ➔ 團隊 ➔ 衝突 ➔ 影響力 ➔ 決策 ➔ EQ ➔ 變革</p></div>", notes: "全景圖。" },
+      { num: 28, cat: "P30 三個詞", title: "Three Words: 你的領導品牌", sub: "一年後部屬如何形容你？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-300'>Decisive / Supportive / Accountable</h4></div>", notes: "個人期許。" },
+      { num: 29, cat: "P30 結語收官", title: "全學期結業核心金句", sub: "Lead Yourself ‧ Lead People ‧ Lead Teams ‧ Lead Change", body: "<div class='text-center py-6 space-y-3'><h3 class='text-xl sm:text-2xl font-serif italic text-gold-300'>「Leadership is not about having all the answers.<br>It is about helping people move forward together.」</h3></div>", notes: "結業金句。" },
+      { num: 30, cat: "P30 圓滿結業", title: "恭喜完成 16 週領導與管理課程！", sub: "願各位在管理實踐中成就不凡", body: "<div class='text-center py-8 space-y-4'><div class='text-3xl font-extrabold text-white'>學期圓滿結業 🎓</div><p class='text-slate-400 text-xs'>將理論化為日常行為，帶領組織航向卓越！</p></div>", notes: "宣布全課程結束！" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w16SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w16SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w16SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w16SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Functions =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW16State();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-purple-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW16State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+      alert('🎉 恭喜完成 W16 終極收官反思！全學期 16 週領導與管理課程已圓滿完成。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w16-q1').value;
+      const q2 = document.getElementById('paper-w16-q2').value;
+      const q3 = document.getElementById('paper-w16-q3').value;
+      const text = `【碩士在職專班 領導與管理 W16 學期終極反思卡】\n` +
+        `Q1. 全學期最顛覆之領導思維：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 個人目前最大之 Leadership Blind Spot：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 未來三個月具體承諾改變之 Leadership Behavior：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W16 終極反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW16State() {
+      const state = {
+        q1: document.getElementById('paper-w16-q1') ? document.getElementById('paper-w16-q1').value : '',
+        q2: document.getElementById('paper-w16-q2') ? document.getElementById('paper-w16-q2').value : '',
+        q3: document.getElementById('paper-w16-q3') ? document.getElementById('paper-w16-q3').value : '',
+      };
+      localStorage.setItem('LM_W16_State', JSON.stringify(state));
+    }
+
+    function restoreW16State() {
+      try {
+        const raw = localStorage.getItem('LM_W16_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.q1 && document.getElementById('paper-w16-q1')) document.getElementById('paper-w16-q1').value = s.q1;
+        if (s.q2 && document.getElementById('paper-w16-q2')) document.getElementById('paper-w16-q2').value = s.q2;
+        if (s.q3 && document.getElementById('paper-w16-q3')) document.getElementById('paper-w16-q3').value = s.q3;
+      } catch (e) { console.error('Failed to restore W16 state:', e); }
+    }
+  </script>
+</body>
+</html>

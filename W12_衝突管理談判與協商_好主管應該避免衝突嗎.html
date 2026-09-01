@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W12 衝突管理、談判與協商：好主管應該避免衝突嗎？</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              300: '#fdba74',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+              900: '#7c2d12',
+              950: '#431407',
+            },
+            roseTheme: {
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              900: '#881337',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #ea580c !important;
+      background-color: #fff7ed !important;
+      box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-maincase, #section-steps, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-orange-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-rose-600 flex items-center justify-center shadow-lg shadow-orange-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-handshake text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">W12 ‧ 11/22 授課</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W12：When Good People Disagree 衝突管理、談判與協商</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-orange-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">28頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W11_團隊建立與團隊領導_明星員工能組成明星團隊嗎.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W11">
+            <i class="fa-solid fa-arrow-left"></i> W11
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-orange-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 零衝突迷思</a>
+        <a href="#section-types" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 衝突三類型</a>
+        <a href="#section-tk" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 Thomas-Kilmann五風格</a>
+        <a href="#section-case1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 兩主管都對個案</a>
+        <a href="#section-interest" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 立場 vs 利益</a>
+        <a href="#section-orange" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 橘子爭奪戰</a>
+        <a href="#section-batna" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 整合談判與BATNA</a>
+        <a href="#section-maincase" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 行銷 vs 生產演練</a>
+        <a href="#section-steps" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">11 主管介入四步驟</a>
+        <a href="#section-debrief" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">12 六大收束</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">13 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、Task vs Relationship 衝突邊界、Thomas-Kilmann 象限解析與談判利益挖掘引導。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W12 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-orange-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-orange-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-orange-900/80 border border-orange-700 text-orange-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
+          <span>Week 12 ‧ 第 7 主題模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          When Good People Disagree<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-orange-300 to-rose-300">
+            衝突管理、談判與協商：好主管應該避免衝突嗎？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「管理者真正的能力，不是消除衝突，而是把對立轉化成可解決的共同問題。」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          好員工、優秀主管或不同部門之間產生分歧時，主管該壓制還是鼓勵？本週深入探討：<strong>Task vs. Process vs. Relationship Conflict</strong>、Thomas-Kilmann 五大衝突處理風格、談判最高心法 <strong>Position vs. Interest（立場 vs. 利益）</strong>、哈佛橘子爭奪戰、<strong>BATNA</strong>，以及主管介入衝突的 <strong>4 步驟調解框架</strong>！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-tk" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-arrows-split-up-and-left text-gold-400"></i> Thomas-Kilmann 五風格
+          </a>
+          <a href="#section-maincase" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-handshake-angle"></i> 行銷 vs 生產談判演練
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 10 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">先診斷，再處理</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              管理者不是法官 (Judge)，不需要急著判決誰對誰錯。主管的核心使命是成為調解者 (Facilitator)，透視雙方真正的利益，創造擴大餅面的第三種方案！
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-orange-50/70 border border-orange-200/70 text-xs font-semibold text-orange-950 space-y-1.5">
+            <div class="font-bold text-orange-700 flex items-center gap-1.5"><i class="fa-solid fa-fire-flame-curved"></i> 本週金句心法：</div>
+            <p>Positions may conflict. Interests may be compatible. 立場衝突，利益往往相容！</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 10 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">破除零衝突迷思：</strong>理解衝突本身中性，零衝突團隊往往隱藏沉默危機。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">區分衝突三類型：</strong>Task Conflict（做什麼）、Process Conflict（怎麼做）、Relationship Conflict（人身攻擊）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">辨識衝突升級路徑：</strong>阻止議題分歧 (Issue) 惡化為情感對立與人身攻擊 (Escalation)。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">掌握 Thomas-Kilmann 五風格：</strong>Competing、Avoiding、Accommodating、Compromising、Collaborating。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">情境適配風格：</strong>理解沒有任何一種衝突風格永遠最優，唯有適配當下情境。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">區分 Position vs. Interest：</strong>不只問「你要什麼？」，更追問「為什麼要？」。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">整合性談判 (Integrative)：</strong>打破分餅 (Claim Value) 思維，透過需求互補做大餅 (Expand the Pie)。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">掌握 BATNA 談判底線：</strong>Best Alternative to a Negotiated Agreement 提供談判自信與邊界。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100 sm:col-span-2">
+              <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0 mt-0.5">9</div>
+              <div><strong class="text-slate-900">熟練主管介入 4 步驟：</strong>Separate People from Problem ➔ Clarify Positions ➔ Explore Interests ➔ Generate Options。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W12 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：零衝突團隊是好團隊嗎？</strong><div class="text-xs text-slate-500">Team A（30分和諧）vs Team B（不同意見激辯）；沉默恐懼辨識</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">投票＋討論</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：這是什麼衝突？（4 情境診斷）</strong><div class="text-xs text-slate-500">定價爭端、市調責任、人身批評、先後順序分類</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">情境診斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-types" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">30–50 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：Task、Process、Relationship 衝突演變</strong><div class="text-xs text-slate-500">衝突升級鏈：Issue ➔ Disagreement ➔ Emotion ➔ Personalization</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">核心理論講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-types" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">50–70 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：Thomas–Kilmann 五大衝突處理風格</strong><div class="text-xs text-slate-500">Competing, Avoiding, Accommodating, Compromising, Collaborating</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">風格象限診斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-tk" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">70–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：兩位主管都說自己是對的</strong><div class="text-xs text-slate-500">行銷 Amy（12月搶市）vs 生產 David（1月保質）；Both may be right!</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">個案思辨</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-case1" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">100–120 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>談判核心理論 3：Position vs. Interest（立場 vs 利益）</strong><div class="text-xs text-slate-500">我要什麼 vs 為什麼我要；休假與客戶簡報衝突轉化</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">談判心法解析</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-interest" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">120–140 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 2：經典談判「橘子爭奪戰」</strong><div class="text-xs text-slate-500">妥協各退一步（一人半顆）vs 擴大餅面（果肉打汁＋果皮做甜點）</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">談判互動活動</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-orange" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">140–155 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>談判核心理論 4：Distributive vs. Integrative Negotiation ＆ BATNA</strong><div class="text-xs text-slate-500">零和分餅 vs 創造價值；Best Alternative to a Negotiated Agreement</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">談判架構講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-batna" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">155–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Main Case / Role Play：行銷部 vs. 生產部實戰談判</strong><div class="text-xs text-slate-500">8分鐘談判：問出 3 個 Why 挖掘底層利益，創造分階段上市第三方案</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">雙人談判演練</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-maincase" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>主管介入四步驟 ＆ 教師 Debrief 六大收束</strong><div class="text-xs text-slate-500">對事不對人 ➔ 釐清立場 ➔ 探尋利益 ➔ 產出第三方案</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800 font-bold">核心提煉</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-steps" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-orange-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-orange-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>One-Minute Paper：課堂即時反思卡</strong><div class="text-xs text-slate-500">3 題精簡反思 ＋ 課後職場立場 vs 利益觀察作業</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-100 text-gold-900">課末收束</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-orange-600 hover:text-orange-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 零衝突團隊是好團隊嗎？ -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">零衝突團隊，真的就是好團隊嗎？</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          先給全班一句話：<em>"A good team has very little conflict."</em> 請學生投票。接著呈現 Team A（30分鐘一團和氣無人反對）vs. Team B（經常有不同意見激辯）。追問：<strong>「哪一個團隊的隱形風險其實更高？」</strong>點出零衝突往往不是 Alignment，而是 Silence（沉默恐懼）！
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded">Team A ‧ 表面的平靜</span>
+            <i class="fa-solid fa-face-smile text-slate-400 text-lg"></i>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            開會極度客氣和諧。主管提出任何方案，大家都點頭稱是沒有人反對，會議通常 30 分鐘內迅速結束。
+          </p>
+          <div class="p-2.5 bg-rose-50 text-rose-900 rounded-lg text-xs font-bold">
+            ⚠️ 隱藏風險：可能不是真同意，而是「沒人敢講真話」或「反正說了也沒用」的冷漠！
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-orange-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-orange-800 bg-orange-100 px-2.5 py-0.5 rounded">Team B ‧ 激辯的熱情</span>
+            <i class="fa-solid fa-comments text-orange-500 text-lg"></i>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            開會常有激烈交鋒。成員會挑戰「我不認為這個假設成立」、「我們有沒有替代方案？」，會議時間通常較長。
+          </p>
+          <div class="p-2.5 bg-emerald-50 text-emerald-900 rounded-lg text-xs font-bold">
+            ✨ 潛在價值：具備高度心理安全感，能在專案執行前集體除錯，產出最優決策！
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–50分 Activity 1 衝突三類型與升級鏈 -->
+    <section id="section-types" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">15–50 min 診斷分類</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Three Types of Conflict ＆ 衝突升級鏈</h2>
+        </div>
+      </div>
+
+      <!-- 3 Types Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-5 bg-white rounded-2xl border-2 border-blue-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-blue-950 text-sm">1. Task Conflict (任務衝突)</strong>
+            <span class="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">What should we do?</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">爭論的是目標、策略選擇、方案可行性或預算投資方向。</p>
+          <div class="text-[11px] font-bold text-emerald-700 pt-1">
+            💡 效益：適度的 Task Conflict 帶來多元視角、批判思考與更佳決策！
+          </div>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-2 border-amber-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-amber-950 text-sm">2. Process Conflict (程序衝突)</strong>
+            <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">How should we do it?</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">爭論的是誰負責、流程怎麼跑、時程怎麼排、資源如何分派。</p>
+          <div class="text-[11px] font-bold text-amber-800 pt-1">
+            ⚠️ 關鍵：需透過明確的角色責任與規則規範化解。
+          </div>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-2 border-rose-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-rose-950 text-sm">3. Relationship Conflict (人際衝突)</strong>
+            <span class="text-[10px] font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded">Who is the problem?</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">從「我不同意你的數據」變成「你根本不懂市場」，再演變為「你這個人就是自私難搞」。</p>
+          <div class="text-[11px] font-bold text-rose-700 pt-1">
+            🚫 危害：極具毀滅性！摧毀信任與合作意願，主管必須即刻介入！
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Conflict Escalation Chain -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-3">
+        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">🔥 衝突致命升級五步鏈 (Conflict Escalation)：</h4>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs">
+          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">1. Issue<div class="text-[10px] text-slate-500">客觀議題分歧</div></div>
+          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">2. Disagreement<div class="text-[10px] text-slate-500">觀點立場不同</div></div>
+          <div class="p-2.5 bg-amber-50 rounded-lg border border-amber-200 text-amber-950 font-semibold">3. Emotion<div class="text-[10px] text-amber-700">情緒涉入防衛</div></div>
+          <div class="p-2.5 bg-rose-50 rounded-lg border border-rose-200 text-rose-950 font-semibold">4. Personalization<div class="text-[10px] text-rose-700">人身攻擊貼標籤</div></div>
+          <div class="p-2.5 bg-rose-600 text-white rounded-lg font-bold">5. Relationship<div class="text-[10px] text-rose-100">徹底撕裂關係</div></div>
+        </div>
+        <div class="p-3 bg-slate-900 text-gold-300 rounded-xl text-xs text-center font-mono">
+          主管真正要避免的不是 Conflict，而是阻止它走向 Personalization 升級！
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 50–70分 核心理論 2：Thomas-Kilmann 五大衝突風格 -->
+    <section id="section-tk" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">50–70 min 經典模型</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Thomas–Kilmann Conflict Styles（五大衝突處理風格）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <p class="text-xs text-slate-500">以 <strong>Assertiveness（堅持自己需求的程度）</strong> 與 <strong>Cooperativeness（配合對方需求的程度）</strong> 為雙軸</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          
+          <div class="p-4 bg-rose-50/70 rounded-xl border border-rose-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <strong class="text-rose-950 text-sm">1. Competing (競爭型)</strong>
+              <span class="font-mono text-[10px] bg-rose-200 text-rose-900 px-1.5 py-0.5 rounded">高堅持 / 低配合</span>
+            </div>
+            <div class="text-slate-700">「我要我的方案。」</div>
+            <p class="text-slate-600">適用：緊急危急事件、重大法律原則、必須果斷快速決策時。過度使用會讓部屬不再表達意見。</p>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <strong class="text-slate-950 text-sm">2. Avoiding (迴避型)</strong>
+              <span class="font-mono text-[10px] bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded">低堅持 / 低配合</span>
+            </div>
+            <div class="text-slate-700">「先不要談這個。」</div>
+            <p class="text-slate-600">適用：議題微不足道、雙方情緒過度激動需冷靜、需更多關鍵數據時。注意：Delay ≠ Resolve。</p>
+          </div>
+
+          <div class="p-4 bg-blue-50/70 rounded-xl border border-blue-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <strong class="text-blue-950 text-sm">3. Accommodating (遷就型)</strong>
+              <span class="font-mono text-[10px] bg-blue-200 text-blue-900 px-1.5 py-0.5 rounded">低堅持 / 高配合</span>
+            </div>
+            <div class="text-slate-700">「這次先照你的。」</div>
+            <p class="text-slate-600">適用：該議題對對方重要性遠大於自己、自己發現判斷有誤、或維持長遠關係重於當下輸贏。</p>
+          </div>
+
+          <div class="p-4 bg-amber-50/70 rounded-xl border border-amber-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <strong class="text-amber-950 text-sm">4. Compromising (妥協型)</strong>
+              <span class="font-mono text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded">中堅持 / 中配合</span>
+            </div>
+            <div class="text-slate-700">「大家各退一步，一人一半。」</div>
+            <p class="text-slate-600">適用：時間緊迫、勢均力敵需暫時性妥協。缺點是雙方往往都沒有真正滿意 (Both Lose Less)。</p>
+          </div>
+
+          <div class="p-4 bg-emerald-50/70 rounded-xl border-2 border-emerald-300 space-y-1.5 sm:col-span-2 lg:col-span-2">
+            <div class="flex items-center justify-between">
+              <strong class="text-emerald-950 text-sm">5. Collaborating (合作型 / 整合雙贏)</strong>
+              <span class="font-mono text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold">高堅持 / 高配合</span>
+            </div>
+            <div class="text-slate-700 font-bold">「我們一起找出同時滿足彼此核心需求的第三種方案！」</div>
+            <p class="text-slate-600">深入挖掘底層 Interest，擴大價值餅面。雖耗費時間，但能創造最牢固的承諾與最佳解。</p>
+          </div>
+
+        </div>
+
+        <div class="p-3 bg-slate-900 text-gold-300 rounded-xl text-xs text-center">
+          💡 <strong>核心心法：</strong>沒有 Best Style，只有 <strong>Best Fit</strong>！好的管理者知道「何時該用哪一種風格」。
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 70–90分 Mini Case 兩位主管都說自己是對的 -->
+    <section id="section-case1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">70–90 min 個案思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Mini Case：兩位主管都說自己是對的（Amy vs. David）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              新產品即將推出。行銷主管 <strong>Amy</strong> 主張：「<strong>必須 12 月上市！</strong>錯過聖誕購物黃金檔期，整年營收就泡湯了！」
+            </p>
+            <p>
+              生產主管 <strong>David</strong> 堅決反對：「<strong>最快只能 1 月！</strong>12 月硬上產線不良率極高，發生重大品質災難誰負責？！」
+            </p>
+            <p>
+              Amy 抱怨「生產部永遠保守說做不到」，David 怒嗆「行銷部只會亂開支票」。兩人都衝進總經理辦公室要求裁決。
+            </p>
+            <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-sm">
+              總經理若直接問「誰是對的？」，就掉進了錯誤的問題陷阱！因為——兩個人都是對的！
+            </div>
+          </div>
+
+          <!-- Interests Protected Table -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider">透視雙方真正想保護的利益：</h4>
+            <div class="p-3 bg-white rounded-xl border border-slate-200 space-y-1">
+              <strong class="text-orange-900">Amy (行銷) 在保護：</strong>
+              <p class="text-slate-600">上市時機 (Timing)、年度營收、大客戶訂單機會。</p>
+            </div>
+            <div class="p-3 bg-white rounded-xl border border-slate-200 space-y-1">
+              <strong class="text-blue-900">David (生產) 在保護：</strong>
+              <p class="text-slate-600">產線品質 (Quality)、營運風險、品牌商譽。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: 90–100分 中場休息 -->
+    <section id="section-break" class="rounded-2xl bg-gradient-to-r from-slate-800 to-orange-950 text-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-orange-400">90–100 min 中場休息</span>
+          <h3 class="text-lg font-bold">10 分鐘 咖啡補給與腦力沉澱</h3>
+          <p class="text-xs text-slate-300 mt-0.5">下半場將進入 Position vs. Interest、橘子爭奪戰、BATNA 與實戰談判演練。</p>
+        </div>
+      </div>
+      <button onclick="startBreakTimer()" class="px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-slate-950 font-bold text-xs shadow transition flex items-center gap-2">
+        <i class="fa-solid fa-stopwatch"></i> 啟動10分鐘倒數
+      </button>
+    </section>
+
+    <!-- SECTION 8: 100–140分 Position vs. Interest ＆ 橘子爭奪戰 -->
+    <section id="section-interest" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">100–140 min 談判核心心法</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Position vs. Interest（立場 vs. 利益）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          <div class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-2">
+            <span class="font-bold text-rose-950 text-sm">Position (表層立場)</span>
+            <div class="font-semibold text-slate-800">「我要什麼？ (What do you want?)」</div>
+            <p class="text-slate-600 leading-relaxed">
+              雙方僵持在具體要求上（例如「我週五一定要休假」vs「週五你絕對不能休」）。若只停留在立場，談判必然淪為零和對撞。
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-2">
+            <span class="font-bold text-emerald-950 text-sm">Interest (深層利益)</span>
+            <div class="font-semibold text-slate-800">「為什麼你要？ (Why is that important to you?)」</div>
+            <p class="text-slate-600 leading-relaxed">
+              背後的動機與顧慮（部屬要參加女兒畢業典禮；主管擔心下午無人向重要客戶簡報）。問題轉化為：<strong>如何兼顧畢業典禮與客戶簡報？</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Activity 2: Orange Negotiation -->
+        <div id="section-orange" class="p-6 rounded-2xl bg-gradient-to-r from-slate-900 to-orange-950 text-white space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-gold-400 uppercase tracking-wider">Activity 2：哈佛經典談判「橘子爭奪戰」</span>
+            <span class="text-xs font-mono text-slate-400">Expand the Pie</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            公司茶水間只剩最後一顆橘子，A 與 B 都堅稱「我一定要整顆」！<br>
+            ❌ <strong>妥協 (Compromise)：</strong>切成兩半一人分 50%，雙方核心需求都打折。<br>
+            ✅ <strong>利益探索 (Interest Exploration)：</strong>深入詢問發現——<strong>A 只需要果肉打果汁，B 只需要果皮做甜點蛋糕</strong>！此時 A 拿全部果肉、B 拿全部果皮，<strong>雙方 100% 圓滿獲益！</strong>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 9: 140–155分 談判理論 4：Distributive vs. Integrative ＆ BATNA -->
+    <section id="section-batna" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">140–155 min 談判架構</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Distributive vs. Integrative Negotiation ＆ BATNA</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-800 font-bold uppercase">
+                <th class="p-3">比較維度</th>
+                <th class="p-3 text-rose-800">分配性談判 (Distributive)</th>
+                <th class="p-3 text-emerald-800">整合性談判 (Integrative)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-3 font-bold">核心焦點</td>
+                <td class="p-3">Position (表層立場)</td>
+                <td class="p-3 font-bold text-emerald-900">Interest (深層利益)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">價值觀點</td>
+                <td class="p-3">Claim Value (分食既有固定餅)</td>
+                <td class="p-3 font-bold text-emerald-900">Create Value / Expand Pie (共同做大餅)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">勝負關係</td>
+                <td class="p-3">Win–Lose (零和對立)</td>
+                <td class="p-3 font-bold text-emerald-900">Potential Win–Win (雙贏共榮)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">資訊流動</td>
+                <td class="p-3">隱藏資訊、算計防備</td>
+                <td class="p-3 font-bold text-emerald-900">坦誠交流背後關注重點與優先級</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- BATNA Callout -->
+        <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between text-xs sm:text-sm">
+          <div>
+            <span class="text-gold-400 font-bold">BATNA (Best Alternative to a Negotiated Agreement)：</span>
+            <p class="text-slate-300 mt-1">「如果今天談判破局，我手中最佳的替代備案是什麼？」BATNA 決定了你的底線與談判籌碼，確保你不會接受不平等的糟糕協議！</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 10: 155–170分 Main Case 行銷部 vs. 生產部實戰談判 -->
+    <section id="section-maincase" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">155–170 min 實戰雙人演練</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Main Case / Role Play：行銷部 vs. 生產部 8 分鐘實戰談判</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          兩人一組分別扮演 Amy 與 David。<strong>限制：不能只堅持立場，每人必須向對方提出至少 3 個「Why」問題</strong>，挖掘底層資訊以產出創造性解法！
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          
+          <div class="p-5 rounded-2xl bg-orange-50/70 border border-orange-200 space-y-2">
+            <span class="font-bold text-orange-950 text-sm">Role A：行銷主管 Amy 秘密情報</span>
+            <ul class="text-slate-700 space-y-1 list-disc list-inside">
+              <li>聖誕檔期極為關鍵，最大客戶願意提前下單</li>
+              <li>若錯過 12 月，預估損失 20% 全年業績</li>
+              <li><strong class="text-orange-900">核心隱藏彈性：其實不一定要所有 SKU 產品都在 12 月同時上市！</strong></li>
+            </ul>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-2">
+            <span class="font-bold text-blue-950 text-sm">Role B：生產主管 David 秘密情報</span>
+            <ul class="text-slate-700 space-y-1 list-disc list-inside">
+              <li>全功能旗艦版 12 月上市良率極低，風險極大</li>
+              <li>主要卡關瓶頸在於一項全新的 AI 演算法模組</li>
+              <li><strong class="text-blue-900">核心隱藏彈性：核心基礎版本其實 12 月完全可以安全量產交付！</strong></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950">
+          ✨ <strong>經典雙贏方案（Phased Launch 分階段上市）：</strong>12 月如期推出基礎版本搶占聖誕檔期與首批客戶；1 月再推出旗艦完整版與軟體升級！雙方核心利益 100% 達成！
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: 170–175分 主管介入衝突四步驟 ＆ 教師 Debrief -->
+    <section id="section-steps" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">170–175 min 調解框架</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">主管介入衝突的 4 步驟調解框架</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-orange-600 text-white flex items-center justify-center font-bold">1</div>
+          <strong class="text-slate-900 text-sm">Separate People from Problem</strong>
+          <p class="text-slate-600">「我們先聚焦處理問題本身，不涉及人身人格評價。」</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">2</div>
+          <strong class="text-slate-900 text-sm">Clarify Positions</strong>
+          <p class="text-slate-600">「請各自清楚陳述你們目前的主張與具體要求。」</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">3</div>
+          <strong class="text-slate-900 text-sm">Explore Interests</strong>
+          <p class="text-slate-600">「為什麼這件事情對你這麼重要？你真正想保護的是什麼？」</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold">4</div>
+          <strong class="text-slate-900 text-sm">Generate Options</strong>
+          <p class="text-slate-600">「有沒有能同時滿足雙方核心利益的第三種創造性解法？」</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 12: 教師 Debrief 六大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-orange-600 uppercase tracking-wider">170–175 min 理論提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週六大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+        
+        <div class="p-4 rounded-2xl bg-white border border-orange-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-orange-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+          <h4 class="font-bold text-slate-900">衝突本身不是壞事</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Conflict is not automatically bad.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-orange-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+          <h4 class="font-bold text-slate-900">保留任務衝突</h4>
+          <p class="text-slate-600 leading-relaxed">Don't suppress Task Conflict too early.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-orange-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+          <h4 class="font-bold text-slate-900">風格因境而異</h4>
+          <p class="text-slate-600 leading-relaxed">No conflict style is always best.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-orange-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">4</div>
+          <h4 class="font-bold text-slate-900">立場不等於利益</h4>
+          <p class="text-slate-600 leading-relaxed font-mono">Position ≠ Interest (問 Why)。</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-orange-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs font-bold">5</div>
+          <h4 class="font-bold text-slate-900">妥協不等於雙贏</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Compromise is often Both Lose Less.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-orange-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs font-bold">6</div>
+          <h4 class="font-bold text-slate-900">主管是引導者而非法官</h4>
+          <p class="text-slate-600 leading-relaxed">Facilitator, not Judge.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 13: 175–180分 One-Minute Paper 反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-orange-100 text-orange-700 text-xs flex items-center justify-center font-bold">1</span>
+              回顧你的個人慣性，在 Thomas-Kilmann 5 種衝突風格中，你最常直覺使用哪一種？這在過去帶來了什麼優缺點？
+            </label>
+            <textarea id="paper-w12-q1" rows="3" placeholder="例如：我最常使用 Compromising（妥協型），總是急著讓大家各退一步，但事後發現雙方都很勉強，專案品質打了折扣..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-orange-100 text-orange-700 text-xs flex items-center justify-center font-bold">2</span>
+              你最近在工作上遇到的一個衝突事件，本質上是 Task Conflict、Process Conflict 還是 Relationship Conflict？
+            </label>
+            <textarea id="paper-w12-q2" rows="3" placeholder="例如：原本是 Process Conflict（誰該負責資料清洗），但因為雙方語氣不佳，差點升級成 Relationship Conflict..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-orange-100 text-orange-700 text-xs flex items-center justify-center font-bold">3</span>
+              下次面對跨部門或部屬間的立場對峙，你會問對方哪一個「Why（深層利益）」的提問？
+            </label>
+            <textarea id="paper-w12-q3" rows="3" placeholder="例如：我會問：『如果照這個方案執行，你最擔心的風險是什麼？你真正想保護的核心指標是什麼？』..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-orange-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Homework Callout -->
+          <div class="p-4 rounded-xl bg-orange-50 border border-orange-200 text-xs text-orange-950 space-y-1">
+            <strong class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-pen-nib"></i> 本週課後微作業（為 W13「權力與影響力」鋪路）：</strong>
+            <p>找一個工作上「雙方立場不同」的真實事件，寫下四行：① My Position ② My Interest ③ Their Position ④ Their Possible Interest。思考是否存在第三種雙贏方案！</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交 W12 反思紀錄
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ W12 衝突管理、談判與協商</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>學習演進：團隊領導 ➔ 衝突談判 ➔ 權力與影響力 ➔ 管理決策 ➔ EQ ➔ 變革</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘開場破冰思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(8, '8分鐘行銷vs生產實戰談判')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">8 分鐘談判</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘衝突類型診斷')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘小組</button>
+        <button onclick="setTimerDuration(40, '40分鐘談判與衝突理論講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-orange-700 hover:bg-orange-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 28-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-orange-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W12 衝突管理、談判與協商 (28頁簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 28</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W12 Presentation Slide Deck (28 Slides) =================
+    const w12SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "When Good People Disagree", sub: "衝突管理、談判與協商 ‧ 碩士在職專班 W12", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-orange-300 to-rose-300'>When Good People Disagree</div><p class='text-slate-400 text-sm'>好主管應該避免衝突嗎？</p></div>", notes: "開場破題。" },
+      { num: 2, cat: "P2 核心提問", title: "本週核心大哉問", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「管理者真正的能力，<br>不是消除衝突，而是把對立轉化成可解決的問題。」</h2></div>", notes: "重新定義衝突價值。" },
+      { num: 3, cat: "P3–4 零衝突", title: "Team A vs. Team B", sub: "零衝突團隊，真的是好團隊嗎？", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-slate-900 rounded-xl'><strong class='text-slate-400'>Team A (30分鐘一團和氣)</strong><p class='text-[10px] mt-1'>主管說什麼都點頭，無人反對</p></div><div class='p-4 bg-orange-950/60 rounded-xl border border-orange-700'><strong class='text-orange-300'>Team B (激辯激盪)</strong><p class='text-[10px] mt-1'>挑戰假設，尋找多元備案</p></div></div>", notes: "引導全班反思。" },
+      { num: 4, cat: "P3–4 零衝突", title: "沉默不代表共識", sub: "Silence ≠ Alignment", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>沒有衝突往往意味著冷漠、缺乏心理安全感或放棄思考。</p></div>", notes: "點出零衝突陷阱。" },
+      { num: 5, cat: "P5 衝突中性", title: "Conflict ≠ Bad", sub: "衝突本身是中性的", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-white'>衝突是多元視角的碰撞</h4><p>關鍵在於衝突的類型與如何被管理。</p></div>", notes: "建立正確心態。" },
+      { num: 6, cat: "P6–7 分類活動", title: "Activity 1：這是什麼衝突？", sub: "四大情境診斷", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>A. 定價策略分歧 ➔ <strong>Task Conflict</strong></p><p>B. 市調責任歸屬 ➔ <strong>Process Conflict</strong></p><p>C. 批對方每次只顧自己 ➔ <strong>Relationship Conflict</strong></p><p>D. 資源分配先後順序 ➔ <strong>Process Conflict</strong></p></div>", notes: "情境快速分類。" },
+      { num: 7, cat: "P6–7 分類活動", title: "衝突三大類型", sub: "Task ‧ Process ‧ Relationship", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>做什麼 (Task) vs 怎麼做 (Process) vs 誰是問題 (Relationship)</p></div>", notes: "分類框架。" },
+      { num: 8, cat: "P8 Task衝突", title: "1. Task Conflict (任務衝突)", sub: "What should we do?", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-blue-400'>適度任務衝突帶來高績效</h4><p>激盪創意、打破群體迷思、提升決策品質。</p></div>", notes: "任務衝突的好處。" },
+      { num: 9, cat: "P9 Process衝突", title: "2. Process Conflict (程序衝突)", sub: "How should we do it?", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-amber-400'>職責分工與資源排序</h4><p>需要清晰的角色定義與運作常規。</p></div>", notes: "程序衝突。" },
+      { num: 10, cat: "P10 關係衝突", title: "3. Relationship Conflict (關係衝突)", sub: "Who is the problem?", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-rose-400'>極具毀滅性的情感對立</h4><p>焦點轉向人身攻擊與信任崩塌，主管必須立刻介入！</p></div>", notes: "嚴加防範。" },
+      { num: 11, cat: "P11 升級鏈", title: "Conflict Escalation (衝突升級鏈)", sub: "Issue ➔ Emotion ➔ Personalization", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p class='font-bold text-gold-300'>主管的責任是：允許 Task 激辯，切斷 Personalization 升級！</p></div>", notes: "核心干預點。" },
+      { num: 12, cat: "P12 T-K模型", title: "Thomas–Kilmann 五大衝突風格", sub: "Assertiveness × Cooperativeness", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>五種風格：競爭、迴避、遷就、妥協、合作。</p></div>", notes: "象限總覽。" },
+      { num: 13, cat: "P13 Competing", title: "1. Competing (競爭型)", sub: "高堅持 / 低配合", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>『我要我的方案。』適用緊急危急、重大原則；慎防部屬閉嘴。</p></div>", notes: "競爭型。" },
+      { num: 14, cat: "P14 Avoiding", title: "2. Avoiding (迴避型)", sub: "低堅持 / 低配合", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>『先不要談。』適用冷靜情緒、收集資訊；注意拖延不等於解決。</p></div>", notes: "迴避型。" },
+      { num: 15, cat: "P15 Accommodating", title: "3. Accommodating (遷就型)", sub: "低堅持 / 高配合", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>『這次照你的。』適用對方需求重要、自己判斷有誤或維繫關係。</p></div>", notes: "遷就型。" },
+      { num: 16, cat: "P16 Compromising", title: "4. Compromising (妥協型)", sub: "中堅持 / 中配合", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>『各退一步。』求快與折衷；但往往雙方都沒有真正滿足。</p></div>", notes: "妥協型。" },
+      { num: 17, cat: "P17 Collaborating", title: "5. Collaborating (合作型)", sub: "高堅持 / 高配合", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-emerald-400'>尋求第三種方案，雙方 100% 滿足</h4></div>", notes: "合作型。" },
+      { num: 18, cat: "P18–19 Amy vs David", title: "Mini Case：Amy vs. David", sub: "行銷 12 月搶市 vs 生產 1 月保質", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>兩人吵進辦公室，主管若選邊站就輸了！</p><p class='text-gold-300 font-bold'>Both may be right! 兩人都站在自己的職責上保護公司！</p></div>", notes: "案例研討。" },
+      { num: 19, cat: "P18–19 Amy vs David", title: "他們到底在保護什麼？", sub: "透視背後的利益", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>Amy 保護營收與客戶機會；David 保護良率與品牌商譽。</p></div>", notes: "挖掘利益。" },
+      { num: 20, cat: "P20 立場vs利益", title: "Position vs. Interest", sub: "我要什麼 vs 為什麼我要", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-white'>Positions may conflict. Interests may be compatible.</h4></div>", notes: "談判第一心法。" },
+      { num: 21, cat: "P21 休假案例", title: "休假案例轉化", sub: "從可不可以休 ➔ 兼顧畢業典禮與客戶簡報", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>部屬要參加畢業典禮；主管要有人做簡報。找人代班簡報，問題迎刃而解！</p></div>", notes: "案例轉化。" },
+      { num: 22, cat: "P22–23 橘子談判", title: "Activity 2：哈佛橘子爭奪戰", sub: "妥協分半 vs 做大餅面", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>A 要果肉做果汁，B 要果皮做甜點 ➔ 各取所需，雙方 100% 滿足！</p></div>", notes: "經典橘子案例。" },
+      { num: 23, cat: "P22–23 橘子談判", title: "Expand the Pie (做大餅面)", sub: "以利益互補取代零和搶奪", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>問出背後的 Why，才能看見隱藏的價值空間。</p></div>", notes: "整合談判。" },
+      { num: 24, cat: "P24 談判模型", title: "Distributive vs. Integrative", sub: "分餅 vs 做餅", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-slate-900 rounded-xl'><strong class='text-rose-400'>分配性談判 (Distributive)</strong><p class='text-[10px] mt-1'>立場、零和、隱瞞資訊、Claim Value</p></div><div class='p-4 bg-emerald-950/60 rounded-xl border border-emerald-700'><strong class='text-emerald-300'>整合性談判 (Integrative)</strong><p class='text-[10px] mt-1'>利益、雙贏、資訊共享、Create Value</p></div></div>", notes: "矩陣對照。" },
+      { num: 25, cat: "P25 BATNA", title: "BATNA：談判最佳替代方案", sub: "Best Alternative to a Negotiated Agreement", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-400'>BATNA 決定你的底線與自信</h4><p>知道何時該說 No，才不會被迫接受屈辱協議。</p></div>", notes: "BATNA 意涵。" },
+      { num: 26, cat: "P26–27 實戰演練", title: "Main Case：行銷 vs 生產實戰談判", sub: "8分鐘挖出 3 個 Why", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>Amy 不用全產品上；David 基礎版可 12 月完成。</p><p class='text-gold-300 font-bold'>產出分階段上市 (Phased Launch) 雙贏方案！</p></div>", notes: "演練總結。" },
+      { num: 27, cat: "P26–27 實戰演練", title: "主管介入衝突 4 步驟", sub: "Separate ➔ Clarify ➔ Explore ➔ Generate", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-1'><p>1. 對事不對人 2. 釐清立場 3. 探尋利益 4. 產出第三方案</p></div>", notes: "介入步驟。" },
+      { num: 28, cat: "P28 收束反思", title: "Six Takeaways ＆ 課末反思", sub: "衝突談判六大核心", body: "<div class='space-y-1 max-w-xl mx-auto text-xs text-slate-300'><p>1. 衝突本身非壞事（避免升級）</p><p>2. 保留任務衝突</p><p>3. 風格因境而異</p><p>4. 立場不等於利益（問 Why）</p><p>5. 妥協不等於雙贏</p><p>6. 主管是 Facilitator 而非 Judge</p></div>", notes: "宣布放映結束。" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w12SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w12SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w12SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w12SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Functions =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW12State();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW12State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+      alert('W12 One-Minute Paper 反思卡提交成功！已儲存至本機。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w12-q1').value;
+      const q2 = document.getElementById('paper-w12-q2').value;
+      const q3 = document.getElementById('paper-w12-q3').value;
+      const text = `【碩士在職專班 領導與管理 W12 反思卡】\n` +
+        `Q1. 最常使用的 Thomas-Kilmann 風格：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 近期遭遇的衝突類型分析：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 下次挖掘深層利益的 Why 提問：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W12 反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function startBreakTimer() {
+      toggleTimerModal();
+      setTimerDuration(10, '10分鐘中場休息倒數');
+      startTimer();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW12State() {
+      const state = {
+        q1: document.getElementById('paper-w12-q1') ? document.getElementById('paper-w12-q1').value : '',
+        q2: document.getElementById('paper-w12-q2') ? document.getElementById('paper-w12-q2').value : '',
+        q3: document.getElementById('paper-w12-q3') ? document.getElementById('paper-w12-q3').value : '',
+      };
+      localStorage.setItem('LM_W12_State', JSON.stringify(state));
+    }
+
+    function restoreW12State() {
+      try {
+        const raw = localStorage.getItem('LM_W12_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.q1 && document.getElementById('paper-w12-q1')) document.getElementById('paper-w12-q1').value = s.q1;
+        if (s.q2 && document.getElementById('paper-w12-q2')) document.getElementById('paper-w12-q2').value = s.q2;
+        if (s.q3 && document.getElementById('paper-w12-q3')) document.getElementById('paper-w12-q3').value = s.q3;
+      } catch (e) { console.error('Failed to restore W12 state:', e); }
+    }
+  </script>
+</body>
+</html>

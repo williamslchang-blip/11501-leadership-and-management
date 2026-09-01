@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W11 團隊建立與團隊領導：明星員工能組成明星團隊嗎？</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            },
+            purpleTheme: {
+              500: '#a855f7',
+              600: '#9333ea',
+              700: '#7e22ce',
+              900: '#581c87',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #4f46e5 !important;
+      background-color: #eef2ff !important;
+      box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-health, #section-maincase, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-indigo-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-people-group text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">W11 ‧ 11/15 授課</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W11：From Individuals to Teams 團隊建立與團隊領導</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-indigo-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">27頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W10_領導溝通與有效傾聽_為什麼我說的和聽到的不一樣.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W10">
+            <i class="fa-solid fa-arrow-left"></i> W10
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-indigo-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 明星隊伍投票</a>
+        <a href="#section-activity1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 Group vs Team</a>
+        <a href="#section-tuckman" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 Tuckman五階段</a>
+        <a href="#section-case1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 跨部門Storming</a>
+        <a href="#section-roles" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 角色規範與搭便車</a>
+        <a href="#section-safety" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 心理安全感</a>
+        <a href="#section-maincase" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 高手團隊失敗個案</a>
+        <a href="#section-health" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 團隊健康雷達圖</a>
+        <a href="#section-debrief" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">11 六大收束</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">12 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、Tuckman 動態干預法、Google 心理安全感量表與高手團隊個案破題重點。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W11 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-indigo-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-900/80 border border-indigo-700 text-indigo-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+          <span>Week 11 ‧ 第二階段：團隊領導 (Leading Teams)</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          From Individuals to Teams<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-indigo-300 to-purple-300">
+            團隊建立與團隊領導：明星員工能組成明星團隊嗎？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「如果每個人能力都很好，為什麼團隊績效還是可能很差？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          前五週我們專注於「帶好每位個人（Leading Individuals）」。本週正式邁入<strong>第二階段：團隊層次（Leading Teams）</strong>！帶好個人，絕不等於自然誕生高績效團隊。探索 <strong>Group vs. Team、Process Gain vs. Process Loss、Tuckman 發展五階段、心理安全感 (Psychological Safety)</strong>，以及防止<strong>搭便車 (Social Loafing)</strong> 的團隊設計！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-health" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie text-gold-400"></i> 團隊健康雷達自評
+          </a>
+          <a href="#section-maincase" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-people-robbery"></i> 高手團隊失敗個案
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 9 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">從一對一走向團隊生態系統</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              高績效團隊並非個人能力的簡單加總：<br>
+              <strong class="text-indigo-900">Team Performance ＝ Σ Individual Performance ＋ Process Gain － Process Loss</strong>
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-indigo-50/70 border border-indigo-200/70 text-xs font-semibold text-indigo-950 space-y-1.5">
+            <div class="font-bold text-indigo-700 flex items-center gap-1.5"><i class="fa-solid fa-users"></i> 本週金句心法：</div>
+            <p>Individual Excellence ≠ Team Excellence. 最強的人不一定組成最強的團隊！</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 9 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">區分 Group 與 Team：</strong>掌握 Shared Goal、Interdependence 與 Mutual Accountability。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">掌握過程損益機制：</strong>放大 Process Gain（創意/互補），消除 Process Loss（內耗/協調成本）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">Tuckman 發展五階段：</strong>Forming ➔ Storming ➔ Norming ➔ Performing ➔ Adjourning。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">動態調整主管角色：</strong>在不同發展階段提供 Direction、Facilitation、Alignment 與 Empowerment。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">化解 Storming 陣痛：</strong>體會 Don't eliminate conflict, make conflict productive。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">塑造團隊 Norms 與角色：</strong>消除模糊地帶，建立主動當責的非正式文化規範。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">杜絕搭便車 (Social Loafing)：</strong>設計可見貢獻、適當規模與同儕當責機制。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">建立 Psychological Safety：</strong>營造「可以承認錯誤、表達不同意見而不受懲罰」的安全氛圍。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100 sm:col-span-2">
+              <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0 mt-0.5">9</div>
+              <div><strong class="text-slate-900">繪製 Team Health 雷達圖：</strong>為自己團隊進行 8 大維度健康體檢並鎖定核心瓶頸。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W11 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：五個明星員工＝明星團隊？</strong><div class="text-xs text-slate-500">夢幻隊迷思：當每個人都習慣當主角，團隊會發生什麼事？</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">投票＋討論</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：Group or Team?（4 情境精準分類）</strong><div class="text-xs text-slate-500">專櫃人員 vs 手術團隊 vs 大學教授 vs 研發小組</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">情境判斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-activity1" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">30–50 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：Process Gain vs. Process Loss</strong><div class="text-xs text-slate-500">Team Performance ＝ Σ Individual ＋ Gain － Loss</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">核心理論講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-activity1" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">50–75 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：Tuckman 團隊發展階段（Forming 到 Performing）</strong><div class="text-xs text-slate-500">Forming ➔ Storming ➔ Norming ➔ Performing ➔ Adjourning</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">理論＋矩陣對照</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-tuckman" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">75–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：新成立的跨部門專案團隊（Storming 應對）</strong><div class="text-xs text-slate-500">IT、行銷、財務、HR 互噴；Don't eliminate conflict, make it productive</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">個案研討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-case1" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">100–120 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 3：Roles、Norms、Social Loafing（搭便車防範）</strong><div class="text-xs text-slate-500">文化不是寫在牆上，而是活在潛規則裡；5大搭便車防範機制</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">機制解析</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-roles" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">120–140 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 4：Psychological Safety（大家為什麼不說話？）</strong><div class="text-xs text-slate-500">Google 亞里斯多德計畫：心理安全感不等於 Nice，而是安全說真話</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">深度探討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-safety" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">140–160 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Main Case：高手很多，為什麼團隊失敗？</strong><div class="text-xs text-slate-500">全明星策略小組內耗潰敗；8大根因診斷與 3 大優先對策</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">分組決策</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-maincase" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">160–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 2：Team Health Check（團隊健康雷達評估）</strong><div class="text-xs text-slate-500">8大維度即時雷達圖評估，找出團隊最致命的兩大短板</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-900 font-bold">動態雷達診斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-health" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>教師 Debrief：六大核心 Takeaways</strong><div class="text-xs text-slate-500">Group≠Team / 個體卓越≠團隊卓越 / 衝突是成長必經 / 規範塑造行為 / 共同當責</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800 font-bold">核心提煉</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-debrief" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-indigo-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-indigo-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>One-Minute Paper：課堂即時反思卡</strong><div class="text-xs text-slate-500">3 題精簡反思 ＋ 課後職場會議觀察微實驗</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-100 text-gold-900">課末收束</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 明星隊伍投票 -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">五個明星員工 ＝ 明星團隊？</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          先問全班：「如果要成立重要專案，你會把各部門最頂尖的五個人全部抓進來嗎？」當五個人都是頂尖高手、習慣當主角、各有主見時，團隊往往會出現<strong>搶主導權、互不妥協、本位防備、資訊封閉與權責互推</strong>。點出：<strong>Individual Excellence ≠ Team Excellence</strong>！
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-indigo-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-800 bg-indigo-100 px-2.5 py-0.5 rounded">全明星夢幻隊的假設</span>
+            <i class="fa-solid fa-star text-gold-500 text-lg"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">假設：5 位成員皆為各部門業績第一、高學歷、資歷深、主見極強</h3>
+          <div class="space-y-2 text-xs">
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="star-vote" value="A" class="text-indigo-600">
+              <span><strong>A.</strong> 當然會！最強陣容必定橫掃千軍</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="star-vote" value="B" class="text-indigo-600">
+              <span><strong>B.</strong> 會選大部分，但會留一兩個協調型人才</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="star-vote" value="C" class="text-indigo-600">
+              <span><strong>C.</strong> 不一定，強者相碰往往內耗極大</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="star-vote" value="D" class="text-indigo-600">
+              <span><strong>D.</strong> 反而不會！寧可要互補與高默契團隊</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-bold text-rose-800 bg-rose-100 px-2.5 py-0.5 rounded">強者組合的致命危機</span>
+            <h3 class="text-base font-bold text-slate-900 mt-2">當每個人都習慣「我是最重要的人」時：</h3>
+            <ul class="text-xs text-slate-600 space-y-1.5 mt-2 list-disc list-inside">
+              <li>爭奪話語權與主導地位，會議演變為權力博弈</li>
+              <li>不願妥協或承認錯誤，深怕失去專業面子</li>
+              <li>隱藏關鍵資訊以鞏固自身籌碼</li>
+              <li>出了問題立即本位防守，推卸給其他部門</li>
+            </ul>
+          </div>
+          <div class="p-3 bg-slate-900 text-gold-300 rounded-xl text-xs font-bold text-center">
+            A group of stars is not a star team. 明星群體不等於明星團隊！
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–50分 Activity 1 Group vs Team ＆ 過程損益模型 -->
+    <section id="section-activity1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">15–50 min 觀念釐清</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Group or Team? ＆ 團隊過程損益模型</h2>
+        </div>
+      </div>
+
+      <!-- Group vs Team Comparison Table -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+          <h3 class="text-base font-bold text-slate-900">群體 (Group) vs. 團隊 (Team) 三大黃金判準</h3>
+          <span class="text-xs text-indigo-800 font-bold bg-indigo-50 px-2.5 py-1 rounded-full">你現在帶的是哪一種？</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <strong class="text-slate-900 font-bold text-sm flex items-center gap-1.5"><i class="fa-solid fa-user-group text-slate-600"></i> 工作群體 (Group)</strong>
+            <ul class="text-slate-600 space-y-1">
+              <li>🎯 <strong>目標：</strong>各自追求個人目標 (Individual goals)</li>
+              <li>⚖️ <strong>當責：</strong>各自對自己的績效負責 (Individual accountability)</li>
+              <li>🔗 <strong>依賴：</strong>各自獨立工作 (Independent work)</li>
+              <li>📦 <strong>產出：</strong>個人產出的簡單加總 (Individual output)</li>
+            </ul>
+          </div>
+
+          <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
+            <strong class="text-indigo-950 font-bold text-sm flex items-center gap-1.5"><i class="fa-solid fa-users-gear text-indigo-600"></i> 真實團隊 (Team)</strong>
+            <ul class="text-indigo-900 space-y-1">
+              <li>🎯 <strong>目標：</strong>追求明確共同目標 (Shared goal)</li>
+              <li>⚖️ <strong>當責：</strong>成敗共同承擔 (Mutual accountability)</li>
+              <li>🔗 <strong>依賴：</strong>高度互賴與緊密協同 (Interdependent work)</li>
+              <li>📦 <strong>產出：</strong>大於個人加總的集體成果 (Collective output)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4 Scenario Checkers -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pt-2">
+          <div class="p-2.5 bg-slate-100 rounded-lg text-center"><strong>A. 百貨專櫃人員</strong><div class="text-[10px] text-slate-500 mt-0.5">➔ 典型 Group</div></div>
+          <div class="p-2.5 bg-indigo-100 text-indigo-950 rounded-lg text-center font-bold"><strong>B. 醫院手術團隊</strong><div class="text-[10px] text-indigo-700 mt-0.5">➔ 典型 Team</div></div>
+          <div class="p-2.5 bg-slate-100 rounded-lg text-center"><strong>C. 大學同系教授</strong><div class="text-[10px] text-slate-500 mt-0.5">➔ 典型 Group</div></div>
+          <div class="p-2.5 bg-indigo-100 text-indigo-950 rounded-lg text-center font-bold"><strong>D. 新產品開發小組</strong><div class="text-[10px] text-indigo-700 mt-0.5">➔ 典型 Team</div></div>
+        </div>
+      </div>
+
+      <!-- Process Gain vs Process Loss Formula -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-4">
+        <div class="p-4 rounded-xl bg-slate-900 text-white text-center space-y-1">
+          <div class="text-xs text-gold-400 font-bold uppercase tracking-wider">團隊績效損益方程式</div>
+          <div class="font-mono text-sm sm:text-base font-extrabold text-white">
+            Team Performance ＝ Σ Individual ＋ Process Gain（綜效增益） － Process Loss（過程損耗）
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1">
+            <span class="font-bold text-emerald-950 flex items-center gap-1.5"><i class="fa-solid fa-plus text-emerald-600"></i> Process Gain (綜效增益)</span>
+            <p class="text-slate-600">跨領域知識互補、創意碰撞、工作互相掩護支援、集體除錯與決策品質提升。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 space-y-1">
+            <span class="font-bold text-rose-950 flex items-center gap-1.5"><i class="fa-solid fa-minus text-rose-600"></i> Process Loss (過程損耗)</span>
+            <p class="text-slate-600">溝通協調成本高昂、政治角力、惡性衝突、資訊封閉、搭便車 (Social Loafing)。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 50–75分 核心理論 2：Tuckman 團隊發展階段 -->
+    <section id="section-tuckman" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">50–75 min 核心理論矩陣</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Tuckman 團隊發展階段與主管領導任務</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 text-xs">
+        
+        <div class="p-4 bg-white rounded-2xl border-2 border-blue-200 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-blue-900 text-sm">1. Forming</span>
+              <span class="text-[10px] font-bold bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">形成期</span>
+            </div>
+            <p class="text-slate-600 mt-2 leading-relaxed">成員彼此客氣摸索、試探界線，但不清楚職責分工與決定機制。</p>
+          </div>
+          <div class="p-2.5 bg-blue-50 rounded-lg text-blue-950 font-bold border border-blue-200">
+            🎯 主管任務：<strong>Direction</strong>（設定結構與明確方向）
+          </div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border-2 border-rose-200 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-rose-900 text-sm">2. Storming</span>
+              <span class="text-[10px] font-bold bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded">風暴期</span>
+            </div>
+            <p class="text-slate-600 mt-2 leading-relaxed">出現意見分歧、權力爭奪、本位防衛與角色摩擦。這是團隊磨合的必經過程！</p>
+          </div>
+          <div class="p-2.5 bg-rose-50 rounded-lg text-rose-950 font-bold border border-rose-200">
+            🎯 主管任務：<strong>Facilitation</strong>（引導對話，化衝突為建設性）
+          </div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border-2 border-amber-200 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-amber-900 text-sm">3. Norming</span>
+              <span class="text-[10px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">規範期</span>
+            </div>
+            <p class="text-slate-600 mt-2 leading-relaxed">建立清晰角色分工、信任與運作常規，凝聚「我們團隊如何協作」的共識。</p>
+          </div>
+          <div class="p-2.5 bg-amber-50 rounded-lg text-amber-950 font-bold border border-amber-200">
+            🎯 主管任務：<strong>Alignment</strong>（對齊目標與強化互信）
+          </div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border-2 border-emerald-200 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-emerald-900 text-sm">4. Performing</span>
+              <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">表現期</span>
+            </div>
+            <p class="text-slate-600 mt-2 leading-relaxed">高度自主、自動協調、專注於共同目標與卓越成果。主管應減少微觀干預。</p>
+          </div>
+          <div class="p-2.5 bg-emerald-50 rounded-lg text-emerald-950 font-bold border border-emerald-200">
+            🎯 主管任務：<strong>Empowerment</strong>（充分授權與排除資源障礙）
+          </div>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border-2 border-purple-200 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-purple-900 text-sm">5. Adjourning</span>
+              <span class="text-[10px] font-bold bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded">解散期</span>
+            </div>
+            <p class="text-slate-600 mt-2 leading-relaxed">專案結束或組織改組，團隊解散。</p>
+          </div>
+          <div class="p-2.5 bg-purple-50 rounded-lg text-purple-950 font-bold border border-purple-200">
+            🎯 主管任務：<strong>Learning & Closure</strong>（成果認可與知識傳承）
+          </div>
+        </div>
+
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900 text-gold-300 text-xs font-serif italic text-center">
+        「不要試圖消滅衝突！沒有任何衝突的團隊，往往代表沒有人在講真話。」
+      </div>
+    </section>
+
+    <!-- SECTION 6: 75–90分 Mini Case 跨部門專案團隊 Storming -->
+    <section id="section-case1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">75–90 min 個案研討</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Mini Case：新成立的跨部門專案團隊</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              公司成立數位轉型專案團隊，成員包括 IT、行銷、財務、營運與 HR 五位主管。
+            </p>
+            <p>
+              第一次籌備會議大家非常客氣（Forming）；但到了第二次會議，現場直接演變成互相開火：
+            </p>
+            <div class="space-y-1.5 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200 text-slate-800">
+              <p>💻 <strong>IT 主管：</strong>「你們根本不了解底層系統限制，只會開天馬行空的需求！」</p>
+              <p>📢 <strong>行銷主管：</strong>「IT 永遠只會說『不能做』，到底有沒有在為客戶著想？！」</p>
+              <p>💰 <strong>財務主管：</strong>「預算根本不可能這樣花，ROI 算不出來就休想拿錢！」</p>
+              <p>👥 <strong>HR 主管：</strong>「你們從頭到尾都沒有考慮過前線同仁的學習曲線與接受度！」</p>
+            </div>
+            <div class="p-3 bg-slate-900 text-gold-300 rounded-xl text-xs font-serif italic">
+              專案負責人極度焦慮地向處長求助：「是不是我領導能力太差，才把團隊帶成這樣？」
+            </div>
+          </div>
+
+          <!-- Diagnostic Questions -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-question text-indigo-600"></i> 小組 4 大診斷題：
+            </h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q1.</strong> 這個團隊目前處在哪一個階段？（答：Storming）</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q2.</strong> 這些爭論是壞事嗎？（答：不是，代表開始碰觸真實痛點）</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q3.</strong> 若主管強力壓制「大家不要吵」，後果是什麼？（答：表面客氣、會後擺爛）</div>
+              <div class="p-2 bg-white rounded border border-slate-200 font-bold text-indigo-900"><strong>Q4.</strong> 主管下次會議第一件事該做什麼？（答：Facilitation，聚焦於 Shared Goal 並建立規範）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: 90–100分 中場休息 -->
+    <section id="section-break" class="rounded-2xl bg-gradient-to-r from-slate-800 to-indigo-950 text-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">90–100 min 中場休息</span>
+          <h3 class="text-lg font-bold">10 分鐘 咖啡補給與腦力沉澱</h3>
+          <p class="text-xs text-slate-300 mt-0.5">下半場將進入角色規範、心理安全感、高手團隊失敗個案與雷達健康診斷。</p>
+        </div>
+      </div>
+      <button onclick="startBreakTimer()" class="px-4 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs shadow transition flex items-center gap-2">
+        <i class="fa-solid fa-stopwatch"></i> 啟動10分鐘倒數
+      </button>
+    </section>
+
+    <!-- SECTION 8: 100–120分 核心理論 3：角色、規範與搭便車防範 -->
+    <section id="section-roles" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">100–120 min 機制解析</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Roles、Norms ＆ Social Loafing（搭便車防範）</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-id-card-clip text-indigo-600"></i> Team Roles (角色清晰)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            最常見的團隊悲劇是「我以為這是你負責」。清楚的角色不只包含工作事項，更包含<strong>決策權限 (Decision authority)、交付接口 (Interfaces) 與邊界責任</strong>。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-book-bookmark text-purple-600"></i> Team Norms (團隊常規)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            文化不是貼在牆上的標語，而是「我們這裡實際上怎麼做」。正式規定 9:00 開會，大家都 9:10 到，<strong>後者才是真實的 Norm！</strong>主管必須主動塑造健康常規。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <strong class="text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-bed text-rose-600"></i> Social Loafing (社會惰化)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            「為什麼分組報告永遠有人擺爛？」當個人貢獻不可被辨識、或責任分散時，個人努力會大幅下降。
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between text-xs sm:text-sm">
+        <div>
+          <span class="text-gold-400 font-bold">5大搭便車防範解法：</span>
+          <span class="text-slate-300 ml-2">明確個人角色 ‧ 貢獻可見化 ‧ 任務具備意義 ‧ 控制團隊規模 (4-6人) ‧ 同儕相互當責</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: 120–140分 核心理論 4：Psychological Safety 心理安全感 -->
+    <section id="section-safety" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">120–140 min 關鍵基石</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Psychological Safety（心理安全感：大家為什麼不說話？）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <span class="text-xs font-bold text-indigo-800 bg-indigo-100 px-2.5 py-0.5 rounded">Google Project Aristotle 亞里斯多德計畫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">決定團隊績效的第一關鍵因素不是成員背景，而是「心理安全感」！</h3>
+          <p class="text-xs text-slate-500 mt-0.5">我能不能在這個團隊裡提出問題、承認錯誤、表達不同意見，而不用擔心被羞辱、嘲諷或懲罰？</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          
+          <div class="p-5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-3">
+            <span class="font-bold text-rose-950 text-sm">❌ 低心理安全感團隊（恐懼文化）</span>
+            <ul class="text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>不懂裝懂，不敢問問題，深怕被認為不專業</li>
+              <li>隱瞞犯錯與風險，直到大災難爆發</li>
+              <li>會議一片死寂，主管說什麼都點頭稱是</li>
+              <li>主管常說：<strong>「這種事情你怎麼會不知道？！」</strong>（一句話扼殺發言）</li>
+            </ul>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-3">
+            <span class="font-bold text-emerald-950 text-sm">✅ 高心理安全感團隊（坦誠學習文化）</span>
+            <ul class="text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>敢於公開說：<strong>「我不知道」、「我需要幫忙」</strong></li>
+              <li>能即時通報：<strong>「我犯錯了，我們一起想辦法修正」</strong></li>
+              <li>能健康爭辯：<strong>「我不同意這個方案，因為有這三個風險」</strong></li>
+              <li>主管帶頭示弱，鼓勵建設性異見</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="p-3.5 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-950">
+          ⚠️ <strong>破除迷思：</strong>心理安全感<strong>不等於大家都當好人 (Nice)</strong>，也<strong>不等於降低標準或不要求績效</strong>！它是在高績效標準下，賦予所有人講真話的勇氣與安全感。
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: 140–160分 Main Case 高手很多，為什麼團隊失敗？ -->
+    <section id="section-maincase" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">140–160 min 綜合個案決策</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Main Case：高手很多，為什麼團隊失敗？</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              某企業成立策略專案小組，5 位成員都是各部門表現最頂尖的一級主管。
+            </p>
+            <p>
+              三個月後，專案進度嚴重落後：每個人只顧防守自己部門利益、關鍵數據互不分享、會議上表面和氣點頭、會後私下抱怨互相甩鍋，也無人願意為錯誤決策負責。
+            </p>
+            <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-sm">
+              CEO 極為不解：「我明明把全公司最優秀的人都放進去了，為什麼會搞成這樣？！」
+            </div>
+            <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-950 space-y-1">
+              <strong>小組決策任務：</strong>假設你是新指派的專案 Leader，且只能先做 3 件事。你先做哪 3 件？請排出優先順序並說明理由！
+            </div>
+          </div>
+
+          <!-- 8 Dimensions Diagnostic Check -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-list-check text-indigo-600"></i> 8 大根因診斷清單：
+            </h4>
+            <div class="space-y-1.5 text-slate-700">
+              <div class="p-1.5 bg-white rounded border border-slate-200">1. Shared Goal（缺乏真正共同目標）</div>
+              <div class="p-1.5 bg-white rounded border border-slate-200">2. Role Clarity（權責邊界模糊）</div>
+              <div class="p-1.5 bg-white rounded border border-slate-200">3. Trust（缺乏互信與心理安全）</div>
+              <div class="p-1.5 bg-white rounded border border-slate-200">4. Communication（資訊孤島封閉）</div>
+              <div class="p-1.5 bg-white rounded border border-slate-200">5. Accountability（責任分散無人當責）</div>
+              <div class="p-1.5 bg-white rounded border border-slate-200">6. Norms（防衛性潛規則盛行）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: 160–170分 Activity 2 Team Health Check 雷達圖 -->
+    <section id="section-health" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+          <div>
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">160–170 min 動態雷達體檢</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 2：Team Health Check（團隊健康雷達評估）</h2>
+          </div>
+        </div>
+
+        <button onclick="saveHealthCheck()" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-floppy-disk"></i> 儲存評估結果
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="text-xs sm:text-sm text-slate-600">
+          請為您目前所在的工作團隊進行 8 大維度健康評估（1 分最低，5 分最高）：
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          
+          <!-- Rating Sliders -->
+          <div class="lg:col-span-7 space-y-3 text-xs">
+            
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">1. Shared Goal (共同目標)</span>
+              <input type="range" min="1" max="5" value="4" oninput="updateHealthChart()" id="th-1" class="w-2/5">
+              <span id="th-val-1" class="w-1/5 text-right font-mono font-bold text-indigo-600">4 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">2. Role Clarity (角色清晰)</span>
+              <input type="range" min="1" max="5" value="3" oninput="updateHealthChart()" id="th-2" class="w-2/5">
+              <span id="th-val-2" class="w-1/5 text-right font-mono font-bold text-indigo-600">3 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">3. Trust (信任度)</span>
+              <input type="range" min="1" max="5" value="3" oninput="updateHealthChart()" id="th-3" class="w-2/5">
+              <span id="th-val-3" class="w-1/5 text-right font-mono font-bold text-indigo-600">3 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">4. Communication (資訊暢通)</span>
+              <input type="range" min="1" max="5" value="4" oninput="updateHealthChart()" id="th-4" class="w-2/5">
+              <span id="th-val-4" class="w-1/5 text-right font-mono font-bold text-indigo-600">4 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">5. Psychological Safety (心理安全)</span>
+              <input type="range" min="1" max="5" value="2" oninput="updateHealthChart()" id="th-5" class="w-2/5">
+              <span id="th-val-5" class="w-1/5 text-right font-mono font-bold text-indigo-600">2 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">6. Accountability (相互當責)</span>
+              <input type="range" min="1" max="5" value="3" oninput="updateHealthChart()" id="th-6" class="w-2/5">
+              <span id="th-val-6" class="w-1/5 text-right font-mono font-bold text-indigo-600">3 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">7. Collaboration (跨界協作)</span>
+              <input type="range" min="1" max="5" value="4" oninput="updateHealthChart()" id="th-7" class="w-2/5">
+              <span id="th-val-7" class="w-1/5 text-right font-mono font-bold text-indigo-600">4 分</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 p-2 bg-slate-50 rounded-lg">
+              <span class="w-2/5 font-semibold text-slate-800">8. Constructive Conflict (建設性衝突)</span>
+              <input type="range" min="1" max="5" value="2" oninput="updateHealthChart()" id="th-8" class="w-2/5">
+              <span id="th-val-8" class="w-1/5 text-right font-mono font-bold text-indigo-600">2 分</span>
+            </div>
+
+          </div>
+
+          <!-- Radar Chart Canvas -->
+          <div class="lg:col-span-5 flex flex-col items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-200">
+            <div class="w-full max-w-[280px] h-[280px]">
+              <canvas id="teamHealthRadarChart"></canvas>
+            </div>
+            <div id="radar-summary-text" class="text-xs text-slate-600 font-semibold mt-2 text-center">
+              ⚠️ 最低短板：心理安全感、建設性衝突
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: 170–175分 教師 Debrief 六大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">170–175 min 理論提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週六大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+        
+        <div class="p-4 rounded-2xl bg-white border border-indigo-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+          <h4 class="font-bold text-slate-900">群體 ≠ 團隊</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">A group is not automatically a team.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-indigo-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+          <h4 class="font-bold text-slate-900">個體卓越 ≠ 團隊卓越</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Individual Excellence ≠ Team Excellence.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-indigo-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+          <h4 class="font-bold text-slate-900">衝突是成長必經</h4>
+          <p class="text-slate-600 leading-relaxed">No conflict may mean no honest discussion.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-indigo-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs font-bold">4</div>
+          <h4 class="font-bold text-slate-900">規範塑造真實行為</h4>
+          <p class="text-slate-600 leading-relaxed">Norms shape behavior far more than rules.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-indigo-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-teal-600 text-white flex items-center justify-center text-xs font-bold">5</div>
+          <h4 class="font-bold text-slate-900">心理安全感賦予發聲</h4>
+          <p class="text-slate-600 leading-relaxed">Psychological safety enables voice and innovation.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-indigo-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">6</div>
+          <h4 class="font-bold text-slate-900">高績效建立在共同當責</h4>
+          <p class="text-slate-600 leading-relaxed">High-performing teams require mutual accountability.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 13: 175–180分 One-Minute Paper 反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 text-xs flex items-center justify-center font-bold">1</span>
+              你目前所在的團隊，最接近 Tuckman 的哪一個階段（Forming, Storming, Norming, Performing）？為什麼？
+            </label>
+            <textarea id="paper-w11-q1" rows="3" placeholder="例如：我們目前卡在 Storming！各部門表面客氣但私下互相甩鍋，大家不敢開誠布公討論流程問題..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 text-xs flex items-center justify-center font-bold">2</span>
+              在 Team Health Check 中，你的團隊得分最低的是哪兩項？這對團隊績效造成了什麼阻礙？
+            </label>
+            <textarea id="paper-w11-q2" rows="3" placeholder="例如：得分最低的是『心理安全感』和『建設性衝突』，導致會議中大家都在迎合主管，沒人敢說出真話..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 text-xs flex items-center justify-center font-bold">3</span>
+              如果你是這個團隊的 Leader，你下一步最需要改變或推動哪一個管理行為？
+            </label>
+            <textarea id="paper-w11-q3" rows="3" placeholder="例如：我會先公開承認自己也有盲點，並在下次會議主動詢問：『有沒有人看到這個方案有什麼潛在風險？』營造安全的發聲環境..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Homework Callout -->
+          <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-950 space-y-1">
+            <strong class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-binoculars"></i> 本週課後微觀察（為 W12「衝突管理與談判」鋪路）：</strong>
+            <p>回到工作場所觀察一次會議，記錄三件事：① 誰講話最多？② 誰幾乎不說話？③ 當有人提出異見時，主管的第一反應是什麼？問自己：團隊是沒有不同意見，還是不敢說出來？</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交 W11 反思紀錄
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ W11 團隊建立與團隊領導</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>學習演進：個人領導 ➔ 帶領他人 ➔ 激勵動機 ➔ 領導溝通 ➔ 團隊領導 ➔ 衝突談判</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘開場破冰思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘Group vs Team分類')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘小組</button>
+        <button onclick="setTimerDuration(20, '20分鐘高手團隊失敗個案決策')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">20 分鐘個案</button>
+        <button onclick="setTimerDuration(40, '40分鐘團隊發展與安全感講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-indigo-700 hover:bg-indigo-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 27-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W11 團隊建立與團隊領導 (27頁簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 27</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W11 Presentation Slide Deck (27 Slides) =================
+    const w11SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "From Individuals to Teams", sub: "團隊建立與團隊領導 ‧ 碩士在職專班 W11", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-indigo-300 to-purple-300'>From Individuals to Teams</div><p class='text-slate-400 text-sm'>明星員工能組成明星團隊嗎？</p></div>", notes: "開場破題，正式跨入團隊層次。" },
+      { num: 2, cat: "P2 核心提問", title: "本週核心大哉問", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「如果每個人能力都很好，<br>為什麼團隊績效還是可能很差？」</h2></div>", notes: "打破全明星神話。" },
+      { num: 3, cat: "P3–4 五個明星", title: "五個明星員工的情境", sub: "高績效 ‧ 高學歷 ‧ 經驗豐富 ‧ 很有主見", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>當大家都習慣當主角，誰來當配角？誰來妥協？誰來為大局犧牲？</p></div>", notes: "引發同學共鳴。" },
+      { num: 4, cat: "P3–4 五個明星", title: "明星群體 ＝ 明星團隊？", sub: "搶主導權、不願妥協、資訊封閉、互推責任", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-lg font-bold text-rose-400'>Individual Excellence ≠ Team Excellence</h4><p>最強的人不一定組成最強的團隊！</p></div>", notes: "核心理論觀念。" },
+      { num: 5, cat: "P5–6 分類判斷", title: "Activity 1：Group or Team?", sub: "專櫃 ‧ 手術 ‧ 教授 ‧ 研發", body: "<div class='grid grid-cols-2 gap-2 max-w-xl mx-auto text-xs'><div class='p-3 bg-slate-900 rounded-lg'>專櫃人員 ➔ Group</div><div class='p-3 bg-indigo-950 rounded-lg border border-indigo-700'>手術團隊 ➔ Team</div><div class='p-3 bg-slate-900 rounded-lg'>同系教授 ➔ Group</div><div class='p-3 bg-indigo-950 rounded-lg border border-indigo-700'>研發小組 ➔ Team</div></div>", notes: "檢驗三標準。" },
+      { num: 6, cat: "P5–6 分類判斷", title: "團隊的三大黃金檢驗標準", sub: "Shared Goal ‧ Interdependence ‧ Mutual Accountability", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>① 有沒有共同目標？ ② 是否高度互賴？ ③ 成敗是否共同承擔？</p></div>", notes: "界定 Team 的真諦。" },
+      { num: 7, cat: "P7 概念對照", title: "Group vs. Team 深度對比", sub: "獨立產出 vs 集體協同", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-slate-900 rounded-xl'><strong class='text-slate-400'>工作群體 (Group)</strong><p class='text-[11px] mt-1'>個人目標、各自負責、獨立作業</p></div><div class='p-4 bg-indigo-950/60 rounded-xl border border-indigo-700'><strong class='text-indigo-300'>真實團隊 (Team)</strong><p class='text-[11px] mt-1'>共同目標、集體當責、高度互賴</p></div></div>", notes: "一覽兩者差異。" },
+      { num: 8, cat: "P8 卓越非加總", title: "團隊績效不是個人加總", sub: "帶好個人 ≠ 帶好團隊", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>團隊涉及角色、規範、信任、互賴、衝突與心理安全感。</p></div>", notes: "銜接個人到團隊。" },
+      { num: 9, cat: "P9 損益模型", title: "Process Gain vs. Process Loss", sub: "團隊績效方程式", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 font-mono text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-white'>Team ＝ Σ Individual ＋ Gain － Loss</h4><p class='text-[11px] text-slate-400'>團隊可以產生巨大綜效，也可能因內耗而低於個人總和。</p></div>", notes: "講授過程損益。" },
+      { num: 10, cat: "P10 Tuckman全貌", title: "Tuckman 團隊發展階段全貌", sub: "Forming ➔ Storming ➔ Norming ➔ Performing ➔ Adjourning", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>團隊不是一夕建成的，必須歷經演進與震盪。</p></div>", notes: "五階段總覽。" },
+      { num: 11, cat: "P11 Forming", title: "1. Forming (形成期)", sub: "客氣摸索 ‧ 試探界線", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-blue-400'>主管任務：Direction</h4><p>設定目標、清晰職責與基本架構。</p></div>", notes: "形成期。" },
+      { num: 12, cat: "P12 Storming", title: "2. Storming (風暴期)", sub: "意見分歧 ‧ 權力摩擦 ‧ 本位防衛", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-rose-400'>主管任務：Facilitation</h4><p>引導建設性衝突，絕不要暴力壓制！</p></div>", notes: "風暴期最重要。" },
+      { num: 13, cat: "P13 Norming", title: "3. Norming (規範期)", sub: "建立常規 ‧ 形成信任 ‧ 角色對齊", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-amber-400'>主管任務：Alignment</h4><p>對齊共同做事規範與工作節奏。</p></div>", notes: "規範期。" },
+      { num: 14, cat: "P14 Performing", title: "4. Performing (表現期)", sub: "自主協同 ‧ 高度產出 ‧ 專注目標", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-emerald-400'>主管任務：Empowerment</h4><p>充分授權，排除外部障礙與資源支援。</p></div>", notes: "表現期。" },
+      { num: 15, cat: "P15 Adjourning", title: "5. Adjourning (解散期)", sub: "專案結案 ‧ 團隊改組", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-purple-400'>主管任務：Learning & Closure</h4><p>成果表揚、復盤學習與知識交接。</p></div>", notes: "解散期。" },
+      { num: 16, cat: "P16 階段對照", title: "團隊階段 × 領導風格整合矩陣", sub: "Direction ➔ Facilitation ➔ Alignment ➔ Empowerment", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>領導行為必須隨團隊成熟度動態演進！</p></div>", notes: "總結 Tuckman。" },
+      { num: 17, cat: "P17–18 跨部門案例", title: "Mini Case：跨部門專案開撕", sub: "IT、行銷、財務、HR 互噴", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>第二次會議衝突爆發，主管焦慮是否帶不好？</p><p class='text-gold-300 font-bold'>診斷：團隊正式進入 Storming！衝突是成長的必經代價。</p></div>", notes: "案例研討。" },
+      { num: 18, cat: "P17–18 跨部門案例", title: "Don't eliminate conflict", sub: "Make conflict productive", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>聚焦於 Task Conflict（任務與方案），避免惡化為 Relationship Conflict（人身攻擊）。</p></div>", notes: "衝突轉化。" },
+      { num: 19, cat: "P19 角色清單", title: "Team Roles：清楚的邊界", sub: "防止「我以為這是你負責」", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>界定決策權限、工作邊界與跨部門接口。</p></div>", notes: "角色設計。" },
+      { num: 20, cat: "P20 團隊常規", title: "Team Norms：非正式潛規則", sub: "文化活在每天的行為裡", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>塑造敢於發問、準時開會、主動補位的健康規範。</p></div>", notes: "常規塑形。" },
+      { num: 21, cat: "P21 搭便車防範", title: "Social Loafing：防範搭便車", sub: "社會惰化的人性機制", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>個人貢獻可見化 ＋ 控制團隊規模 ＋ 同儕相互當責。</p></div>", notes: "搭便車解法。" },
+      { num: 22, cat: "P22 心理安全感", title: "Psychological Safety：心理安全感", sub: "Google 亞里斯多德計畫的第一關鍵", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-teal-300'>可以安全說真話、承認錯誤而不受懲罰</h4></div>", notes: "心理安全感。" },
+      { num: 23, cat: "P23 沉默效應", title: "Silence ≠ Agreement", sub: "破壞安全感的一句話", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p class='text-rose-400 font-bold'>「這種事你怎會不知道？！」➔ 下次部屬選擇閉嘴！</p></div>", notes: "主管語言警示。" },
+      { num: 24, cat: "P24–25 高手團隊失敗", title: "Main Case：高手很多，為何團隊失敗？", sub: "全明星策略小組潰敗", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>各懷鬼胎、本位防守、互相甩鍋。Leader 該如何排序前三項挽救對策？</p></div>", notes: "個案決策。" },
+      { num: 25, cat: "P24–25 高手團隊失敗", title: "共同目標 ＆ 心理安全感的重建", sub: "從本位走向當責", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>重塑共同勝利標準，建立跨部門共享利益與信任。</p></div>", notes: "個案收束。" },
+      { num: 26, cat: "P26 健康體檢", title: "Team Health Check", sub: "8 大維度雷達體檢", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-400'>找出團隊最致命的兩大短板</h4></div>", notes: "體檢雷達圖。" },
+      { num: 27, cat: "P27 收束反思", title: "Six Takeaways ＆ 課末反思", sub: "團隊領導六大核心", body: "<div class='space-y-1 max-w-xl mx-auto text-xs text-slate-300'><p>1. 群體 ≠ 團隊（需要共同目標與互賴）</p><p>2. 個體卓越 ≠ 團隊卓越</p><p>3. 衝突是成長必經（Storming 需引導）</p><p>4. 規範塑造行為</p><p>5. 心理安全感是基石</p><p>6. 高績效需要共同當責</p></div>", notes: "宣布放映結束。" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w11SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w11SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w11SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w11SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Chart =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+    let radarChartInstance = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW11State();
+      initRadarChart();
+      updateHealthChart();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function initRadarChart() {
+      const ctx = document.getElementById('teamHealthRadarChart');
+      if (!ctx) return;
+      radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['共同目標', '角色清晰', '信任度', '資訊溝通', '心理安全', '相互當責', '跨界協作', '建設衝突'],
+          datasets: [{
+            label: '團隊健康度',
+            data: [4, 3, 3, 4, 2, 3, 4, 2],
+            backgroundColor: 'rgba(99, 102, 241, 0.25)',
+            borderColor: 'rgba(99, 102, 241, 0.9)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+            pointRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 5,
+              ticks: { stepSize: 1, display: false },
+              pointLabels: { font: { size: 10, family: 'Plus Jakarta Sans' } }
+            }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function updateHealthChart() {
+      const vals = [];
+      const labels = ['共同目標', '角色清晰', '信任度', '資訊溝通', '心理安全', '相互當責', '跨界協作', '建設衝突'];
+      for (let i = 1; i <= 8; i++) {
+        const elem = document.getElementById(`th-${i}`);
+        const v = elem ? parseInt(elem.value, 10) : 3;
+        vals.push(v);
+        const textElem = document.getElementById(`th-val-${i}`);
+        if (textElem) textElem.innerText = `${v} 分`;
+      }
+      if (radarChartInstance) {
+        radarChartInstance.data.datasets[0].data = vals;
+        radarChartInstance.update();
+      }
+
+      // Find lowest 2
+      const indexed = vals.map((v, i) => ({ v, name: labels[i] }));
+      indexed.sort((a, b) => a.v - b.v);
+      const lowestText = `⚠️ 最低短板：${indexed[0].name} (${indexed[0].v}分)、${indexed[1].name} (${indexed[1].v}分)`;
+      const summaryElem = document.getElementById('radar-summary-text');
+      if (summaryElem) summaryElem.innerText = lowestText;
+      saveW11State();
+    }
+
+    function saveHealthCheck() {
+      saveW11State();
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 60, origin: { y: 0.8 } });
+      alert('Team Health Check 團隊健康雷達評估已成功儲存至本機！');
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW11State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+      alert('W11 One-Minute Paper 反思卡提交成功！已儲存至本機。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w11-q1').value;
+      const q2 = document.getElementById('paper-w11-q2').value;
+      const q3 = document.getElementById('paper-w11-q3').value;
+      const text = `【碩士在職專班 領導與管理 W11 反思卡】\n` +
+        `Q1. 團隊目前所處階段 (Tuckman)：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 健康體檢最低之兩項維度：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 下一步最需改變的領導行為：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W11 反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function startBreakTimer() {
+      toggleTimerModal();
+      setTimerDuration(10, '10分鐘中場休息倒數');
+      startTimer();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW11State() {
+      const vals = {};
+      for (let i = 1; i <= 8; i++) {
+        const elem = document.getElementById(`th-${i}`);
+        vals[`th${i}`] = elem ? elem.value : '3';
+      }
+      const state = {
+        ratings: vals,
+        q1: document.getElementById('paper-w11-q1') ? document.getElementById('paper-w11-q1').value : '',
+        q2: document.getElementById('paper-w11-q2') ? document.getElementById('paper-w11-q2').value : '',
+        q3: document.getElementById('paper-w11-q3') ? document.getElementById('paper-w11-q3').value : '',
+      };
+      localStorage.setItem('LM_W11_State', JSON.stringify(state));
+    }
+
+    function restoreW11State() {
+      try {
+        const raw = localStorage.getItem('LM_W11_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.ratings) {
+          for (let i = 1; i <= 8; i++) {
+            if (s.ratings[`th${i}`] && document.getElementById(`th-${i}`)) {
+              document.getElementById(`th-${i}`).value = s.ratings[`th${i}`];
+            }
+          }
+        }
+        if (s.q1 && document.getElementById('paper-w11-q1')) document.getElementById('paper-w11-q1').value = s.q1;
+        if (s.q2 && document.getElementById('paper-w11-q2')) document.getElementById('paper-w11-q2').value = s.q2;
+        if (s.q3 && document.getElementById('paper-w11-q3')) document.getElementById('paper-w11-q3').value = s.q3;
+      } catch (e) { console.error('Failed to restore W11 state:', e); }
+    }
+  </script>
+</body>
+</html>

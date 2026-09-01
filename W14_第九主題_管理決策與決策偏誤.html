@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W14 管理決策與決策偏誤：為什麼好主管也會做錯決策？</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+              950: '#083344',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #0891b2 !important;
+      background-color: #ecfeff !important;
+      box-shadow: 0 4px 6px -1px rgba(8, 145, 178, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-tools, #section-maincase, #section-check, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-cyan-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-brain text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">W14 ‧ 12/6 授課</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W14：Why Good Leaders Make Bad Decisions 管理決策與決策偏誤</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-cyan-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">29頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W13_權力影響力與組織政治_沒有職權也能領導嗎.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W13">
+            <i class="fa-solid fa-arrow-left"></i> W13
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-cyan-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 經驗迷思投票</a>
+        <a href="#section-experiments" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 3大偏誤實驗</a>
+        <a href="#section-bounded" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 有限理性Heuristics</a>
+        <a href="#section-biases" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 錨定確認過度自信</a>
+        <a href="#section-sunkcost" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 沉沒成本8000萬</a>
+        <a href="#section-groupthink" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 群體盲思Groupthink</a>
+        <a href="#section-tools" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 決策除錯3大工具</a>
+        <a href="#section-maincase" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 2億投資停損個案</a>
+        <a href="#section-check" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">11 主管決策6大自檢</a>
+        <a href="#section-debrief" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">12 六大收束</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">13 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、Bounded Rationality 滿意解心法、Sunk Cost 陷阱引導與 Pre-mortem 逆向除錯策略。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W14 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-cyan-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-cyan-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-cyan-900/80 border border-cyan-700 text-cyan-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span>Week 14 ‧ 第 9 主題模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Why Good Leaders Make Bad Decisions<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-cyan-300 to-blue-300">
+            管理決策與決策偏誤：為什麼好主管也會做錯決策？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「即使你有權力、有影響力，大家都願意聽你的，你的決定就一定是對的嗎？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          當你終於具備了領導影響力，決定本身是否可靠？本週深入剖析：<strong>Bounded Rationality (有限理性) 與 Heuristics、錨定偏誤 (Anchoring)、確認偏誤 (Confirmation Bias)、過度自信 (Overconfidence)、沉沒成本 (Sunk Cost) 與承諾升級 (Escalation of Commitment)、群體盲思 (Groupthink)</strong>，並掌握 <strong>Pre-mortem (事前驗屍法)</strong> 與 <strong>Managerial Decision Check</strong> 決策除錯機制！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-tools" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-shield-virus text-gold-400"></i> Pre-mortem 事前驗屍法
+          </a>
+          <a href="#section-maincase" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-hand-holding-dollar"></i> 2 億投資停損個案
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與學習目標</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 10 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">設計容錯的決策防呆系統</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              <strong class="text-cyan-950">Decision ➔ Bounded Rationality ➔ Bias ➔ Escalation ➔ Groupthink ➔ Debiasing</strong><br>
+              好主管不是宣稱自己永遠不犯錯，而是設計一套「讓錯誤與偏誤容易被提早發現」的決策流程！
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-cyan-50/70 border border-cyan-200/70 text-xs font-semibold text-cyan-950 space-y-1.5">
+            <div class="font-bold text-cyan-700 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb"></i> 本週金句心法：</div>
+            <p>Smart people are still biased. 聰明與經驗，無法免疫於認知偏誤！</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 10 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">理解有限理性 (Bounded Rationality)：</strong>掌握資訊不全、時間緊迫下的滿意解 (Satisficing)。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">認識思考捷徑 (Heuristics)：</strong>理解啟發式雖能快速決策，但會帶來系統性盲點。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">辨識錨定偏誤 (Anchoring Bias)：</strong>避免被第一筆數字或初始印象過度制約。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">破除確認偏誤 (Confirmation Bias)：</strong>不再只尋找支持自己看法的證據，學會主動尋找反證。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">警惕過度自信 (Overconfidence)：</strong>辨識「做20年了不可能錯」的確定感與準確度落差。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">切割沉沒成本 (Sunk Cost)：</strong>過去已發生的投入，絕不應成為繼續浪費的理由。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">防止承諾升級 (Escalation of Commitment)：</strong>預設客觀停損機制 (Stop Rules)。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">瓦解群體盲思 (Groupthink)：</strong>主管延後表態，指定魔鬼代言人，打破假共識。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100 sm:col-span-2">
+              <div class="w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0 mt-0.5">9</div>
+              <div><strong class="text-slate-900">實踐 Pre-mortem 事前驗屍法：</strong>倒推未來失敗原因，並落實 6 題 Managerial Decision Check。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W14 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：經驗越多，決策越好嗎？</strong><div class="text-xs text-slate-500">20年經驗主管（90%把握）vs 調研數據（60%）；經驗是優勢還是偏誤？</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">快速實驗投票</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：你真的理性嗎？3 大心理決策實驗</strong><div class="text-xs text-slate-500">促銷定價錨定、東南亞報告確認偏誤、主管自評高於平均</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">個人實驗判斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-experiments" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">30–50 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：Rationality vs. Bounded Rationality</strong><div class="text-xs text-slate-500">有限理性四大限制、Satisficing 滿意解與 Heuristics 捷徑</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">核心理論講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-bounded" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">50–75 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：Anchoring、Confirmation、Overconfidence</strong><div class="text-xs text-slate-500">主管最常陷入的三大認知偏誤剖析與案例</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">偏誤矩陣解析</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-biases" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">75–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：已經花了8,000萬，怎麼可以停？</strong><div class="text-xs text-slate-500">新系統開發已超支且落後；沉沒成本陷阱思辨</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">個案研討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-sunkcost" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">100–120 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 3：Sunk Cost ＆ 承諾升級 (Escalation)</strong><div class="text-xs text-slate-500">加碼護短心理機制；預設停損規則 (Pre-defined Stop Rules)</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">機制剖析</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-sunkcost" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">120–140 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 4：Groupthink（一群聰明人為何一起做錯決策？）</strong><div class="text-xs text-slate-500">主管太早表態、假共識、反對者噤聲；Junior 先講、主管最後發言</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">盲思拆解</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-groupthink" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">140–155 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>決策除錯三大工具：Devil's Advocate ＆ Pre-mortem</strong><div class="text-xs text-slate-500">魔鬼代言人、反向假設 (Consider the Opposite)、事前驗屍法</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 font-bold">工具演練</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-tools" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">155–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Main Case：繼續投資，還是停損？（2億虧損個案）</strong><div class="text-xs text-slate-500">新市場副總求再給2年 vs CFO要求停損；3階段反向辯護與驗屍</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">分組決策</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-maincase" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Managerial Decision Check ＆ 教師 Debrief 六大收束</strong><div class="text-xs text-slate-500">6 題決策自檢 ＋ 聰明仍有偏誤、經驗非絕對、決策系統最關鍵</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-800 font-bold">核心提煉</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-check" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-cyan-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-cyan-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>One-Minute Paper：課堂即時反思卡</strong><div class="text-xs text-slate-500">3 題精簡反思 ＋ 課後職場決策除錯微作業</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-100 text-gold-900">課末收束</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-cyan-600 hover:text-cyan-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 經驗越多，決策越好嗎？ -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">經驗越多，決策就一定越好嗎？</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          先給出情境：新服務成功機率市場調研顯示 60%，但 20 年經驗主管極有信心地說：「我做這個產業 20 年了，至少有 90% 把握！」請全班投票該相信誰。追問：<strong>「經驗是優勢，還是可能成為盲點？」</strong>點出：<strong>Experience improves judgment—until experience becomes certainty！</strong>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded">情境 A ‧ 客觀數據</span>
+            <i class="fa-solid fa-chart-line text-slate-400 text-lg"></i>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            經過 3 個月嚴謹市場調研與 500 份問卷分析，模型預估新服務成功機率為 <strong>60%</strong>。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-cyan-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-cyan-800 bg-cyan-100 px-2.5 py-0.5 rounded">情境 B ‧ 主管直覺</span>
+            <i class="fa-solid fa-user-tie text-cyan-600 text-lg"></i>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            資深副總堅信：「我做這行 20 年了，直覺告訴我這絕對大賣，至少有 <strong>90%</strong> 成功率！」
+          </p>
+        </div>
+      </div>
+
+      <div class="p-3.5 bg-slate-900 text-gold-300 rounded-xl text-xs text-center font-serif italic">
+        真正危險的不是「我有經驗」，而是「因為我做20年了，所以我不可能看錯」的確定感陷阱！
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–30分 Activity 1 你真的理性嗎？3 大心理決策實驗 -->
+    <section id="section-experiments" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">15–30 min 快速心理實驗</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 1：你真的理性嗎？三大決策實驗</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">實驗 1：定價比較</strong>
+            <span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-bold">Anchoring</span>
+          </div>
+          <p class="text-slate-600">原價 NT$ 20,000，促銷特價 NT$ 12,900。你是否立刻覺得「超便宜」？</p>
+          <div class="p-2 bg-blue-50 text-blue-950 rounded font-bold">➔ 20,000 成為了大腦初始定錨點！</div>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">實驗 2：報告選擇</strong>
+            <span class="text-[10px] bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded font-bold">Confirmation</span>
+          </div>
+          <p class="text-slate-600">如果你很想進軍東南亞，面對「樂觀報告 A」與「風險報告 B」，你會先看哪一份？</p>
+          <div class="p-2 bg-purple-50 text-purple-950 rounded font-bold">➔ 大腦傾向先看支持自己看法的資料！</div>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900 text-sm">實驗 3：能力自評</strong>
+            <span class="text-[10px] bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded font-bold">Overconfidence</span>
+          </div>
+          <p class="text-slate-600">「你認為自己的領導管理能力高於全公司平均水準嗎？」</p>
+          <div class="p-2 bg-rose-50 text-rose-950 rounded font-bold">➔ 通常有 85% 以上的主管舉手！</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: 30–50分 核心理論 1：Rationality vs. Bounded Rationality -->
+    <section id="section-bounded" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">30–50 min 核心理論</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Rationality vs. Bounded Rationality（有限理性）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+            <strong class="text-slate-900 text-sm">傳統古典理性決策模型 (The Rational Model)</strong>
+            <p class="text-slate-600 leading-relaxed">
+              假設管理者擁有<strong>完全資訊、無限時間、完美算力與清晰偏好</strong>，能窮舉所有可行方案並計算出最佳解 (The Optimal Choice)。現實中幾乎不可能完全成立！
+            </p>
+          </div>
+
+          <div class="p-5 bg-cyan-50/70 rounded-2xl border border-cyan-200 space-y-2">
+            <strong class="text-cyan-950 text-sm">賽門有限理性模型 (Bounded Rationality)</strong>
+            <p class="text-cyan-900 leading-relaxed">
+              受到四大限制制約：<strong>① 資訊不完全 ② 時間極其緊迫 ③ 人腦認知負荷有限 ④ 未來充滿不確定性</strong>。主管追求的不是最完美解，而是<strong>「滿意解 (Satisficing)」</strong>！
+            </p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between text-xs sm:text-sm">
+          <div>
+            <span class="text-gold-400 font-bold">為什麼我們依賴 Heuristics（思考捷徑）？</span>
+            <p class="text-slate-300 mt-1">主管每天面臨數百個決策，大腦必須依靠經驗捷徑快速反應。Heuristics 讓決策變快，但也埋下了<strong>系統性偏誤 (Systematic Biases)</strong>！</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 50–75分 核心理論 2：三大常見認知偏誤 -->
+    <section id="section-biases" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">50–75 min 偏誤矩陣</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">主管最常陷入的三大認知偏誤</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-5 bg-white rounded-2xl border-2 border-blue-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-blue-950 text-sm">1. Anchoring (錨定偏誤)</strong>
+            <span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-bold">第一印象</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            過度依賴接收到的第一筆資訊作為後續調整的基準（如求職者開出 110K，談判整場就被定錨在 100K 附近）。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-2 border-purple-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-purple-950 text-sm">2. Confirmation (確認偏誤)</strong>
+            <span class="text-[10px] bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded font-bold">只看想看的</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            已經認定某同仁不適任，他犯錯就說「看吧果然」，他成功就說「只是運氣好」。以為自己在分析數據，其實在證明自己原本是對的。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-2 border-rose-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-rose-950 text-sm">3. Overconfidence (過度自信)</strong>
+            <span class="text-[10px] bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded font-bold">確定感>準確度</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed">
+            「這種客戶我看多了」、「這市場我做20年了」。過度高估自己的預測精準度，忽視外部變數。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 7: 75–120分 Sunk Cost ＆ 承諾升級（Mini Case 8,000萬系統） -->
+    <section id="section-sunkcost" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">75–120 min 沉沒成本陷阱</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Sunk Cost ＆ 承諾升級 (Escalation of Commitment)</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <div class="p-4 rounded-2xl bg-slate-900 text-white space-y-2">
+              <span class="text-xs font-bold text-gold-400 uppercase tracking-wider">Mini Case：已經花了 8,000 萬，怎麼可以停？</span>
+              <p class="text-xs text-slate-300">
+                公司開發新系統，原預算 5,000 萬元、預計 18 個月完工。目前已花費 8,000 萬元、延遲 12 個月、滿意度極低且新技術已出現，評估還需再投 4,000 萬。主管堅持：「已經砸了 8,000 萬，現在停掉不就全部打水漂浪費了嗎？！」
+              </p>
+            </div>
+            <p>
+              ❌ <strong>錯誤決策思維：</strong>以「過去已經投入多少」作為繼續投資的理由。<br>
+              ✅ <strong>理性決策準則：</strong>比較<strong>「未來預計投入的 4,000 萬 (Future Cost)」</strong>與<strong>「未來能產出的效益 (Future Benefit)」</strong>，已經沈沒的 8,000 萬一毛錢都拿不回來！
+            </p>
+          </div>
+
+          <!-- Pre-defined Stop Rules -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider">🛑 預設停損規則 (Pre-defined Stop Rules)：</h4>
+            <div class="space-y-1.5 text-slate-700">
+              <div class="p-2 bg-white rounded border border-slate-200">1. 預算超支達 30% 即啟動專案複審</div>
+              <div class="p-2 bg-white rounded border border-slate-200">2. 關鍵里程碑延遲超過 6 個月</div>
+              <div class="p-2 bg-white rounded border border-slate-200">3. 市場基礎假設或替代技術出現</div>
+              <div class="p-2 bg-white rounded border border-slate-200">4. 連續 2 季核心 KPI 未達標</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: 120–140分 Groupthink 群體盲思 -->
+    <section id="section-groupthink" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">120–140 min 會議盲思拆解</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Groupthink：一群聰明人為何一起做錯決策？</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <h3 class="text-base font-bold text-slate-900">典型假共識會議場景：</h3>
+          <p class="text-xs text-slate-500 mt-1">主管開場：「我認為 A 方案最好，大家覺得呢？」➔ 副總：「我也支持」➔ 經理：「沒意見」➔ 全場點頭通過。會議真的達成共識了嗎？還是 Nobody wanted to disagree？</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 font-semibold text-rose-950">1. 主管過早明確表態 (Anchor)</div>
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 font-semibold text-rose-950">2. 全員盲目追求表面和諧</div>
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 font-semibold text-rose-950">3. 壓制或邊緣化反對異見</div>
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 font-semibold text-rose-950">4. 報喜不報憂，隱匿壞消息</div>
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200 font-semibold text-rose-950">5. 將沉默 (Silence) 當成同意</div>
+          <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-300 font-bold text-emerald-950">✅ 解法：Junior 先講，主管最後表態！</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: 140–155分 決策除錯 3 大工具 (Debiasing Tools) -->
+    <section id="section-tools" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">140–155 min 實用工具箱</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">決策除錯三大武器 (Debiasing Tools)</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-5 bg-white rounded-2xl border-2 border-indigo-200 shadow-sm space-y-2">
+          <strong class="text-indigo-950 text-sm flex items-center gap-1.5"><i class="fa-solid fa-user-ninja text-indigo-600"></i> Tool 1：Devil's Advocate (魔鬼代言人)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            指派專人<strong>合法化地挑戰主流方案</strong>。他的任務不是唱衰主管，而是「找出我們可能全盤皆錯的關鍵理由」。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-2 border-purple-200 shadow-sm space-y-2">
+          <strong class="text-purple-950 text-sm flex items-center gap-1.5"><i class="fa-solid fa-arrows-rotate text-purple-600"></i> Tool 2：Consider the Opposite (反向假設)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            當你極度堅信「A 是唯一正確解」時，強迫自己問：「如果 A 是大錯特錯的，最可能是因為什麼？」精準瓦解確認偏誤。
+          </p>
+        </div>
+
+        <div class="p-5 bg-white rounded-2xl border-2 border-emerald-300 shadow-sm space-y-2">
+          <strong class="text-emerald-950 text-sm flex items-center gap-1.5"><i class="fa-solid fa-skull-crossbones text-emerald-600"></i> Tool 3：Pre-mortem (事前驗屍法)</strong>
+          <p class="text-slate-600 leading-relaxed">
+            不問「會不會失敗」，而是假設：<strong>「一年後專案已經徹底崩潰慘敗！請列出 5 個最可能致死的原因。」</strong>讓成員無負擔提出隱形風險。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 10: 155–170分 Main Case 繼續投資，還是停損？ -->
+    <section id="section-maincase" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">155–170 min 綜合個案實戰</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Main Case：繼續投資，還是果斷停損？（2 億新市場個案）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              公司 3 年前揮軍新市場，累計已投資 <strong>2 億元</strong>、連續 3 年虧損、市占率僅 3%，對手紛紛壓境。
+            </p>
+            <p>
+              當年力主進入的<strong>副總</strong>極力爭取：「再給我 2 年，我們已經快要迎來爆發拐點！」<strong>CFO</strong> 則堅決主張：「必須立刻撤出止血。」CEO 極為猶豫。
+            </p>
+            <div class="p-3.5 bg-slate-900 text-gold-300 rounded-xl text-xs font-serif italic">
+              小組實戰演練：請經歷「初判 ➔ 交換立場強制反向辯護 ➔ Pre-mortem 事前驗屍」三階段產出決策！
+            </div>
+          </div>
+
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider">三階段除錯決策流程：</h4>
+            <div class="p-2 bg-white rounded border border-slate-200"><strong>階段 1：</strong>各組選定 Continue 或 Exit 提出 3 理由</div>
+            <div class="p-2 bg-white rounded border border-slate-200"><strong>階段 2：</strong>交換立場！支持繼續者必須為退出辯護</div>
+            <div class="p-2 bg-white rounded border border-slate-200 font-bold text-cyan-900"><strong>階段 3：</strong>Pre-mortem 假想 2 年後慘敗倒推 5 大死因</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: Managerial Decision Check 6 題決策檢驗 -->
+    <section id="section-check" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">主管決策隨身防呆卡</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Managerial Decision Check（6 題決策自檢清單）</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <div class="w-6 h-6 rounded bg-cyan-600 text-white flex items-center justify-center font-bold">1</div>
+          <strong class="text-slate-900 text-sm">What is the decision?</strong>
+          <p class="text-slate-600">我現在到底在決定什麼核心問題？</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <div class="w-6 h-6 rounded bg-blue-600 text-white flex items-center justify-center font-bold">2</div>
+          <strong class="text-slate-900 text-sm">What is my anchor?</strong>
+          <p class="text-slate-600">有沒有某個數字或第一印象在制約我？</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <div class="w-6 h-6 rounded bg-purple-600 text-white flex items-center justify-center font-bold">3</div>
+          <strong class="text-slate-900 text-sm">What evidence contradicts me?</strong>
+          <p class="text-slate-600">有什麼客觀證據證明我可能是錯的？</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <div class="w-6 h-6 rounded bg-amber-600 text-white flex items-center justify-center font-bold">4</div>
+          <strong class="text-slate-900 text-sm">Am I protecting a past decision?</strong>
+          <p class="text-slate-600">我是在做未來決策，還是在加碼護短？</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <div class="w-6 h-6 rounded bg-rose-600 text-white flex items-center justify-center font-bold">5</div>
+          <strong class="text-slate-900 text-sm">Who disagrees?</strong>
+          <p class="text-slate-600">會議中有沒有人真正提出不同聲音？</p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1.5">
+          <div class="w-6 h-6 rounded bg-emerald-600 text-white flex items-center justify-center font-bold">6</div>
+          <strong class="text-slate-900 text-sm">What if we are wrong?</strong>
+          <p class="text-slate-600">如果我們全錯了，最致命的代價是什麼？</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 12: 170–175分 教師 Debrief 六大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-sm font-bold">12</div>
+        <div>
+          <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider">170–175 min 理論提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週六大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+        
+        <div class="p-4 rounded-2xl bg-white border border-cyan-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+          <h4 class="font-bold text-slate-900">聰明仍有偏誤</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Smart people are still biased.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-cyan-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+          <h4 class="font-bold text-slate-900">經驗非萬靈丹</h4>
+          <p class="text-slate-600 leading-relaxed">Experience helps, until it creates overconfidence.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-cyan-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+          <h4 class="font-bold text-slate-900">資訊解讀會偏心</h4>
+          <p class="text-slate-600 leading-relaxed">We select and interpret information selectively.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-cyan-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs font-bold">4</div>
+          <h4 class="font-bold text-slate-900">沉沒成本不該留念</h4>
+          <p class="text-slate-600 leading-relaxed">Sunk Cost is not a reason to continue.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-cyan-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs font-bold">5</div>
+          <h4 class="font-bold text-slate-900">全場共識隱含風險</h4>
+          <p class="text-slate-600 leading-relaxed">Consensus may just mean no voice.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-cyan-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">6</div>
+          <h4 class="font-bold text-slate-900">決策除錯系統最關鍵</h4>
+          <p class="text-slate-600 leading-relaxed">Good decision systems beat individual brilliance.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 13: 175–180分 One-Minute Paper 反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">13</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-cyan-100 text-cyan-700 text-xs flex items-center justify-center font-bold">1</span>
+              回顧你的個人管理經驗，你自己最容易出現哪一種 Decision Bias（Anchoring、Confirmation、Overconfidence 還是 Sunk Cost）？
+            </label>
+            <textarea id="paper-w14-q1" rows="3" placeholder="例如：我最容易陷入 Confirmation Bias（確認偏誤），當我看好一個新商業模式時，總是只注意報章雜誌的成功案例，自動忽略風險分析..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-cyan-100 text-cyan-700 text-xs flex items-center justify-center font-bold">2</span>
+              你是否曾經親身遇過或目睹一個「大家私下都知道不太對勁，但開會時卻沒有人敢說」的 Groupthink 決策？當時為什麼大家選擇沉默？
+            </label>
+            <textarea id="paper-w14-q2" rows="3" placeholder="例如：某次系統改版會議，總經理開場就定調『下月必須如期上線』，工程團隊雖然知道 Bug 很多，但怕被當成戰犯所以沒人敢舉手反對..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-cyan-100 text-cyan-700 text-xs flex items-center justify-center font-bold">3</span>
+              下一次面對團隊重大決策，你最想將哪一個除錯工具（Pre-mortem 事前驗屍、Devil's Advocate 或 Decision Check）帶入流程中？
+            </label>
+            <textarea id="paper-w14-q3" rows="3" placeholder="例如：我會在專案定案前強制執行 Pre-mortem（事前驗屍法），讓所有人假想專案已徹底失敗，安全地列出最可能的致死原因..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <!-- Homework Callout -->
+          <div class="p-4 rounded-xl bg-cyan-50 border border-cyan-200 text-xs text-cyan-950 space-y-1">
+            <strong class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check"></i> 本週課後微作業（為 W15「情緒智商與領導」鋪路）：</strong>
+            <p>找一個最近正在評估的管理決策，完成 5 題自檢：① My Current Decision ② My Initial Preference ③ Evidence Against Me ④ My Possible Bias ⑤ Pre-mortem 失敗原因倒推。</p>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交 W14 反思紀錄
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ W14 管理決策與決策偏誤</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>學習演進：權力影響力 ➔ 管理決策與偏誤 ➔ 情緒智商與領導 ➔ 組織文化與變革</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘開場破冰思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘偏誤實驗診斷')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘實驗</button>
+        <button onclick="setTimerDuration(20, '20分鐘Pre-mortem驗屍演練')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">20 分鐘演練</button>
+        <button onclick="setTimerDuration(40, '40分鐘決策偏誤理論講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-cyan-700 hover:bg-cyan-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 29-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-cyan-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W14 管理決策與決策偏誤 (29頁簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 29</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W14 Presentation Slide Deck (29 Slides) =================
+    const w14SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "Why Good Leaders Make Bad Decisions", sub: "管理決策與決策偏誤 ‧ 碩士在職專班 W14", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-cyan-300 to-blue-300'>Why Good Leaders Make Bad Decisions</div><p class='text-slate-400 text-sm'>為什麼好主管也會做錯決策？</p></div>", notes: "開場破題。" },
+      { num: 2, cat: "P2 核心提問", title: "經驗越多，決策越好嗎？", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「即使你有權力、有影響力，<br>大家都聽你的，你的決定就一定是對的嗎？」</h2></div>", notes: "引導全班反思判斷品質。" },
+      { num: 3, cat: "P3–4 經驗迷思", title: "20年經驗主管的直覺", sub: "調研數據 60% vs 主管自信 90%", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>主管說：『我做這行20年了，至少有90%成功率！』該相信數據還是直覺？</p></div>", notes: "引發認知衝突。" },
+      { num: 4, cat: "P3–4 經驗迷思", title: "Experience: Advantage or Bias?", sub: "經驗提供直覺，也製造盲點", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-cyan-400'>Experience improves judgment—until it becomes certainty!</h4></div>", notes: "核心觀念。" },
+      { num: 5, cat: "P5 理性模型", title: "古典理性決策模型", sub: "The Rational Decision Model", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>假設：完全資訊、無限時間、完美算力、最佳選擇。現實世界無法完全滿足！</p></div>", notes: "古典模型。" },
+      { num: 6, cat: "P6–8 偏誤實驗", title: "3 個快速決策實驗", sub: "定錨、確認、過度自信", body: "<div class='grid grid-cols-3 gap-2 max-w-xl mx-auto text-xs'><div class='p-3 bg-slate-900 rounded-lg'>促銷 2 萬定錨</div><div class='p-3 bg-cyan-950 rounded-lg border border-cyan-700'>東南亞確認偏誤</div><div class='p-3 bg-slate-900 rounded-lg'>85% 自認超平均</div></div>", notes: "實驗互動。" },
+      { num: 7, cat: "P9 有限理性", title: "Bounded Rationality (有限理性)", sub: "賽門諾貝爾獎理論", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>資訊不全 ‧ 時間緊迫 ‧ 認知有限 ➔ 追求滿意解 (Satisficing)。</p></div>", notes: "有限理性。" },
+      { num: 8, cat: "P10 思考捷徑", title: "Heuristics：大腦思考捷徑", sub: "加快決策，但也帶來系統性偏誤", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>經驗直覺不是不好，而是需要制度性的防呆機制！</p></div>", notes: "Heuristics 雙面刃。" },
+      { num: 9, cat: "P11 錨定偏誤", title: "1. Anchoring Bias (錨定偏誤)", sub: "第一筆數字的強大制約", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-blue-400'>第一印象成為無法擺脫的參考點</h4></div>", notes: "錨定偏誤。" },
+      { num: 10, cat: "P12 錨定案例", title: "薪資與預算錨定實例", sub: "110K 喊價對後續談判的拉扯", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>即使數字不合理，大腦仍會不自覺以此為基準進行微調。</p></div>", notes: "談判錨定。" },
+      { num: 11, cat: "P13 確認偏誤", title: "2. Confirmation Bias (確認偏誤)", sub: "主管最危險的盲點", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-purple-400'>以為自己在客觀分析，其實在證明自己原本是對的！</h4></div>", notes: "確認偏誤。" },
+      { num: 12, cat: "P14 確認案例", title: "解讀同仁行為的偏見", sub: "犯錯是『果然如此』，成功是『只是運氣』", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主動尋找反證 (Disconfirming evidence) 才是專業管理者的修養。</p></div>", notes: "同仁評價案例。" },
+      { num: 13, cat: "P15 過度自信", title: "3. Overconfidence Bias (過度自信)", sub: "Certainty exceeds accuracy", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>高估自身預測力，低估外部不確定性。</p></div>", notes: "過度自信。" },
+      { num: 14, cat: "P16 偏誤總表", title: "三大認知偏誤對照表", sub: "Anchoring ‧ Confirmation ‧ Overconfidence", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>錨定第一印象 ‧ 選擇性接收資訊 ‧ 確定感超越精準度</p></div>", notes: "三大偏誤整合。" },
+      { num: 15, cat: "P17–18 8000萬系統", title: "Mini Case：已經花了 8,000 萬！", sub: "專案超支延遲，該繼續還是停止？", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>原預算 5,000 萬已花 8,000 萬，還需 4,000 萬。主管堅持不停！</p></div>", notes: "個案研討。" },
+      { num: 16, cat: "P17–18 8000萬系統", title: "花掉的 8,000 萬應否影響決策？", sub: "理性的未來決策準則", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-300'>Past investment should not justify future waste!</h4></div>", notes: "沉沒成本核心。" },
+      { num: 17, cat: "P19 沉沒成本", title: "Sunk Cost (沉沒成本)", sub: "已經發生且無法收回的成本", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>只比較 Future Costs vs. Future Benefits！</p></div>", notes: "Sunk Cost 觀念。" },
+      { num: 18, cat: "P20 承諾升級", title: "Escalation of Commitment (承諾升級)", sub: "加碼護短的心理陷阱", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>停損等於承認當初看錯，因此主管加碼預算證明自己是對的！</p></div>", notes: "承諾升級。" },
+      { num: 19, cat: "P21 停損規則", title: "Pre-defined Stop Rules (停損機制)", sub: "在投入前設定客觀退場標準", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-1.5'><p>超支30% ‧ 延遲6個月 ‧ 市場替代技術出現 ‧ 連續未達標</p></div>", notes: "停損規則。" },
+      { num: 20, cat: "P22 群體盲思", title: "Groupthink：一群聰明人為何一起做錯？", sub: "假共識的組織危機", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-rose-400'>Consensus does not mean good decision!</h4></div>", notes: "群體盲思。" },
+      { num: 21, cat: "P23 盲思解法", title: "打破 Groupthink 的微管理動作", sub: "Junior 先發言 ‧ 主管最後表態", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>『在我表達看法前，我想先聽你們的判斷。』</p></div>", notes: "會議微動作。" },
+      { num: 22, cat: "P24 魔鬼代言人", title: "Tool 1：Devil's Advocate (魔鬼代言人)", sub: "合法化挑戰主流方案", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>指派專人找出『我們可能全盤皆錯的關鍵理由』。</p></div>", notes: "魔鬼代言人。" },
+      { num: 23, cat: "P25 反向假設", title: "Tool 2：Consider the Opposite", sub: "強迫思考相反可能", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>『如果 A 是大錯特錯的，最可能是因為什麼？』</p></div>", notes: "反向假設。" },
+      { num: 24, cat: "P26 事前驗屍", title: "Tool 3：Pre-mortem (事前驗屍法)", sub: "假想一年後已徹底慘敗", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-emerald-400'>倒推 5 個最可能致死的原因，讓風險無負擔浮現！</h4></div>", notes: "事前驗屍法。" },
+      { num: 25, cat: "P27–28 2億投資", title: "Main Case：2 億新市場投資停損", sub: "副總求再給2年 vs CFO要求停損", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2 p-6 bg-slate-900 rounded-2xl border border-slate-800'><p>連續3年虧損、市占3%。經歷交換立場與 Pre-mortem 決策！</p></div>", notes: "主個案演練。" },
+      { num: 26, cat: "P27–28 2億投資", title: "Pre-mortem 實戰倒推死因", sub: "挖掘隱藏的盲點與替代方案", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>找出通路費用暴增、競爭對手價格戰等未被計入的風險。</p></div>", notes: "個案收束。" },
+      { num: 27, cat: "P29 決策自檢", title: "Managerial Decision Check (6 題清單)", sub: "主管決策防呆工具", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-1'><p>1. 到底決定什麼？ 2. 定錨是什麼？ 3. 有何反證？</p><p>4. 是否護短過去？ 5. 誰有異見？ 6. 若全錯代價為何？</p></div>", notes: "自檢卡。" },
+      { num: 28, cat: "P29 六大收束", title: "Six Takeaways ＆ 課末反思", sub: "管理決策六大核心", body: "<div class='space-y-1 max-w-xl mx-auto text-xs text-slate-300'><p>1. 聰明仍有偏誤 2. 經驗非萬靈丹 3. 資訊解讀會偏心</p><p>4. 沉沒成本不該留念 5. 全場共識隱含風險 6. 決策系統最關鍵</p></div>", notes: "總結。" },
+      { num: 29, cat: "P29 收束反思", title: "銜接下一週 W15：情緒智商與領導", sub: "Managing the Leader's Mind", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>本週管理認知偏誤，下週管理情緒反應（EQ ＆ Amygdala Hijack）！</p></div>", notes: "宣布放映結束。" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w14SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w14SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w14SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w14SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Functions =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW14State();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW14State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+      alert('W14 One-Minute Paper 反思卡提交成功！已儲存至本機。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w14-q1').value;
+      const q2 = document.getElementById('paper-w14-q2').value;
+      const q3 = document.getElementById('paper-w14-q3').value;
+      const text = `【碩士在職專班 領導與管理 W14 反思卡】\n` +
+        `Q1. 個人最易出現之 Decision Bias：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 親歷或目睹之 Groupthink 決策事件：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 下次重大決策擬導入之除錯機制：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W14 反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW14State() {
+      const state = {
+        q1: document.getElementById('paper-w14-q1') ? document.getElementById('paper-w14-q1').value : '',
+        q2: document.getElementById('paper-w14-q2') ? document.getElementById('paper-w14-q2').value : '',
+        q3: document.getElementById('paper-w14-q3') ? document.getElementById('paper-w14-q3').value : '',
+      };
+      localStorage.setItem('LM_W14_State', JSON.stringify(state));
+    }
+
+    function restoreW14State() {
+      try {
+        const raw = localStorage.getItem('LM_W14_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.q1 && document.getElementById('paper-w14-q1')) document.getElementById('paper-w14-q1').value = s.q1;
+        if (s.q2 && document.getElementById('paper-w14-q2')) document.getElementById('paper-w14-q2').value = s.q2;
+        if (s.q3 && document.getElementById('paper-w14-q3')) document.getElementById('paper-w14-q3').value = s.q3;
+      } catch (e) { console.error('Failed to restore W14 state:', e); }
+    }
+  </script>
+</body>
+</html>

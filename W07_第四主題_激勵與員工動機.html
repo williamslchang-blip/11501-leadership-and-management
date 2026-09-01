@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班｜領導與管理 - W7 激勵與員工動機：為什麼部屬不再努力？</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+              950: '#450a0a',
+            },
+            amberTheme: {
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              900: '#78350f',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scenario-card.selected {
+      border-color: #d97706 !important;
+      background-color: #fffbeb !important;
+      box-shadow: 0 4px 6px -1px rgba(217, 119, 6, 0.15);
+    }
+    .slide-card { max-width: 960px; width: 100%; animation: slideFade 0.35s ease-out; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    input[type=range] { accent-color: #d97706; }
+    @media print {
+      header, footer, #timer-modal, #presentation-overlay, #instructor-banner, .instructor-note, button, a { display: none !important; }
+      body { background: #fff !important; color: #000 !important; font-size: 12pt !important; }
+      main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+      #section-expectancy, #section-map, #section-oneminute { page-break-inside: avoid; margin-bottom: 2cm; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-amber-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Control Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-rose-500 flex items-center justify-center shadow-lg shadow-amber-500/20 ring-1 ring-white/20">
+            <i class="fa-solid fa-fire text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 hidden sm:inline">W7 ‧ 10/18 授課</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-slate-400 font-light hidden md:inline">|</span> 
+              <span class="text-slate-300 font-normal text-sm hidden md:inline">W7：What Makes People Want to Perform? 激勵與員工動機</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center Mode Switcher -->
+        <div class="hidden lg:flex items-center space-x-1 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
+          <button id="mode-student-btn" onclick="setAppMode('student')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-amber-600 text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> 學員互動模式
+          </button>
+          <button id="mode-instructor-btn" onclick="setAppMode('instructor')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i> 教師授課導引
+          </button>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleTimerModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition">
+            <i class="fa-solid fa-stopwatch text-gold-400"></i>
+            <span id="timer-display-mini" class="font-mono text-gold-300">180:00</span>
+          </button>
+
+          <button onclick="openPresentationMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95">
+            <i class="fa-solid fa-play"></i>
+            <span class="hidden sm:inline">26頁簡報模式</span>
+            <span class="sm:hidden">PPT</span>
+          </button>
+
+          <a href="../W05_領導理論與情境領導_不同的人應該怎麼帶.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition" title="返回 W5">
+            <i class="fa-solid fa-arrow-left"></i> W5
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Sub-nav -->
+    <div class="bg-slate-950/80 border-t border-slate-800/80 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-route text-amber-400"></i> 模組導航:
+        </span>
+        <a href="#section-overview" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">01 課程定位</a>
+        <a href="#section-agenda" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">02 180分時程</a>
+        <a href="#section-opening" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">03 加薪減薪投票</a>
+        <a href="#section-diagnostic" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">04 低績效根因</a>
+        <a href="#section-theory" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">05 內外在動機與雙因素</a>
+        <a href="#section-case1" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">06 王小姐個案</a>
+        <a href="#section-expectancy" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">07 期望理論 E×I×V</a>
+        <a href="#section-equity" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">08 公平理論 80K vs 95K</a>
+        <a href="#section-case2" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">09 明星員工辭職</a>
+        <a href="#section-map" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">10 激勵地圖</a>
+        <a href="#section-debrief" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition">11 五大收束</a>
+        <a href="#section-oneminute" class="px-2.5 py-1 rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">12 反思卡</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Instructor Banner -->
+  <div id="instructor-banner" class="hidden bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white px-4 py-2 text-xs sm:text-sm font-medium shadow-inner flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 w-full">
+      <i class="fa-solid fa-chalkboard-user text-gold-300 text-base"></i>
+      <span><strong>教師授課導引模式已開啟：</strong>各單元已顯示提問引導策略、心理契約解析、Herzberg 實戰盲點與期望理論診斷技巧。</span>
+      <button onclick="setAppMode('student')" class="ml-auto text-xs bg-black/30 hover:bg-black/50 px-2.5 py-1 rounded border border-white/20">切換為學員模式</button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 sm:space-y-16">
+
+    <!-- HERO SECTION: W7 Core Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-amber-950 to-slate-900 text-white p-6 sm:p-12 shadow-2xl border border-amber-900/50">
+      <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -top-20 w-80 h-80 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-amber-900/80 border border-amber-700 text-amber-200 text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>Week 7 ‧ 第 4 主題模組</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          What Makes People Want to Perform?<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-amber-300 to-rose-400">
+            激勵與員工動機：為什麼部屬不再努力？
+          </span>
+        </h1>
+
+        <!-- Core Provocative Question -->
+        <div class="p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-slate-100 shadow-lg">
+          <div class="text-xs uppercase tracking-widest font-bold text-gold-300 mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-quote-left"></i> 本週破題核心提問
+          </div>
+          <p class="text-xl sm:text-2xl font-serif italic text-white leading-snug">
+            「員工能力完全沒有問題，為什麼就是不願意主動去做？」
+          </p>
+        </div>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          前三堂我們從「領導概念」走到「認識自己」與「情境領導」。本週我們從<strong>「會不會做 (Competence)」</strong>跨越至<strong>「為什麼願意做 (Commitment & Motivation)」</strong>。探討外在報酬與內在意義的張力、Herzberg 雙因素理論、Vroom 期望理論（E×I×V），以及比低薪更能摧毀團隊的「相對不公平感 (Equity & Fairness)」！
+        </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-agenda" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 檢視3小時課堂流程
+          </a>
+          <a href="#section-expectancy" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-calculator text-gold-400"></i> 期望理論 E×I×V 模擬
+          </a>
+          <a href="#section-map" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-map-location-dot"></i> 繪製團隊激勵地圖
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程定位與8大學習目標 -->
+    <section id="section-overview" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">01</div>
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">本週課程定位與核心問題</h2>
+          <p class="text-xs text-slate-500">Curriculum Positioning & 8 Core Objectives</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider">定位宗旨</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-2">超越發錢，直探人性的渴望</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mt-2">
+              許多主管將低績效直覺歸咎於「部屬不長進、不想賺錢」。本週建立系統性診斷架構，探究激勵的心理機制與心理契約破裂的根因。
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200/70 text-xs font-semibold text-amber-950 space-y-1.5">
+            <div class="font-bold text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-coins"></i> 本週金句心法：</div>
+            <p>Pay matters, but pay alone is not enough. 錢很重要，但單靠錢永遠不夠！</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider">本週 8 大核心收穫</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2 mb-4">完成本單元後，學員將能夠：</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">1</div>
+              <div><strong class="text-slate-900">績效三因子公式：</strong>掌握 Performance = Ability × Motivation × Opportunity。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">2</div>
+              <div><strong class="text-slate-900">區分內外在動機：</strong>辨識 Extrinsic（薪酬/升遷）與 Intrinsic（成就/自主/意義）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">3</div>
+              <div><strong class="text-slate-900">Herzberg 雙因素理論：</strong>釐清「保健因素 (消除不滿)」與「激勵因素 (激發熱情)」的本質差異。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">4</div>
+              <div><strong class="text-slate-900">期望理論 (E × I × V)：</strong>精準診斷「我努力做得到嗎？做到有回報嗎？回報是我要的嗎？」。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">5</div>
+              <div><strong class="text-slate-900">公平理論 (Equity Theory)：</strong>理解「不公平比低薪更具破壞力」的人性機制。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">6</div>
+              <div><strong class="text-slate-900">破除一視同仁迷思：</strong>深刻體會 Equality ≠ Equity（一視同仁不等於真正的公平）。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">7</div>
+              <div><strong class="text-slate-900">戒除投影效應：</strong>避免用「主管自己想要的獎勵」去激勵價值觀不同的同仁。</div>
+            </div>
+            <div class="flex items-start space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 mt-0.5">8</div>
+              <div><strong class="text-slate-900">繪製團隊 Motivation Map：</strong>為真實部屬設計客製化的多元激勵方案。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 180分課堂時程表 -->
+    <section id="section-agenda" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">02</div>
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">3 小時完整授課流程 (180 mins)</h2>
+            <p class="text-xs text-slate-500">W7 Session Flow & Interactive Agenda</p>
+          </div>
+        </div>
+        <button onclick="toggleTimerModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition">
+          <i class="fa-solid fa-clock text-gold-400"></i> 開啟計時儀表板
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 text-xs font-semibold uppercase tracking-wider">
+                <th class="py-3.5 px-4 sm:px-6">時段</th>
+                <th class="py-3.5 px-4 sm:px-6">教學單元與核心內容</th>
+                <th class="py-3.5 px-4 sm:px-6">教學形式</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">時長</th>
+                <th class="py-3.5 px-4 sm:px-6 text-right">前往模組</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">00–15 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Opening：如果公司明天幫你加薪 20%？</strong><div class="text-xs text-slate-500">加薪 20% vs. 減薪 20% 投票，帶出薪酬對滿意與不滿的非對稱效應</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">情境投票＋討論</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-opening" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">15–30 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 1：他為什麼不努力？（4 部屬根因診斷）</strong><div class="text-xs text-slate-500">Performance = Ability × Motivation × Opportunity 診斷</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">管理根因診斷</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-diagnostic" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">30–50 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 1：Motivation × Ability × Performance</strong><div class="text-xs text-slate-500">外在動機 (Extrinsic) vs. 內在動機 (Intrinsic) 深度解析</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">核心理論講授</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-theory" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">50–70 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 2：Maslow & Herzberg：錢到底重不重要？</strong><div class="text-xs text-slate-500">Hygiene Factors 保健因素 vs. Motivators 激勵因素矩陣</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">雙因素理論解析</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-theory" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">70–90 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Mini Case：留下來，卻不再努力的王小姐</strong><div class="text-xs text-slate-500">未獲升遷補償加薪 15%，半年後安靜離職；心理契約破裂剖析</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">個案思辨研討</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-case1" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="bg-slate-50">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-slate-500">90–100 min</td>
+                <td class="py-3 px-4 sm:px-6 font-bold text-slate-600"><i class="fa-solid fa-mug-hot text-amber-600 mr-1"></i> 中場休息 (Coffee Break)</td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs bg-slate-200 text-slate-600">休息</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-500">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right text-slate-400">—</td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">100–125 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 3：Expectancy Theory（努力為什麼沒有發生？）</strong><div class="text-xs text-slate-500">Motivation = E × I × V（期望 × 工具性 × 誘價）三道診斷鎖</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">期望理論模擬</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">25 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-expectancy" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">125–145 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>核心理論 4：Fairness Matters：不公平比低薪更傷？</strong><div class="text-xs text-slate-500">月薪 8 萬滿意 vs. 資淺同事 95 萬心理失衡；Equity Theory 公式</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">公平天平模擬</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">20 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-equity" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">145–160 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Case：明星員工為什麼辭職？（Kevin vs. Jack）</strong><div class="text-xs text-slate-500">120% 績效拿 2.0 個月 vs. 90% 績效拿 1.8 個月；Equality ≠ Equity</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">分組決策思辨</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">15 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-case2" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">160–170 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>Activity 3：Motivation Map（我的團隊激勵地圖）</strong><div class="text-xs text-slate-500">盤點 3 位同仁在意價值與動機盲點；「你給的，是他要的嗎？」</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">職場實戰盤點</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">10 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-map" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">170–175 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>教師 Debrief：五大核心 Takeaways</strong><div class="text-xs text-slate-500">低績效≠低動機 / 錢非萬能 / 獎勵多元 / E×I×V / 公平至上</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-900 font-bold">核心提煉</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-debrief" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40 transition">
+                <td class="py-3 px-4 sm:px-6 font-mono font-bold text-amber-600">175–180 min</td>
+                <td class="py-3 px-4 sm:px-6"><strong>One-Minute Paper：課堂即時反思卡</strong><div class="text-xs text-slate-500">3 題精簡反思 ＋ 課後職場觀察任務</div></td>
+                <td class="py-3 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-gold-100 text-gold-900">課末收束</span></td>
+                <td class="py-3 px-4 sm:px-6 text-center font-semibold text-slate-600">5 分鐘</td>
+                <td class="py-3 px-4 sm:px-6 text-right"><a href="#section-oneminute" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">前往 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 0–15分 Opening 加薪減薪投票 -->
+    <section id="section-opening" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">03</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">0–15 min 開場震撼思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">如果公司明天幫你加薪 20%？</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 教師提問引導策略
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          先請全班投票「加薪 20%，你的工作投入會提升多少？」。多數學員會選「短期有些提高，但很快回到常態」。接著反向追問：<strong>「如果明天宣布減薪 20% 呢？」</strong>全班動機必定斷崖式崩潰！由此帶出核心思辨：<strong>為什麼加薪不會讓你多努力20%，但減薪卻會讓你不努力？</strong>這正是 Herzberg 雙因素理論的精髓！
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Vote Box 1: Increase 20% -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-emerald-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded">情境 A ‧ 薪資調升</span>
+            <i class="fa-solid fa-arrow-trend-up text-emerald-500 text-lg"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">如果公司明天宣布幫你加薪 20%，你的工作投入會提高多少？</h3>
+          
+          <div class="space-y-2 text-xs">
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="raise-vote" value="A" class="text-emerald-600">
+              <span><strong>A.</strong> 大幅提高，每天像打雞血一樣拼命</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="raise-vote" value="B" class="text-emerald-600">
+              <span><strong>B.</strong> 有一些提高，但多半是前幾週</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="raise-vote" value="C" class="text-emerald-600">
+              <span><strong>C.</strong> 短期很開心，但一個月後工作投入差不多</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="raise-vote" value="D" class="text-emerald-600">
+              <span><strong>D.</strong> 幾乎不會改變，本來就按職責做好</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Vote Box 2: Decrease 20% -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-rose-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-rose-800 bg-rose-100 px-2.5 py-0.5 rounded">情境 B ‧ 薪資調降</span>
+            <i class="fa-solid fa-arrow-trend-down text-rose-500 text-lg"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">如果公司明天宣布因營運逆風減薪 20%，你的工作心態會如何？</h3>
+          
+          <div class="space-y-2 text-xs">
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="cut-vote" value="A" class="text-rose-600">
+              <span><strong>A.</strong> 動機嚴重崩潰，開始摸魚或準時下班</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="cut-vote" value="B" class="text-rose-600">
+              <span><strong>B.</strong> 感到極度不公與被背叛，立即開始面試跳槽</span>
+            </label>
+            <label class="scenario-card flex items-center space-x-2.5 p-2.5 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
+              <input type="radio" name="cut-vote" value="C" class="text-rose-600">
+              <span><strong>C.</strong> 雖然無奈但理解公司困難，工作投入不受影響</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Opening Summary Callout -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-scale-unbalanced"></i>
+          </div>
+          <div class="text-xs sm:text-sm">
+            <strong class="text-gold-300">非對稱心理現象：</strong>
+            <span>加薪 20% 不會創造 20% 的持久熱情；但減薪 20% 卻能瞬間摧毀 80% 的工作動力！</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 15–30分 Activity 1 他為什麼不努力？ -->
+    <section id="section-diagnostic" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">04</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">15–30 min 管理根因診斷</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 1：他為什麼不努力？（4大部屬根因診斷）</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 主管最常犯的直覺盲點
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          管理者最容易把「成果不好 (Poor Performance)」一概貼上「動機低落 (Low Motivation)」的標籤。請學生診斷下列四位部屬，並帶出經典公式：<strong>Performance = Ability × Motivation × Opportunity</strong>。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900">部屬 A ‧ 新人經常出錯</strong>
+            <span class="text-blue-700 bg-blue-50 px-2 py-0.5 rounded font-bold">Ability Problem</span>
+          </div>
+          <p class="text-slate-600">非常積極努力、加班學習，但報表格式與數據頻繁算錯。<strong>根因：能力/訓練不足，而非動機問題！</strong></p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900">部屬 B ‧ 只做最低要求</strong>
+            <span class="text-rose-700 bg-rose-50 px-2 py-0.5 rounded font-bold">Motivation Problem</span>
+          </div>
+          <p class="text-slate-600">能力極高、熟門熟路，但最近打卡極準時、會議不發言，只做交代的事。<strong>根因：缺乏意願與心理脫節！</strong></p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900">部屬 C ‧ 系統老舊受阻</strong>
+            <span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-bold">System / Opportunity Problem</span>
+          </div>
+          <p class="text-slate-600">能力好也想把事做好，但公司 IT 系統常當機、行政簽核卡關。<strong>根因：組織環境與資源限制！</strong></p>
+        </div>
+
+        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <strong class="text-slate-900">部屬 D ‧ 被微觀管理扼殺</strong>
+            <span class="text-purple-700 bg-purple-50 px-2 py-0.5 rounded font-bold">Leadership Problem</span>
+          </div>
+          <p class="text-slate-600">原本很有想法，但主管每天親自改他的簡報、推翻他的提案，久而久之不再主動。<strong>根因：主管領導行為不當！</strong></p>
+        </div>
+
+      </div>
+
+      <!-- Performance Formula Box -->
+      <div class="p-4 rounded-xl bg-slate-900 text-white text-center text-xs sm:text-sm space-y-1">
+        <div class="text-gold-400 font-bold uppercase tracking-wider text-xs">績效核心三因子模型</div>
+        <div class="font-mono text-base sm:text-lg font-extrabold text-white">
+          Performance ＝ Ability（能力） × Motivation（動機） × Opportunity（機會與環境）
+        </div>
+        <p class="text-[11px] text-slate-400">任何一項為零，最終成果即為零！</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 30–70分 核心理論：內外在動機與 Herzberg 雙因素 -->
+    <section id="section-theory" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">05</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">30–70 min 核心理論解析</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">內外在動機 ＆ Herzberg 雙因素理論</h2>
+        </div>
+      </div>
+
+      <!-- Intrinsic vs Extrinsic Table -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/80 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+          <h3 class="text-base font-bold text-slate-900">外在動機 vs. 內在動機深度對比</h3>
+          <span class="text-xs text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded-full">你現在是為了哪一種而工作？</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-blue-900 flex items-center gap-1.5"><i class="fa-solid fa-money-bill-wave text-blue-600"></i> Extrinsic Motivation（外在動機）</div>
+            <p class="text-slate-600">驅動力來自外部給予的獎勵或懲罰迴避：</p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold">薪資 (Salary)</span>
+              <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold">獎金 (Bonus)</span>
+              <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold">升遷 (Promotion)</span>
+              <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold">福利 (Benefits)</span>
+              <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold">懲處迴避 (Avoid Penalty)</span>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200 space-y-2">
+            <div class="font-bold text-amber-950 flex items-center gap-1.5"><i class="fa-solid fa-heart text-amber-600"></i> Intrinsic Motivation（內在動機）</div>
+            <p class="text-slate-600">驅動力來自工作本身的樂趣、挑戰與成就感：</p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-0.5 bg-amber-200 text-amber-900 rounded font-semibold">成就感 (Achievement)</span>
+              <span class="px-2 py-0.5 bg-amber-200 text-amber-900 rounded font-semibold">工作意義 (Meaning)</span>
+              <span class="px-2 py-0.5 bg-amber-200 text-amber-900 rounded font-semibold">自主掌控 (Autonomy)</span>
+              <span class="px-2 py-0.5 bg-amber-200 text-amber-900 rounded font-semibold">專業精進 (Mastery)</span>
+              <span class="px-2 py-0.5 bg-amber-200 text-amber-900 rounded font-semibold">學習成長 (Growth)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Herzberg Two-Factor Matrix -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded">Herzberg Two-Factor Theory</span>
+          <h3 class="text-lg font-bold text-slate-900 mt-2">保健因素 (Hygiene) ⇄ 激勵因素 (Motivators)</h3>
+          <p class="text-xs text-slate-500 mt-0.5">滿意的相反不是不滿意，而是「沒有滿意」；不滿意的相反不是滿意，而是「沒有不滿」！</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          
+          <!-- Hygiene Factors -->
+          <div class="p-5 rounded-2xl bg-blue-50/70 border-2 border-blue-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-blue-950 text-sm">保健因素 (Hygiene Factors)</h4>
+              <span class="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">維持基本盤</span>
+            </div>
+            <p class="text-slate-600">與「工作環境與條件」相關：薪資待遇、公司政策、工作環境、主管監督風格、工作保障。</p>
+            <div class="p-3 bg-white rounded-xl border border-blue-200 text-blue-900 space-y-1">
+              <div class="font-bold">⚠️ 管理本質：</div>
+              <p>不佳時 ➔ 引發極度不滿與離職；改善後 ➔ <strong>只能消除不滿，無法直接創造高度熱情與投入！</strong></p>
+            </div>
+          </div>
+
+          <!-- Motivators -->
+          <div class="p-5 rounded-2xl bg-amber-50/70 border-2 border-amber-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-amber-950 text-sm">激勵因素 (Motivators)</h4>
+              <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">點燃自驅力</span>
+            </div>
+            <p class="text-slate-600">與「工作本身與個人成長」相關：成就感、工作認可、承擔責任、職涯晉升、挑戰性與成長空間。</p>
+            <div class="p-3 bg-white rounded-xl border border-amber-200 text-amber-950 space-y-1">
+              <div class="font-bold">✨ 管理本質：</div>
+              <p>缺乏時 ➔ 沒有熱情；具備時 ➔ <strong>真正激發員工願意額外付出 (Discretionary Effort)！</strong></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 70–90分 Mini Case 留下來卻不再努力的王小姐 -->
+    <section id="section-case1" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">06</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">70–90 min 經典個案研討</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Mini Case：留下來，卻不再努力的王小姐</h2>
+        </div>
+      </div>
+
+      <div class="instructor-note bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs space-y-2">
+        <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> 個案核心提問
+        </div>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          王小姐沒升遷，公司補償加薪 15% 留人。半年後她「安靜離職 (Quiet Quitting)」。引導學生用 Herzberg 分析：加薪 15% 只補償了 Hygiene Factor；但她真正失去的是 <strong>Motivators（認可、責任、職涯舞台、信任與心理契約）</strong>！
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              王小姐在公司服務 <strong>5 年</strong>，是部門績效第一名的頂尖骨幹。去年原主管離職，王小姐自認表現優異、資歷完整，應可順理成章升任主管。
+            </p>
+            <p>
+              最後高層卻決定從外部挖角一位新主管。高層為了安撫王小姐，主動給予<strong>調薪 15%</strong> 的慰留方案。王小姐接受了，也沒有離職。
+            </p>
+            <p>
+              半年過去了，王小姐雖然工作仍維持及格達標，但<strong>不再主動提出改善案、不再熱心協助新人、會議幾乎不主動發言，下班時間一到立刻走人</strong>。
+            </p>
+            <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-sm">
+              主管極為困惑：「公司都已經幫她加薪 15% 了，她到底還有什麼好不滿意的？」
+            </div>
+          </div>
+
+          <!-- Diagnostic Questions -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-clipboard-question text-amber-600"></i> 小組 5 大思辨題：
+            </h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q1.</strong> 王小姐究竟有沒有 Motivation Problem？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q2.</strong> 加薪 15% 為什麼無法解決她的動力問題？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q3.</strong> 用 Herzberg 解釋，她真正失去的是什麼？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q4.</strong> 什麼是「心理契約 (Psychological Contract)」的破裂？</div>
+              <div class="p-2 bg-white rounded border border-slate-200 font-bold text-amber-900"><strong>Q5.</strong> 如果你是她的新主管，下一步會怎麼做？</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: 90–100分 中場休息 -->
+    <section id="section-break" class="rounded-2xl bg-gradient-to-r from-slate-800 to-amber-950 text-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">90–100 min 中場休息</span>
+          <h3 class="text-lg font-bold">10 分鐘 咖啡補給與腦力沉澱</h3>
+          <p class="text-xs text-slate-300 mt-0.5">下半場將進入期望理論 E×I×V、公平理論 80K vs 95K 與團隊激勵地圖。</p>
+        </div>
+      </div>
+      <button onclick="startBreakTimer()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition flex items-center gap-2">
+        <i class="fa-solid fa-stopwatch"></i> 啟動10分鐘倒數
+      </button>
+    </section>
+
+    <!-- SECTION 8: 100–125分 核心理論 3：期望理論 E × I × V -->
+    <section id="section-expectancy" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">07</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">100–125 min 經典理論解析</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Expectancy Theory：努力為什麼沒有發生？</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between text-xs sm:text-sm">
+          <div>
+            <span class="text-gold-400 font-bold">Victor Vroom 期望理論公式：</span>
+            <span class="font-mono text-base font-extrabold text-white ml-2">Motivation ＝ E（期望） × I（媒介工具性） × V（誘價價值）</span>
+          </div>
+          <span class="text-xs text-slate-400 hidden sm:inline">三者相乘，一項為零則動機歸零</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          
+          <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2">
+            <span class="font-bold text-blue-900 text-sm">1. Expectancy (E: 努力 ➔ 績效)</span>
+            <div class="font-semibold text-slate-800">「我努力，真的做得到嗎？」</div>
+            <p class="text-slate-600 leading-relaxed">部屬對自己能力的信心。如果目標過高、缺乏培訓或工具，他會認為「再怎麼拼也達不到」，動機歸零。</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-2">
+            <span class="font-bold text-amber-900 text-sm">2. Instrumentality (I: 績效 ➔ 獎勵)</span>
+            <div class="font-semibold text-slate-800">「我做到了，公司真的會給嗎？」</div>
+            <p class="text-slate-600 leading-relaxed">部屬對公司承諾與評估制度的信任度。如果過去有搶功、跳票或黑箱歷史，部屬不會相信好表現能換來回報。</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200 space-y-2">
+            <span class="font-bold text-purple-900 text-sm">3. Valence (V: 獎勵的吸引力)</span>
+            <div class="font-semibold text-slate-800">「公司給的東西，真的是我要的嗎？」</div>
+            <p class="text-slate-600 leading-relaxed">獎勵本身的價值。如果同仁渴望時間陪家人，公司卻只獎勵更多加班專案，誘價甚至為負值！</p>
+          </div>
+
+        </div>
+
+        <!-- Interactive E x I x V Motivation Simulator -->
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">🎮 期望理論動態計算模擬器：</h4>
+            <span id="calc-motivation-score" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">整體動機指數：64%</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+            <div>
+              <div class="flex justify-between font-semibold text-slate-700 mb-1">
+                <span>E (相信做得到):</span> <span id="val-e" class="font-mono text-blue-700 font-bold">80%</span>
+              </div>
+              <input type="range" min="0" max="100" value="80" oninput="updateEIV()" id="range-e" class="w-full h-1.5 bg-slate-200 rounded-lg">
+            </div>
+            <div>
+              <div class="flex justify-between font-semibold text-slate-700 mb-1">
+                <span>I (相信會兌現):</span> <span id="val-i" class="font-mono text-amber-700 font-bold">80%</span>
+              </div>
+              <input type="range" min="0" max="100" value="80" oninput="updateEIV()" id="range-i" class="w-full h-1.5 bg-slate-200 rounded-lg">
+            </div>
+            <div>
+              <div class="flex justify-between font-semibold text-slate-700 mb-1">
+                <span>V (在乎該獎勵):</span> <span id="val-v" class="font-mono text-purple-700 font-bold">100%</span>
+              </div>
+              <input type="range" min="0" max="100" value="100" oninput="updateEIV()" id="range-v" class="w-full h-1.5 bg-slate-200 rounded-lg">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: 125–145分 核心理論 4：Fairness Matters 不公平比低薪更傷 -->
+    <section id="section-equity" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">08</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">125–145 min 公平理論解析</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Fairness Matters：不公平比低薪更具毀滅性！</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        
+        <!-- 80K vs 95K Scenario -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-rose-50 to-amber-50 border border-slate-200 space-y-3">
+          <span class="text-xs font-bold text-rose-800 bg-rose-200/60 px-2.5 py-0.5 rounded uppercase">經典心理情境</span>
+          <h3 class="text-base font-bold text-slate-900">
+            原本月薪 80,000 元很滿意，某天得知資淺 2 年的新同事起薪 95,000 元：
+          </h3>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            你的薪水一毛錢都沒有少，但你的工作滿意度與投入熱情會發生什麼變化？這證明了：<strong>人是比較性的動物，絕對薪酬固然重要，但相對公平性 (Equity) 才是決定心理感受的關鍵！</strong>
+          </p>
+        </div>
+
+        <!-- Equity Formula -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <h4 class="font-bold text-slate-900">亞當斯公平理論 (Adams Equity Theory)</h4>
+            <div class="p-3 bg-white rounded-lg border border-slate-200 font-mono text-center font-bold text-slate-800">
+              (我的產出 / 我的付出) vs. (他人的產出 / 他人的付出)
+            </div>
+            <p class="text-slate-600">當感受不公時，員工會自動採取行動：降低努力、要求加薪、心理退出、或直接離職。</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <h4 class="font-bold text-slate-900">Equality ≠ Equity（一視同仁 ≠ 公平）</h4>
+            <p class="text-slate-600 leading-relaxed">
+              對付出 120% 的頂尖明星與付出 80% 的平庸成員給予相同的待遇或極微小的差距，表面看似「一視同仁」，實則是對卓越者的極大懲罰與侮辱！
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 10: 145–160分 Case 明星員工為什麼辭職？ -->
+    <section id="section-case2" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">09</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">145–160 min 案例決策思辨</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Case：明星員工為什麼辭職？（Kevin vs. Jack）</h2>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              <strong>Kevin</strong> 整年績效達標 120%，主動承接最困難案件並協助新人；<strong>Jack</strong> 績效 90%，安分守己但較少額外承擔。
+            </p>
+            <p>
+              年底發放年終獎金時，主管給了 Kevin <strong>2.0 個月</strong>，給了 Jack <strong>1.8 個月</strong>。主管自我感覺良好：「我已經給 Kevin 比較多了，大家一視同仁、皆大歡喜，很公平。」
+            </p>
+            <p>
+              結果一個月後，Kevin 毫無預警遞出辭呈。主管百思不得其解：「他的獎金已經是全組第一名了，為什麼還要走？」
+            </p>
+            <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 font-serif italic text-sm">
+              0.2 個月的微小差距，向團隊傳遞了什麼訊號？「努力付出 120%，只值 0.2 個月？」
+            </div>
+          </div>
+
+          <!-- Discussion Questions -->
+          <div class="lg:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3 text-xs">
+            <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-comments text-amber-600"></i> 小組 4 大思辨題：
+            </h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q1.</strong> 主管的做法真的公平嗎？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q2.</strong> 0.2 個月的差距對 Kevin 代表了什麼？</div>
+              <div class="p-2 bg-white rounded border border-slate-200"><strong>Q3.</strong> Kevin 在意的是錢本身，還是「被如何評價」？</div>
+              <div class="p-2 bg-white rounded border border-slate-200 font-bold text-amber-900"><strong>Q4.</strong> 若公司獎金總額無法大幅拉開，主管平時還能做什麼？</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: 160–170分 Activity 3 Motivation Map -->
+    <section id="section-map" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">10</div>
+          <div>
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">160–170 min 職場實戰應用</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Activity 3：Motivation Map（我的團隊激勵地圖）</h2>
+          </div>
+        </div>
+
+        <button onclick="saveMotivationMap()" class="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+          <i class="fa-solid fa-floppy-disk"></i> 儲存激勵地圖
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="text-xs sm:text-sm text-slate-600">
+          請回想您目前團隊中的 3 位真實成員（可用代號 A、B、C），診斷其核心動機來源並設計客製化調整方案：
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-800 font-bold uppercase">
+                <th class="p-3 w-1/12">對象</th>
+                <th class="p-3 w-3/12">他目前最在意什麼？ (Core Value)</th>
+                <th class="p-3 w-3/12">現在的動機問題</th>
+                <th class="p-3 w-2/12">我原本怎麼激勵？</th>
+                <th class="p-3 w-3/12 text-amber-800">未來如何客製化調整？</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="p-3 font-bold text-slate-900">成員 A</td>
+                <td class="p-3"><select id="map-val-a" class="w-full p-2 rounded border border-slate-300 text-xs"><option>專業成長與自主 (Growth/Autonomy)</option><option>薪資獎金 (Money)</option><option>公開認可與尊重 (Recognition)</option><option>升遷與職涯 (Promotion)</option><option>工作生活平衡 (Balance)</option></select></td>
+                <td class="p-3"><input type="text" id="map-prob-a" placeholder="例如：覺得工作重複無聊" class="w-full p-2 rounded border border-slate-300 text-xs"></td>
+                <td class="p-3"><input type="text" id="map-old-a" placeholder="例如：承諾發績效獎金" class="w-full p-2 rounded border border-slate-300 text-xs"></td>
+                <td class="p-3"><input type="text" id="map-new-a" placeholder="例如：賦予新專案自主設計權" class="w-full p-2 rounded border border-amber-400 bg-amber-50/50 text-xs font-bold text-amber-900"></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-slate-900">成員 B</td>
+                <td class="p-3"><select id="map-val-b" class="w-full p-2 rounded border border-slate-300 text-xs"><option>公開認可與尊重 (Recognition)</option><option>薪資獎金 (Money)</option><option>專業成長與自主 (Growth/Autonomy)</option><option>升遷與職涯 (Promotion)</option><option>安全感與穩定 (Security)</option></select></td>
+                <td class="p-3"><input type="text" id="map-prob-b" placeholder="例如：覺得付出沒被看見" class="w-full p-2 rounded border border-slate-300 text-xs"></td>
+                <td class="p-3"><input type="text" id="map-old-b" placeholder="例如：私下口頭說謝謝" class="w-full p-2 rounded border border-slate-300 text-xs"></td>
+                <td class="p-3"><input type="text" id="map-new-b" placeholder="例如：在跨部門會議公開表揚" class="w-full p-2 rounded border border-amber-400 bg-amber-50/50 text-xs font-bold text-amber-900"></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-slate-900">成員 C</td>
+                <td class="p-3"><select id="map-val-c" class="w-full p-2 rounded border border-slate-300 text-xs"><option>工作生活平衡 (Balance)</option><option>薪資獎金 (Money)</option><option>公開認可與尊重 (Recognition)</option><option>專業成長與自主 (Growth/Autonomy)</option><option>升遷與職涯 (Promotion)</option></select></td>
+                <td class="p-3"><input type="text" id="map-prob-c" placeholder="例如：常態加班精疲力竭" class="w-full p-2 rounded border border-slate-300 text-xs"></td>
+                <td class="p-3"><input type="text" id="map-old-c" placeholder="例如：給予加班費補償" class="w-full p-2 rounded border border-slate-300 text-xs"></td>
+                <td class="p-3"><input type="text" id="map-new-c" placeholder="例如：重新分配排程，確保準時下班" class="w-full p-2 rounded border border-amber-400 bg-amber-50/50 text-xs font-bold text-amber-900"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900 text-gold-300 text-xs font-serif italic text-center">
+          「你給的，是他要的嗎？主管最危險的盲點，就是用自己想要的東西去激勵所有人。」
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: 170–175分 教師 Debrief 五大核心收束 -->
+    <section id="section-debrief" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-sm font-bold">11</div>
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">170–175 min 理論提煉</span>
+          <h2 class="text-2xl font-bold text-slate-900 tracking-tight">教師 Debrief：本週五大核心 Takeaways</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 text-xs">
+        
+        <div class="p-4 rounded-2xl bg-white border border-amber-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+          <h4 class="font-bold text-slate-900">低績效 ≠ 低動機</h4>
+          <p class="text-slate-600 leading-relaxed font-mono text-[11px]">Ability × Motivation × Opportunity。</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-amber-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+          <h4 class="font-bold text-slate-900">錢重要但非萬能</h4>
+          <p class="text-slate-600 leading-relaxed">Hygiene 消除不滿，Motivators 創造熱情。</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-amber-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+          <h4 class="font-bold text-slate-900">不同人重視不同回報</h4>
+          <p class="text-slate-600 leading-relaxed font-serif italic">Don't motivate everyone the same way.</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-amber-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">4</div>
+          <h4 class="font-bold text-slate-900">期望鏈條缺一不可</h4>
+          <p class="text-slate-600 leading-relaxed">E×I×V：相信能做到 ➔ 相信有回報 ➔ 在乎該回報。</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-amber-100 shadow-sm space-y-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center text-xs font-bold">5</div>
+          <h4 class="font-bold text-slate-900">公平感重於一切</h4>
+          <p class="text-slate-600 leading-relaxed">一視同仁不是公平，不公平比低薪更具毀滅性！</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 13: 175–180分 One-Minute Paper 反思卡 -->
+    <section id="section-oneminute" class="scroll-mt-28 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-gold-500 text-slate-950 flex items-center justify-center text-sm font-bold">12</div>
+          <div>
+            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">175–180 min 課末收官作業</span>
+            <h2 class="text-2xl font-bold text-slate-900 tracking-tight">One-Minute Paper：課堂即時反思卡</h2>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="copyOneMinutePaperText()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition">
+            <i class="fa-solid fa-copy"></i> 複製內容
+          </button>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow transition">
+            <i class="fa-solid fa-print"></i> 列印／匯出 PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <form id="oneminute-form" onsubmit="handleOneMinuteSubmit(event)" class="space-y-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">1</span>
+              今天哪一個激勵理論（雙因素、期望理論、公平理論），最能解釋你過去的親身工作經歷？
+            </label>
+            <textarea id="paper-w7-q1" rows="3" placeholder="例如：Herzberg 雙因素完全打中我的痛點！去年雖然調薪，但我依然感到很空虛，因為主管從未給我足夠的授權與發揮舞台..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">2</span>
+              回顧你的管理生涯，你是否曾經用「你自己想要的東西」去激勵部屬，結果完全失效？
+            </label>
+            <textarea id="paper-w7-q2" rows="3" placeholder="例如：我以前很喜歡挑戰性高的新專案，以為給部屬新專案就是獎勵，結果對方只想要準時下班照顧小孩，導致雙方心態崩潰..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">3</span>
+              下週面對一位看似「缺乏動機」的同仁，你會先用哪一個提問去診斷問題？
+            </label>
+            <textarea id="paper-w7-q3" rows="3" placeholder="例如：我會先問期望理論的 E 與 V：『這項任務你覺得目前最大的阻礙是什麼？你希望完成後獲得什麼樣的肯定？』..." class="w-full p-3.5 rounded-xl border border-slate-300 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none transition"></textarea>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <span id="paper-saved-status" class="text-xs font-semibold text-emerald-600 flex items-center gap-1.5 opacity-0 transition-opacity">
+              <i class="fa-solid fa-circle-check"></i> 已自動儲存至本機
+            </span>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> 儲存並提交 W7 反思紀錄
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 py-8 mt-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold">LM</div>
+        <div>
+          <div class="font-bold text-white">碩士在職專班｜領導與管理 (Leadership & Management)</div>
+          <div>115學年度 第1學期 ‧ W7 激勵與員工動機</div>
+        </div>
+      </div>
+      <div class="text-slate-500 text-center sm:text-right">
+        <div>學習演進：認識領導 ➔ 認識自己 ➔ 如何帶不同的人 ➔ 激勵與動機 ➔ 領導溝通</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Timer Modal -->
+  <div id="timer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full text-white shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-stopwatch text-gold-400 text-lg"></i>
+          <h3 class="text-base font-bold">課堂即時倒數計時器</h3>
+        </div>
+        <button onclick="toggleTimerModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="text-center py-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner">
+        <div id="timer-display-big" class="font-mono text-5xl sm:text-6xl font-extrabold text-gold-400 tracking-wider">180:00</div>
+        <div id="timer-stage-title" class="text-xs text-slate-400 mt-2 font-medium">全課程 180 分鐘總時程</div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-xs">
+        <button onclick="setTimerDuration(3, '3分鐘加薪減薪投票思考')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">3 分鐘思考</button>
+        <button onclick="setTimerDuration(10, '10分鐘中場休息')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">10 分鐘休息</button>
+        <button onclick="setTimerDuration(15, '15分鐘4部屬診斷活動')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">15 分鐘小組</button>
+        <button onclick="setTimerDuration(20, '20分鐘王小姐個案思辨')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">20 分鐘個案</button>
+        <button onclick="setTimerDuration(40, '40分鐘激勵理論講授')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">40 分鐘講授</button>
+        <button onclick="setTimerDuration(180, '180分鐘全課程總時程')" class="p-2 rounded-lg bg-amber-700 hover:bg-amber-600 text-white font-bold">180 分鐘完整</button>
+      </div>
+      <div class="flex items-center space-x-3 pt-2">
+        <button id="timer-toggle-btn" onclick="toggleTimerRunning()" class="flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-play" id="timer-btn-icon"></i> <span id="timer-btn-label">開始計時</span>
+        </button>
+        <button onclick="resetTimer()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-left"></i> 重設
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 26-Slide Fullscreen Presentation Overlay -->
+  <div id="presentation-overlay" class="fixed inset-0 z-[100] bg-slate-950 text-white hidden flex flex-col justify-between select-none">
+    <div class="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-gold-400">碩士在職專班｜W7 激勵與員工動機 (26頁簡報)</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span id="slide-number-indicator" class="text-sm font-mono font-bold text-slate-300">Slide 1 / 26</span>
+        <button onclick="closePresentationMode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+          <i class="fa-solid fa-xmark"></i> 結束放映 (ESC)
+        </button>
+      </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-6 sm:p-12 overflow-y-auto" id="slide-content-stage"></div>
+    <div class="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between">
+      <div class="text-xs text-slate-400 hidden sm:block">
+        快捷鍵：<kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">←</kbd> 上一頁 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">→</kbd> 或 <kbd class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-200">Space</kbd> 下一頁
+      </div>
+      <div class="flex items-center space-x-3 ml-auto">
+        <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition">
+          <i class="fa-solid fa-chevron-left"></i> 上一張
+        </button>
+        <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 text-xs font-bold shadow transition">
+          下一張 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================= W7 Presentation Slide Deck (26 Slides) =================
+    const w7SlideDeck = [
+      { num: 1, cat: "P1 封面", title: "What Makes People Want to Perform?", sub: "激勵與員工動機 ‧ 碩士在職專班 W7", body: "<div class='text-center py-8 space-y-4'><div class='text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-amber-300 to-rose-400'>What Makes People Want to Perform?</div><p class='text-slate-400 text-sm'>為什麼部屬不再努力？</p></div>", notes: "開場破題。" },
+      { num: 2, cat: "P2 核心提問", title: "本週核心大哉問", sub: "Core Provocative Question", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 max-w-2xl mx-auto'><h2 class='text-2xl sm:text-3xl font-serif italic text-white'>「員工能力完全沒有問題，<br>為什麼就是不願意做？」</h2></div>", notes: "引導同學反思動機本質。" },
+      { num: 3, cat: "P3 開場思考", title: "如果明天加薪 20%？", sub: "你的工作投入會提升多少？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='font-bold text-white text-base'>短期的興奮 vs 長期的自驅力</h4><p>加薪 20% 多半只能帶來幾週的開心，隨後投入度即回到原有常態。</p></div>", notes: "投票統計結果。" },
+      { num: 4, cat: "P4 開場思考", title: "如果明天減薪 20%？", sub: "非對稱的心理衝擊", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='font-bold text-rose-400 text-base'>動機瞬間崩塌！</h4><p>減薪會引發極端不滿、信任破裂甚至集體跳槽。</p></div>", notes: "為 Herzberg 雙因素埋下伏筆。" },
+      { num: 5, cat: "P5–6 根因診斷", title: "Activity：他為什麼不努力？", sub: "四個部屬的低績效診斷", body: "<div class='max-w-xl mx-auto space-y-2 text-xs text-slate-300'><p>員工 A：新人常錯 ➔ <strong>Ability Problem</strong></p><p>員工 B：只做最低要求 ➔ <strong>Motivation Problem</strong></p><p>員工 C：系統老舊卡關 ➔ <strong>Opportunity Problem</strong></p><p>員工 D：被微觀管理扼殺 ➔ <strong>Leadership Problem</strong></p></div>", notes: "區分不同根因。" },
+      { num: 6, cat: "P5–6 根因診斷", title: "主管最常犯的直覺錯誤", sub: "Poor Performance ≠ Poor Motivation", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto space-y-2'><h3 class='text-lg font-bold text-gold-300'>不要把低績效直接等同於不努力！</h3><p class='text-xs text-slate-300'>必須先排除能力 (Ability) 與組織環境 (Opportunity) 的阻礙。</p></div>", notes: "建立科學診斷思維。" },
+      { num: 7, cat: "P7 績效公式", title: "Performance ＝ A × M × O", sub: "績效三因子整合模型", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto space-y-2 font-mono'><h4 class='text-xl font-bold text-white'>Performance ＝ Ability × Motivation × Opportunity</h4><p class='text-xs text-slate-400'>能力、動機與機會相乘，任何一項為零，產出即為零。</p></div>", notes: "核心理論基石。" },
+      { num: 8, cat: "P8–9 內外在動機", title: "Extrinsic vs. Intrinsic Motivation", sub: "外在胡蘿蔔 vs 內在引擎", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-slate-900 rounded-xl border border-slate-800'><strong class='text-blue-400'>外在動機 (Extrinsic)</strong><p class='text-[11px] text-slate-400 mt-1'>薪水、獎金、升遷、福利、懲處</p></div><div class='p-4 bg-slate-900 rounded-xl border border-slate-800'><strong class='text-amber-400'>內在動機 (Intrinsic)</strong><p class='text-[11px] text-slate-400 mt-1'>成就感、意義、自主、精進、成長</p></div></div>", notes: "帶領同學思考自身職涯。" },
+      { num: 9, cat: "P8–9 內外在動機", title: "你現在工作主要是為了什麼？", sub: "不同職涯階段的動機演變", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>年輕求機會 ➔ 中生代求升遷與財富 ➔ 資深求影響力與工作意義。</p></div>", notes: "不同人重視不同回報。" },
+      { num: 10, cat: "P10–11 馬斯洛", title: "Maslow 需求階層理論", sub: "生理 ➔ 安全 ➔ 社交 ➔ 尊嚴 ➔ 自我實現", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2 text-center'><h4 class='text-base font-bold text-white'>Different people value different things</h4><p>重點在於洞察部屬當下最渴望被滿足的是哪一層需求。</p></div>", notes: "快速帶過階層意涵。" },
+      { num: 11, cat: "P10–11 馬斯洛", title: "需求不是固定的人生鐵律", sub: "依環境與情境動態轉變", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>即使是高階主管，在組織重組時也會退回「安全感 (Security)」需求。</p></div>", notes: "強調動態觀察。" },
+      { num: 12, cat: "P12–13 雙因素", title: "Herzberg 雙因素理論", sub: "保健因素 (Hygiene) vs 激勵因素 (Motivators)", body: "<div class='grid grid-cols-2 gap-4 max-w-2xl mx-auto text-xs'><div class='p-4 bg-blue-950/60 rounded-xl border border-blue-800'><strong class='text-blue-400'>保健因素 (Hygiene)</strong><p class='text-[10px] text-slate-300 mt-1'>薪資、政策、環境、督導<br>（不足則不滿，改善只消除不滿）</p></div><div class='p-4 bg-amber-950/60 rounded-xl border border-amber-800'><strong class='text-amber-400'>激勵因素 (Motivators)</strong><p class='text-[10px] text-slate-300 mt-1'>成就、認可、責任、晉升、成長<br>（真正創造熱情與投入）</p></div></div>", notes: "本週最經典理論對照。" },
+      { num: 13, cat: "P12–13 雙因素", title: "滿意的相反不是不滿意！", sub: "兩個獨立維度", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto space-y-2 text-xs text-slate-300'><p>滿意 ⇄ 沒有滿意（由激勵因素決定）</p><p>不滿意 ⇄ 沒有不滿意（由保健因素決定）</p></div>", notes: "釐清邏輯邊界。" },
+      { num: 14, cat: "P14 雙因素金句", title: "Money Matters—but Not Enough", sub: "錢很重要，但只靠錢永遠不夠", body: "<div class='p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center max-w-xl mx-auto space-y-2'><h3 class='text-2xl font-bold text-gold-300'>Pay matters, but pay alone is not enough.</h3><p class='text-xs text-slate-300'>薪資合理後，主管必須提供責任、成長、認可與自主。</p></div>", notes: "總結雙因素。" },
+      { num: 15, cat: "P15–16 王小姐個案", title: "Mini Case：王小姐的安靜離職", sub: "加薪 15% 為什麼留不住熱情？", body: "<div class='max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>5 年王牌沒升主管，公司補償加薪 15%。半年後準時下班、不再主動、會議沉默。</p><div class='p-3 bg-slate-950 text-gold-300 italic text-center'>「公司都幫她加薪 15% 了，她到底還有什麼好不滿？」</div></div>", notes: "引導學員深入剖析。" },
+      { num: 16, cat: "P15–16 王小姐個案", title: "王小姐真正失去的是什麼？", sub: "心理契約 (Psychological Contract) 的破裂", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-rose-400'>她失去的是認可、信任、責任與職涯舞台</h4><p>加薪只能安撫 Hygiene，無法修補被摧毀的 Motivator 與心理契約。</p></div>", notes: "案例收束。" },
+      { num: 17, cat: "P17 期望理論", title: "期望理論情境導入", sub: "全班第一名只獎勵一支原子筆？", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>獎勵一支筆 ➔ 誘價低；獎勵10萬但黑箱評選 ➔ 工具性低；目標不可達 ➔ 期望低。</p></div>", notes: "形象化導入 E×I×V。" },
+      { num: 18, cat: "P18 E×I×V", title: "Motivation ＝ E × I × V", sub: "動機的三道連環鎖", body: "<div class='grid grid-cols-3 gap-2 max-w-2xl mx-auto text-xs text-center'><div class='p-3 bg-slate-900 rounded-xl'><strong>Expectancy (E)</strong><p class='text-[10px] text-slate-400 mt-1'>努力 ➔ 做到</p></div><div class='p-3 bg-slate-900 rounded-xl'><strong>Instrumentality (I)</strong><p class='text-[10px] text-slate-400 mt-1'>做到 ➔ 給予</p></div><div class='p-3 bg-slate-900 rounded-xl'><strong>Valence (V)</strong><p class='text-[10px] text-slate-400 mt-1'>給予 ➔ 是我要的</p></div></div>", notes: "公式詳解。" },
+      { num: 19, cat: "P19–21 診斷三問", title: "E (Expectancy)：我做得到嗎？", sub: "自信心、培訓與資源", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主管責任：拆解步驟、提供輔導、排除障礙，讓部屬相信努力可達標。</p></div>", notes: "落實到管理作為。" },
+      { num: 20, cat: "P19–21 診斷三問", title: "I (Instrumentality)：真的會給嗎？", sub: "承諾兌現與評估透明", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主管責任：信守承諾、評估公正透明、絕不搶部屬功勞。</p></div>", notes: "信任是工具性的基石。" },
+      { num: 21, cat: "P19–21 診斷三問", title: "V (Valence)：是我要的嗎？", sub: "獎勵的多樣性與客製化", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p>主管責任：了解部屬個別價值觀，給出對方真正渴望的回報。</p></div>", notes: "避免以己度人。" },
+      { num: 22, cat: "P22–23 公平理論", title: "Equity / Fairness：公平理論", sub: "產出/付出 ＝ 他人產出/他人付出", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto space-y-2 font-mono text-xs text-slate-300'><h4 class='text-base font-bold text-white'>My (O/I) vs Others (O/I)</h4><p>人們在意的是相對公平，而非絕對數額。</p></div>", notes: "導入公平公式。" },
+      { num: 23, cat: "P22–23 公平理論", title: "80,000 vs. 95,000 情境", sub: "不公平比低薪更具破壞力", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><p class='text-rose-400 font-bold'>一旦感受不公，員工會主動減少付出以平衡天平！</p></div>", notes: "強調公平感的敏感度。" },
+      { num: 24, cat: "P24 明星員工案例", title: "Case：明星員工為什麼辭職？", sub: "Kevin (120%) 拿 2.0 個月 vs Jack (90%) 拿 1.8 個月", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-gold-300'>Equality ≠ Equity</h4><p>齊頭式的一視同仁，實質上是在懲罰最優秀的貢獻者！</p></div>", notes: "破除一視同仁的鄉愿。" },
+      { num: 25, cat: "P25 激勵地圖", title: "Activity 3：Motivation Map", sub: "繪製團隊專屬激勵地圖", body: "<div class='p-6 bg-slate-900 rounded-2xl border border-slate-800 text-center max-w-xl mx-auto text-xs text-slate-300 space-y-2'><h4 class='text-base font-bold text-amber-400'>「你給的，是他要的嗎？」</h4><p>在教學網頁端盤點 3 位成員，設計客製化激勵方案。</p></div>", notes: "落實到實務管理。" },
+      { num: 26, cat: "P26 收束反思", title: "Five Takeaways ＆ 課末反思", sub: "動機診斷五大核心", body: "<div class='space-y-1.5 max-w-xl mx-auto text-xs text-slate-300'><p>1. 低績效 ≠ 低動機（先檢視 A 與 O）</p><p>2. 錢很重要但非萬能（兼顧保健與激勵）</p><p>3. 獎勵因人而異（避免投影效應）</p><p>4. E × I × V 缺一不可</p><p>5. 公平感重於一切（Equality ≠ Equity）</p></div>", notes: "宣布放映結束。" }
+    ];
+
+    let curSlide = 0;
+    function openPresentationMode(slideNum = 1) {
+      curSlide = Math.max(0, Math.min(w7SlideDeck.length - 1, slideNum - 1));
+      renderSlide();
+      document.getElementById('presentation-overlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePresentationMode() {
+      document.getElementById('presentation-overlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function nextSlide() { if (curSlide < w7SlideDeck.length - 1) { curSlide++; renderSlide(); } }
+    function prevSlide() { if (curSlide > 0) { curSlide--; renderSlide(); } }
+    function renderSlide() {
+      const s = w7SlideDeck[curSlide];
+      document.getElementById('slide-number-indicator').innerText = `Slide ${s.num} / ${w7SlideDeck.length}`;
+      document.getElementById('slide-content-stage').innerHTML = `
+        <div class="slide-card p-6 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <span class="text-xs font-mono font-bold text-gold-400 uppercase tracking-wider">${s.cat}</span>
+              <span class="text-xs font-mono text-slate-500">P.${s.num}</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.sub}</p>
+          </div>
+          <div class="flex-grow flex items-center justify-center">${s.body}</div>
+          <div class="pt-3 border-t border-slate-800 text-[11px] text-amber-300/80 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>教師提場提示：</strong>${s.notes}</span>
+          </div>
+        </div>
+      `;
+    }
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('presentation-overlay');
+      if (!overlay || overlay.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'Escape') { closePresentationMode(); }
+    });
+
+    // ================= App State & Interactivity =================
+    let timerSec = 180 * 60;
+    let timerRun = false;
+    let timerInt = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreW7State();
+      updateEIV();
+    });
+
+    function setAppMode(m) {
+      const sBtn = document.getElementById('mode-student-btn');
+      const iBtn = document.getElementById('mode-instructor-btn');
+      const banner = document.getElementById('instructor-banner');
+      const notes = document.querySelectorAll('.instructor-note');
+      if (m === 'instructor') {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white shadow-sm flex items-center gap-1.5';
+        banner.classList.remove('hidden');
+        notes.forEach(n => n.classList.remove('hidden'));
+      } else {
+        sBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white shadow-sm flex items-center gap-1.5';
+        iBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700/60 flex items-center gap-1.5';
+        banner.classList.add('hidden');
+        notes.forEach(n => n.classList.add('hidden'));
+      }
+    }
+
+    function updateEIV() {
+      const e = parseInt(document.getElementById('range-e').value, 10);
+      const i = parseInt(document.getElementById('range-i').value, 10);
+      const v = parseInt(document.getElementById('range-v').value, 10);
+
+      document.getElementById('val-e').innerText = `${e}%`;
+      document.getElementById('val-i').innerText = `${i}%`;
+      document.getElementById('val-v').innerText = `${v}%`;
+
+      const score = Math.round((e / 100) * (i / 100) * (v / 100) * 100);
+      const scoreBadge = document.getElementById('calc-motivation-score');
+      scoreBadge.innerText = `整體動機指數：${score}%`;
+
+      if (score >= 60) {
+        scoreBadge.className = 'text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800';
+      } else if (score >= 30) {
+        scoreBadge.className = 'text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800';
+      } else {
+        scoreBadge.className = 'text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800';
+      }
+      saveW7State();
+    }
+
+    function saveMotivationMap() {
+      saveW7State();
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 60, origin: { y: 0.8 } });
+      alert('Motivation Map（團隊激勵地圖）已成功儲存至本機！');
+    }
+
+    function handleOneMinuteSubmit(e) {
+      e.preventDefault();
+      saveW7State();
+      const status = document.getElementById('paper-saved-status');
+      status.classList.remove('opacity-0');
+      setTimeout(() => status.classList.add('opacity-0'), 4000);
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+      alert('W7 One-Minute Paper 反思卡提交成功！已儲存至本機。');
+    }
+
+    function copyOneMinutePaperText() {
+      const q1 = document.getElementById('paper-w7-q1').value;
+      const q2 = document.getElementById('paper-w7-q2').value;
+      const q3 = document.getElementById('paper-w7-q3').value;
+      const text = `【碩士在職專班 領導與管理 W7 反思卡】\n` +
+        `Q1. 最能解釋自身經歷的理論：\n${q1 || '(未填寫)'}\n\n` +
+        `Q2. 曾用自己想要的東西激勵他人之反思：\n${q2 || '(未填寫)'}\n\n` +
+        `Q3. 下次診斷缺乏動機同仁的第一個問題：\n${q3 || '(未填寫)'}\n`;
+      navigator.clipboard.writeText(text).then(() => alert('已將 W7 反思內容複製到剪貼簿！'));
+    }
+
+    // Timer functions
+    function toggleTimerModal() { document.getElementById('timer-modal').classList.toggle('hidden'); }
+    function setTimerDuration(m, title = '') {
+      pauseTimer();
+      timerSec = m * 60;
+      if (title) document.getElementById('timer-stage-title').innerText = title;
+      updateTimerDisplay();
+    }
+    function toggleTimerRunning() { if (timerRun) pauseTimer(); else startTimer(); }
+    function startTimer() {
+      if (timerInt) clearInterval(timerInt);
+      timerRun = true;
+      document.getElementById('timer-btn-label').innerText = '暫停計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-pause';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+      timerInt = setInterval(() => {
+        if (timerSec > 0) { timerSec--; updateTimerDisplay(); }
+        else { pauseTimer(); alert('⏰ 課堂時段時間已到！'); }
+      }, 1000);
+    }
+    function pauseTimer() {
+      timerRun = false;
+      if (timerInt) clearInterval(timerInt);
+      document.getElementById('timer-btn-label').innerText = '開始計時';
+      document.getElementById('timer-btn-icon').className = 'fa-solid fa-play';
+      document.getElementById('timer-toggle-btn').className = 'flex-1 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-slate-950 font-bold text-sm shadow-md transition flex items-center justify-center gap-2';
+    }
+    function resetTimer() {
+      pauseTimer();
+      timerSec = 180 * 60;
+      document.getElementById('timer-stage-title').innerText = '全課程 180 分鐘總時程';
+      updateTimerDisplay();
+    }
+    function startBreakTimer() {
+      toggleTimerModal();
+      setTimerDuration(10, '10分鐘中場休息倒數');
+      startTimer();
+    }
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSec / 60);
+      const s = timerSec % 60;
+      const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const big = document.getElementById('timer-display-big');
+      const mini = document.getElementById('timer-display-mini');
+      if (big) big.innerText = str;
+      if (mini) mini.innerText = str;
+    }
+
+    function saveW7State() {
+      const state = {
+        valA: document.getElementById('map-val-a') ? document.getElementById('map-val-a').value : '',
+        probA: document.getElementById('map-prob-a') ? document.getElementById('map-prob-a').value : '',
+        oldA: document.getElementById('map-old-a') ? document.getElementById('map-old-a').value : '',
+        newA: document.getElementById('map-new-a') ? document.getElementById('map-new-a').value : '',
+        valB: document.getElementById('map-val-b') ? document.getElementById('map-val-b').value : '',
+        probB: document.getElementById('map-prob-b') ? document.getElementById('map-prob-b').value : '',
+        oldB: document.getElementById('map-old-b') ? document.getElementById('map-old-b').value : '',
+        newB: document.getElementById('map-new-b') ? document.getElementById('map-new-b').value : '',
+        valC: document.getElementById('map-val-c') ? document.getElementById('map-val-c').value : '',
+        probC: document.getElementById('map-prob-c') ? document.getElementById('map-prob-c').value : '',
+        oldC: document.getElementById('map-old-c') ? document.getElementById('map-old-c').value : '',
+        newC: document.getElementById('map-new-c') ? document.getElementById('map-new-c').value : '',
+        q1: document.getElementById('paper-w7-q1') ? document.getElementById('paper-w7-q1').value : '',
+        q2: document.getElementById('paper-w7-q2') ? document.getElementById('paper-w7-q2').value : '',
+        q3: document.getElementById('paper-w7-q3') ? document.getElementById('paper-w7-q3').value : '',
+        rangeE: document.getElementById('range-e') ? document.getElementById('range-e').value : '80',
+        rangeI: document.getElementById('range-i') ? document.getElementById('range-i').value : '80',
+        rangeV: document.getElementById('range-v') ? document.getElementById('range-v').value : '100',
+      };
+      localStorage.setItem('LM_W7_State', JSON.stringify(state));
+    }
+
+    function restoreW7State() {
+      try {
+        const raw = localStorage.getItem('LM_W7_State');
+        if (!raw) return;
+        const s = JSON.parse(raw);
+        if (s.valA) document.getElementById('map-val-a').value = s.valA;
+        if (s.probA) document.getElementById('map-prob-a').value = s.probA;
+        if (s.oldA) document.getElementById('map-old-a').value = s.oldA;
+        if (s.newA) document.getElementById('map-new-a').value = s.newA;
+        if (s.valB) document.getElementById('map-val-b').value = s.valB;
+        if (s.probB) document.getElementById('map-prob-b').value = s.probB;
+        if (s.oldB) document.getElementById('map-old-b').value = s.oldB;
+        if (s.newB) document.getElementById('map-new-b').value = s.newB;
+        if (s.valC) document.getElementById('map-val-c').value = s.valC;
+        if (s.probC) document.getElementById('map-prob-c').value = s.probC;
+        if (s.oldC) document.getElementById('map-old-c').value = s.oldC;
+        if (s.newC) document.getElementById('map-new-c').value = s.newC;
+        if (s.q1) document.getElementById('paper-w7-q1').value = s.q1;
+        if (s.q2) document.getElementById('paper-w7-q2').value = s.q2;
+        if (s.q3) document.getElementById('paper-w7-q3').value = s.q3;
+        if (s.rangeE) document.getElementById('range-e').value = s.rangeE;
+        if (s.rangeI) document.getElementById('range-i').value = s.rangeI;
+        if (s.rangeV) document.getElementById('range-v').value = s.rangeV;
+      } catch (e) { console.error('Failed to restore W7 state:', e); }
+    }
+  </script>
+</body>
+</html>
