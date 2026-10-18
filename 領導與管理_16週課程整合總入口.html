@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碩士在職專班 (EMBA)｜領導與管理 - 16週全課程整合教學入口門戶</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617',
+            },
+            gold: {
+              300: '#f7d683',
+              400: '#eebf4d',
+              500: '#d99f26',
+              600: '#b87c18',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Playfair Display"', '"Noto Sans TC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .dark-glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+    }
+    .module-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-slate-950 min-h-screen flex flex-col">
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md text-white border-b border-slate-800 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Left Branding -->
+        <div class="flex items-center space-x-3 sm:space-x-4">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-gold-400 via-amber-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-gold-500/20 ring-2 ring-white/20">
+            <i class="fa-solid fa-compass text-slate-950 text-xl font-bold"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[11px] font-extrabold uppercase tracking-widest text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20">碩士在職專班 (EMBA)</span>
+              <span class="text-xs text-slate-400 font-medium">115學年度 第1學期</span>
+            </div>
+            <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+              領導與管理 <span class="text-gold-400 font-serif italic text-sm font-normal">Leadership & Management</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center / Right Quick Stats & Links -->
+        <div class="flex items-center space-x-3 sm:space-x-4">
+          <div class="hidden md:flex items-center space-x-2 text-xs text-slate-300 bg-slate-900/80 px-3.5 py-1.5 rounded-xl border border-slate-800">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="font-semibold">全課程 11 主題 ‧ 16 週課架全數上線</span>
+          </div>
+
+          <a href="#section-schedule" class="px-4 py-2 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-md transition transform active:scale-95 flex items-center gap-1.5">
+            <i class="fa-solid fa-calendar-days"></i> 16 週課架時程表
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Navigation Anchor Strip -->
+    <div class="bg-slate-950 border-t border-slate-800/80 px-4 py-2.5 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center space-x-2 sm:space-x-3 text-xs whitespace-nowrap">
+        <span class="text-slate-500 font-bold uppercase tracking-wider pr-1 flex items-center gap-1">
+          <i class="fa-solid fa-layer-group text-gold-400"></i> 快速跳轉:
+        </span>
+        <a href="#section-philosophy" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">課程架構理念</a>
+        <a href="#section-loop" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">四階學習循環</a>
+        <a href="#section-schedule" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition text-gold-400 font-bold bg-gold-500/10 border border-gold-500/20">16週課架總覽</a>
+        <a href="#section-modules" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">11主題單元直達</a>
+        <a href="#section-hbs-cases" class="px-3 py-1 rounded-lg text-rose-300 hover:text-white bg-rose-500/10 border border-rose-500/30 font-bold transition">🇹🇼 哈佛財務個案(一)台灣版</a>
+        <a href="#section-toolkit" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">管理實務工具箱</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Body -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+    <!-- HERO SECTION: Master Portal Identity -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-14 shadow-2xl border border-slate-800">
+      <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-24 -top-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 max-w-4xl space-y-6">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-gold-500/30 text-gold-300 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-award text-gold-400"></i>
+          <span>EMBA 高階領導與管理 ‧ 全課程整合教學入口網</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+          Lead Yourself. Lead People.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-amber-200 to-indigo-200 font-serif italic">
+            Lead Teams. Lead Change.
+          </span>
+        </h1>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+          領導不是一門靠直覺揮灑的藝術，而是一套嚴密且彼此連動的<strong>心智、人際、團隊與組織管理系統</strong>。本課程專為碩士在職專班（EMBA）高階經理人量身打造，貫穿 16 週歷程、11 大主題模組，完整涵蓋從「自我風格認識」到「帶領組織變革」的全面躍遷！
+        </p>
+
+        <!-- Core Evolutionary Framework Ribbon -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs sm:text-sm text-slate-200 space-y-2 shadow-inner">
+          <div class="text-[11px] uppercase tracking-widest font-extrabold text-gold-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-trend-up"></i> 本課程 11 階段演進心法路徑 (Curriculum Roadmap)
+          </div>
+          <div class="font-mono text-xs leading-relaxed text-slate-300">
+            認識領導 ➔ 認識自己 ➔ 如何帶不同的人 ➔ 如何激勵 ➔ 如何溝通 ➔ 如何帶團隊 ➔ 如何處理衝突 ➔ 如何運用影響力 ➔ 如何決策 ➔ 如何管理自己情緒 ➔ 如何帶領組織改變
+          </div>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="#section-schedule" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-slate-950 font-extrabold text-sm shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> 瀏覽 16 週課架時程表
+          </a>
+          <a href="#section-modules" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-grid-2 text-gold-400"></i> 11 主題互動網頁直達
+          </a>
+          <a href="財務個案1_台灣本土版_教學簡報網站.html" class="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-700 to-red-800 hover:from-rose-600 hover:to-red-700 text-white font-extrabold text-sm border border-rose-500/40 shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-plane-up text-gold-300"></i> 財務個案(一)台灣本土版教學 PPT →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: 課程架構理念 (Curriculum Philosophy & Architecture) -->
+    <section id="section-philosophy" class="scroll-mt-28 space-y-8">
+      <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+        <div class="w-9 h-9 rounded-xl bg-gold-500 text-slate-950 flex items-center justify-center text-base font-extrabold">01</div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">本課程架構理念與核心哲學</h2>
+          <p class="text-xs text-slate-400">Curriculum Philosophy: 4-Phase Leadership System</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Phase 1 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-xl space-y-4 hover:border-gold-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-gold-400 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-user-astronaut"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-gold-400">Phase 1 ‧ 領導起點</span>
+            <h3 class="text-lg font-extrabold text-white mt-1">Lead Yourself 領導自我</h3>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            從「管理者」躍遷至「領導者」，洞察自我風格盲點（DISC/MBTI），並掌握認知偏誤與情緒智商（EQ）的自我修練。
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] text-slate-300 font-mono">
+            涵蓋模組：W2, W3, W14, W15
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-xl space-y-4 hover:border-blue-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-users-viewfinder"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400">Phase 2 ‧ 個體領導</span>
+            <h3 class="text-lg font-extrabold text-white mt-1">Lead People 領導個體</h3>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            依據同仁「能力與意願」動態調整情境領導（S1–S4），重燃內在動機，並建立跨越認知濾鏡的同頻深度溝通。
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] text-slate-300 font-mono">
+            涵蓋模組：W5, W7, W10
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-xl space-y-4 hover:border-emerald-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Phase 3 ‧ 團隊與動態</span>
+            <h3 class="text-lg font-extrabold text-white mt-1">Lead Teams 領導團隊</h3>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            打造心理安全感與高效團隊常規，將破壞性衝突轉化為整合性談判，並在無正式職權下發揮卓越組織影響力。
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] text-slate-300 font-mono">
+            涵蓋模組：W11, W12, W13
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-xl space-y-4 hover:border-purple-500/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400">Phase 4 ‧ 組織大局</span>
+            <h3 class="text-lg font-extrabold text-white mt-1">Lead Change 變革領導</h3>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            洞悉組織文化深層潛規則，將員工抗拒視為關鍵情報，運用 Kotter 4 階段邏輯帶領全組織航向轉型新常態。
+          </p>
+          <div class="pt-2 border-t border-slate-900 text-[11px] text-slate-300 font-mono">
+            涵蓋模組：W16 (學期大收官)
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: 四階學習閉環模型 (4-Stage Pedagogical Loop) -->
+    <section id="section-loop" class="scroll-mt-28 space-y-8">
+      <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+        <div class="w-9 h-9 rounded-xl bg-gold-500 text-slate-950 flex items-center justify-center text-base font-extrabold">02</div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">四階段高階學習閉環</h2>
+          <p class="text-xs text-slate-400">The Pedagogical Loop: Theory ➔ Case ➔ Practice ➔ Reflection</p>
+        </div>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+          <h3 class="text-xl font-extrabold text-white">拒絕死背理論，聚焦真實領導實踐</h3>
+          <p class="text-xs text-slate-400">每一個單元均經過嚴謹設計的 180 分鐘高階互動流程：</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm">1</div>
+            <strong class="text-white text-sm block font-bold">理論奠基 (Theory)</strong>
+            <p class="text-slate-400 leading-relaxed">汲取經典管理大師（Kotter, Schein, Simon, French & Raven, Thomas-Kilmann）核心精髓。</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center text-sm">2</div>
+            <strong class="text-white text-sm block font-bold">高壓個案 (Case Study)</strong>
+            <p class="text-slate-400 leading-relaxed">透過真實企業兩難（8000萬停損、明星員工犯錯、AI轉型抗拒）進行模擬交鋒。</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm">3</div>
+            <strong class="text-white text-sm block font-bold">職場演練 (Practice)</strong>
+            <p class="text-slate-400 leading-relaxed">角色扮演 (Role Play)、利害人地圖繪製、情境溝通話術改寫，淬煉實操手感。</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-gold-500/20 text-gold-400 font-bold flex items-center justify-center text-sm">4</div>
+            <strong class="text-white text-sm block font-bold">個人反思 (Reflection)</strong>
+            <p class="text-slate-400 leading-relaxed">課末 One-Minute Paper 與微作業，將洞見內化為具體的 Leadership Behavior 改變承諾。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 16 週完整課架時程總覽表 (16-Week Schedule Matrix) -->
+    <section id="section-schedule" class="scroll-mt-28 space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-gold-500 text-slate-950 flex items-center justify-center text-base font-extrabold">03</div>
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">16 週完整課架時程總覽表</h2>
+            <p class="text-xs text-slate-400">Master 16-Week Curriculum Schedule & Direct Access Hub</p>
+          </div>
+        </div>
+        <span class="text-xs text-gold-400 font-mono bg-gold-500/10 px-3 py-1 rounded-lg border border-gold-500/20 hidden sm:inline">
+          依據《領導與管理 16週課架.docx》
+        </span>
+      </div>
+
+      <div class="bg-slate-950 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-slate-300 text-xs font-extrabold uppercase tracking-wider border-b border-slate-800">
+                <th class="py-4 px-4 sm:px-6">週次</th>
+                <th class="py-4 px-3 sm:px-4">日期</th>
+                <th class="py-4 px-4 sm:px-6">課程安排與核心主題</th>
+                <th class="py-4 px-4 sm:px-6">狀態</th>
+                <th class="py-4 px-4 sm:px-6 text-right">教學網站直達</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/80 text-xs sm:text-sm text-slate-300">
+              
+              <!-- W1 -->
+              <tr class="bg-slate-950/40 text-slate-500">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-bold">W1</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono">9/6</td>
+                <td class="py-3.5 px-4 sm:px-6">開學前一日，不上課</td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-[11px] bg-slate-800 text-slate-400">放假</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right text-slate-600">—</td>
+              </tr>
+
+              <!-- W2 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-blue-400">W2</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">9/13</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">① 從管理者到領導者：Management vs. Leadership</strong>
+                  <div class="text-xs text-slate-400">管理者求秩序、領導者促變革；管理者的黃金圈思維</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="第二週_從管理者到領導者_Management_vs_Leadership.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W3 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-purple-400">W3</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">9/20</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">② Who Am I as a Leader?：領導風格與自我認識</strong>
+                  <div class="text-xs text-slate-400">領導特質理論、風格診斷（指導/授權/教練/支持）、風格盲點</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W03_領導風格與自我認識_Who_Am_I_as_a_Leader.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W4 -->
+              <tr class="bg-slate-950/40 text-slate-500">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-bold">W4</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono">9/27</td>
+                <td class="py-3.5 px-4 sm:px-6">中秋連假，不上課</td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-[11px] bg-slate-800 text-slate-400">放假</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right text-slate-600">—</td>
+              </tr>
+
+              <!-- W5 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-teal-400">W5</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">10/4</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">③ 領導理論與情境領導：不同的人，應該怎麼帶？</strong>
+                  <div class="text-xs text-slate-400">Hersey & Blanchard 情境領導四象限（S1告知、S2推銷、S3參與、S4授權）</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W05_領導理論與情境領導_不同的人應該怎麼帶.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W6 -->
+              <tr class="bg-slate-950/40 text-slate-500">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-bold">W6</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono">10/11</td>
+                <td class="py-3.5 px-4 sm:px-6">國慶連假，不上課</td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-[11px] bg-slate-800 text-slate-400">放假</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right text-slate-600">—</td>
+              </tr>
+
+              <!-- W7 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-amber-400">W7</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">10/18</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">④ 激勵與員工動機：為什麼部屬不再努力？</strong>
+                  <div class="text-xs text-slate-400">赫茲伯格雙因素理論（激勵vs保健）、期望理論、公平理論與內在動機</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W07_激勵與員工動機_為什麼部屬不再努力.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W8 -->
+              <tr class="bg-slate-950/40 text-slate-500">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-bold">W8</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono">10/25</td>
+                <td class="py-3.5 px-4 sm:px-6">光復節連假，不上課</td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-[11px] bg-slate-800 text-slate-400">放假</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right text-slate-600">—</td>
+              </tr>
+
+              <!-- W9 -->
+              <tr class="bg-slate-950/60 text-slate-300">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-slate-400">W9</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono">11/1</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">📝 期中學習評量／自主反思</strong>
+                  <div class="text-xs text-slate-400">整合前半學期個人領導風格、情境帶人與激勵反思</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2 py-0.5 rounded-full text-[11px] bg-indigo-900/60 text-indigo-300 border border-indigo-700">自主期中</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right text-slate-500">—</td>
+              </tr>
+
+              <!-- W10 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-rose-400">W10</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">11/8</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑤ 領導溝通與有效傾聽：為什麼我說的和聽到的不一樣？</strong>
+                  <div class="text-xs text-slate-400">溝通濾鏡漏斗、主動傾聽（Active Listening）、GROW回饋模型</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W10_領導溝通與有效傾聽_為什麼我說的和聽到的不一樣.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W11 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-indigo-400">W11</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">11/15</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑥ 團隊建立與團隊領導：明星員工能組成明星團隊嗎？</strong>
+                  <div class="text-xs text-slate-400">Group vs Team、Tuckman 5階段、社會惰化、Google心理安全感</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W11_團隊建立與團隊領導_明星員工能組成明星團隊嗎.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W12 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-orange-400">W12</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">11/22</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑦ 衝突管理、談判與協商：好主管應該避免衝突嗎？</strong>
+                  <div class="text-xs text-slate-400">任務vs關係衝突、Thomas-Kilmann 5風格、立場轉利益、BATNA談判</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W12_衝突管理談判與協商_好主管應該避免衝突嗎.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W13 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-gold-400">W13</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">11/29</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑧ 權力、影響力與組織政治：沒有職權也能領導嗎？</strong>
+                  <div class="text-xs text-slate-400">French & Raven 5大權力來源、6大影響力戰術、Stakeholder 2x2地圖</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W13_權力影響力與組織政治_沒有職權也能領導嗎.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-gold-600 hover:bg-gold-500 text-slate-950 font-extrabold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W14 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-cyan-400">W14</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">12/6</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑨ 管理決策與決策偏誤：為什麼好主管也會做錯決策？</strong>
+                  <div class="text-xs text-slate-400">有限理性、錨定/確認/過度自信、Sunk Cost沉沒成本、Pre-mortem事前驗屍</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W14_管理決策與決策偏誤_為什麼好主管也會做錯決策.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W15 -->
+              <tr class="hover:bg-slate-900/60 transition">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-pink-400">W15</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">12/13</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑩ 情緒智商與領導：高 EQ 真的能帶出高績效嗎？</strong>
+                  <div class="text-xs text-slate-400">主管是情緒放大器、Leadership Trigger Map、5步自我調節、同理≠同意</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">已完成</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W15_情緒智商與領導_高EQ真的能帶出高績效嗎.html" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs shadow transition">
+                    開啟網站 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </td>
+              </tr>
+
+              <!-- W16 -->
+              <tr class="hover:bg-slate-900/60 transition bg-purple-950/20 border-l-4 border-purple-500">
+                <td class="py-3.5 px-4 sm:px-6 font-mono font-extrabold text-purple-400">W16</td>
+                <td class="py-3.5 px-3 sm:px-4 font-mono text-slate-300">12/20</td>
+                <td class="py-3.5 px-4 sm:px-6">
+                  <strong class="text-white text-sm">⑪ 組織文化與變革領導：為什麼員工抗拒改變？（學期大收官）</strong>
+                  <div class="text-xs text-slate-400">文化三層次、抗拒是情報、Kotter 4階段、AI轉型模擬、全學期大結業</div>
+                </td>
+                <td class="py-3.5 px-4 sm:px-6"><span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-gold-500/20 text-gold-300 border border-gold-500/40">大收官完工</span></td>
+                <td class="py-3.5 px-4 sm:px-6 text-right">
+                  <a href="W16_組織文化與變革領導_為什麼員工抗拒改變.html" class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md transition transform active:scale-95">
+                    進入大收官 <i class="fa-solid fa-crown text-[10px] text-gold-300"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 11 主題單元直達看板 (Visual Navigation Grid) -->
+    <section id="section-modules" class="scroll-mt-28 space-y-8">
+      <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+        <div class="w-9 h-9 rounded-xl bg-gold-500 text-slate-950 flex items-center justify-center text-base font-extrabold">04</div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">11 大核心主題單元互動網頁直達</h2>
+          <p class="text-xs text-slate-400">Interactive Teaching Web App Direct Access Cards</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card W2 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">W2 ‧ 9/13</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ①</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">從管理者到領導者<br><span class="text-xs text-slate-400 font-normal">Management vs. Leadership</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">管理者處理複雜性與秩序；領導者推動變革與願景。解析 Simon Sinek 黃金圈 Why 啟發力。</p>
+          </div>
+          <a href="第二週_從管理者到領導者_Management_vs_Leadership.html" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs text-center transition block">進入 W2 教學網站 →</a>
+        </div>
+
+        <!-- Card W3 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">W3 ‧ 9/20</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ②</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">領導風格與自我認識<br><span class="text-xs text-slate-400 font-normal">Who Am I as a Leader?</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">辨析四大領導風格（指導/授權/教練/支持），透視個人性格盲點，建立主管自我覺察。</p>
+          </div>
+          <a href="W03_領導風格與自我認識_Who_Am_I_as_a_Leader.html" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs text-center transition block">進入 W3 教學網站 →</a>
+        </div>
+
+        <!-- Card W5 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-teal-400 bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">W5 ‧ 10/4</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ③</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">領導理論與情境領導<br><span class="text-xs text-slate-400 font-normal">不同的人，應該怎麼帶？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">Hersey & Blanchard 情境領導模型（S1–S4）；因材施教診斷部屬準備度與意願。</p>
+          </div>
+          <a href="W05_領導理論與情境領導_不同的人應該怎麼帶.html" class="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs text-center transition block">進入 W5 教學網站 →</a>
+        </div>
+
+        <!-- Card W7 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">W7 ‧ 10/18</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ④</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">激勵與員工動機<br><span class="text-xs text-slate-400 font-normal">為什麼部屬不再努力？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">雙因素理論（激勵vs保健）、期望理論、公平感維繫，點燃部屬內在自驅力。</p>
+          </div>
+          <a href="W07_激勵與員工動機_為什麼部屬不再努力.html" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs text-center transition block">進入 W7 教學網站 →</a>
+        </div>
+
+        <!-- Card W10 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full border border-rose-500/20">W10 ‧ 11/8</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ⑤</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">領導溝通與有效傾聽<br><span class="text-xs text-slate-400 font-normal">為什麼我說的和聽到的不一樣？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">拆解認知漏斗與主觀濾鏡，實踐 Active Listening 主動傾聽與 GROW 高效對話回饋。</p>
+          </div>
+          <a href="W10_領導溝通與有效傾聽_為什麼我說的和聽到的不一樣.html" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs text-center transition block">進入 W10 教學網站 →</a>
+        </div>
+
+        <!-- Card W11 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-full border border-indigo-500/20">W11 ‧ 11/15</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ⑥</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">團隊建立與團隊領導<br><span class="text-xs text-slate-400 font-normal">明星員工能組成明星團隊嗎？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">Group vs. Team 差異、Tuckman 發展 5 階段、破除社會惰化、打造 Google 心理安全感。</p>
+          </div>
+          <a href="W11_團隊建立與團隊領導_明星員工能組成明星團隊嗎.html" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs text-center transition block">進入 W11 教學網站 →</a>
+        </div>
+
+        <!-- Card W12 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-orange-400 bg-orange-500/10 px-2.5 py-1 rounded-full border border-orange-500/20">W12 ‧ 11/22</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ⑦</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">衝突管理、談判與協商<br><span class="text-xs text-slate-400 font-normal">好主管應該避免衝突嗎？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">任務衝突 vs. 關係衝突、Thomas-Kilmann 5 大風格、從立場轉向利益、BATNA 談判。</p>
+          </div>
+          <a href="W12_衝突管理談判與協商_好主管應該避免衝突嗎.html" class="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs text-center transition block">進入 W12 教學網站 →</a>
+        </div>
+
+        <!-- Card W13 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-gold-400 bg-gold-500/10 px-2.5 py-1 rounded-full border border-gold-500/20">W13 ‧ 11/29</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ⑧</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">權力、影響力與組織政治<br><span class="text-xs text-slate-400 font-normal">沒有職權也能領導嗎？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">French & Raven 5 大權力來源、6 大影響力戰術、Stakeholder Mapping 2x2 四象限管理。</p>
+          </div>
+          <a href="W13_權力影響力與組織政治_沒有職權也能領導嗎.html" class="w-full py-2.5 rounded-xl bg-gold-600 hover:bg-gold-500 text-slate-950 font-extrabold text-xs text-center transition block">進入 W13 教學網站 →</a>
+        </div>
+
+        <!-- Card W14 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20">W14 ‧ 12/6</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ⑨</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">管理決策與決策偏誤<br><span class="text-xs text-slate-400 font-normal">為什麼好主管也會做錯決策？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">Bounded Rationality 有限理性、定錨/確認/過度自信偏誤、Sunk Cost 沉沒成本、Pre-mortem 事前驗屍。</p>
+          </div>
+          <a href="W14_管理決策與決策偏誤_為什麼好主管也會做錯決策.html" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs text-center transition block">進入 W14 教學網站 →</a>
+        </div>
+
+        <!-- Card W15 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-pink-400 bg-pink-500/10 px-2.5 py-1 rounded-full border border-pink-500/20">W15 ‧ 12/13</span>
+              <span class="text-[11px] text-slate-400 font-semibold">主題 ⑩</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">情緒智商與領導<br><span class="text-xs text-slate-400 font-normal">高 EQ 真的能帶出高績效嗎？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">主管是情緒放大器、Leadership Trigger Map、5 步自我調節法、Empathy ≠ Agreement。</p>
+          </div>
+          <a href="W15_情緒智商與領導_高EQ真的能帶出高績效嗎.html" class="w-full py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs text-center transition block">進入 W15 教學網站 →</a>
+        </div>
+
+        <!-- Card W16 -->
+        <div class="module-card p-6 rounded-3xl bg-slate-950 border-2 border-purple-500/80 flex flex-col justify-between space-y-4 shadow-xl shadow-purple-500/10">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-gold-300 bg-purple-900/60 px-2.5 py-1 rounded-full border border-purple-400/40">W16 ‧ 12/20 🏆 大收官</span>
+              <span class="text-[11px] text-gold-400 font-bold">主題 ⑪</span>
+            </div>
+            <h3 class="text-lg font-bold text-white leading-snug">組織文化與變革領導<br><span class="text-xs text-slate-400 font-normal">為什麼員工抗拒改變？</span></h3>
+            <p class="text-xs text-slate-400 leading-relaxed">Schein 文化三層次、Resistance Is Information、Kotter 4 階段變革邏輯、全學期 16 週大整合。</p>
+          </div>
+          <a href="W16_組織文化與變革領導_為什麼員工抗拒改變.html" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs text-center transition block shadow-md">進入 W16 大收官網站 →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4.5: 哈佛財務個案專區 (HBS Financial Case Study - Taiwan Edition) -->
+    <section id="section-hbs-cases" class="scroll-mt-28 space-y-8">
+      <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+        <div class="w-9 h-9 rounded-xl bg-rose-700 text-white flex items-center justify-center text-base font-extrabold">HBS</div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">哈佛管理個案專區：財務個案(一) 台灣本土制度與台幣 ETF 版</h2>
+          <p class="text-xs text-slate-400">Harvard Business School Case Method: Case Content ‧ Teaching Note ‧ Case Solutions & Web PPT</p>
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-950 via-rose-950/30 to-slate-950 border-2 border-rose-500/60 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div class="space-y-3 max-w-3xl">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-rose-700 text-white uppercase tracking-wider">HBS-FIN-11501-TW</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">28頁全螢幕網頁版 PPT ＋ 動態退休金試算儀表板</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white">
+            翔鷹航太科技（AeroTaiwan Corp.）：台灣勞退自提、員工持股信託與台幣 ETF 退休資產配置決策
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            完整整合<strong>「區塊一：個案內容（C01）」</strong>、<strong>「區塊二：教學指引（TN1，含90分鐘蘇格拉底提問與三欄板書）」</strong>與<strong>「區塊三：個案解析与互動試算（SM1，含 0050/006208/00679B 與未上市股雙重風險拆解）」</strong>三大核心模組，支援課堂一鍵切換與 28 頁全螢幕簡報放映。
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto shrink-0">
+          <a href="財務個案1_台灣本土版_教學簡報網站.html" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm text-center shadow-lg transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-tv"></i> 進入台灣本土個案教學 PPT 網站 →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: 管理實務工具箱 (Course Toolkit & Competency Matrix) -->
+    <section id="section-toolkit" class="scroll-mt-28 space-y-8">
+      <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+        <div class="w-9 h-9 rounded-xl bg-gold-500 text-slate-950 flex items-center justify-center text-base font-extrabold">05</div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">全學期管理實務工具箱與方法論</h2>
+          <p class="text-xs text-slate-400">Master Managerial Tools & Applied Frameworks</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+          <strong class="text-gold-400 text-sm block">1. 情境領導矩陣 (S1–S4)</strong>
+          <p class="text-slate-400">依據能力與意願動態調整「指導、推銷、參與、授權」策略。</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+          <strong class="text-gold-400 text-sm block">2. Google 心理安全感檢核</strong>
+          <p class="text-slate-400">建立不懼犯錯、敢於回報壞消息的高績效團隊文化常規。</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+          <strong class="text-gold-400 text-sm block">3. Thomas-Kilmann 衝突風格</strong>
+          <p class="text-slate-400">在堅持度與合作度間權衡：競爭、合作、妥協、迴避、順應。</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+          <strong class="text-gold-400 text-sm block">4. Stakeholder 2x2 影響力地圖</strong>
+          <p class="text-slate-400">Power × Interest 四象限管理：密切管理、令其滿意、隨時告知、監督。</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+          <strong class="text-gold-400 text-sm block">5. Pre-mortem 事前驗屍法</strong>
+          <p class="text-slate-400">假想專案一年後已徹底慘敗，倒推致死原因，破除群體盲思。</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+          <strong class="text-gold-400 text-sm block">6. Leadership Trigger Map</strong>
+          <p class="text-slate-400">剖析地雷背後價值，建立 Trigger ➔ Pause ➔ Label ➔ Choose ➔ Respond 調節。</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-12 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gold-500 text-slate-950 flex items-center justify-center font-extrabold text-sm">LM</div>
+        <div>
+          <div class="font-extrabold text-white text-sm">碩士在職專班 (EMBA)｜領導與管理 16 週全課程教學網站系統</div>
+          <div class="text-slate-400 mt-0.5">115學年度 第1學期 ‧ All-in-One Standalone Interactive Course Platform</div>
+        </div>
+      </div>
+      <div class="text-slate-400 text-center sm:text-right space-y-1">
+        <div class="text-gold-400 font-bold font-serif italic text-sm">「Lead Yourself ‧ Lead People ‧ Lead Teams ‧ Lead Change」</div>
+        <div class="text-[11px] text-slate-500">本系統所有網頁均為單一獨立自包含架構，支援離線執行、投影片放映與反思存檔</div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

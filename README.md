@@ -46,6 +46,14 @@
 
 ---
 
+## 🇹🇼 哈佛管理個案專區（HBS Case Method — 台灣本土制度與台幣 ETF 版）
+
+| 個案編號 | 個案主題與教學模組 | 三大核心區塊 | 線上教學簡報網站 (GitHub Pages) |
+| :---: | :--- | :--- | :--- |
+| **HBS-FIN-11501-TW** | **財務個案(一)：翔鷹航太科技（AeroTaiwan Corp.）**<br>台灣勞退自提、員工持股信託與台幣 ETF 退休資產配置決策 | ① 個案內容 (`C01`)<br>② 教學指引 (`TN1`)<br>③ 個案解析與試算 (`SM1`)<br>＋ 28頁全螢幕 PPT | [👉 進入台灣本土個案教學 PPT](https://williamslchang-blip.github.io/11501-leadership-and-management/財務個案1_台灣本土版_教學簡報網站.html) |
+
+---
+
 ## 💻 網站技術特色與操作指引
 
 * **All-in-One Standalone 模式**：所有網頁皆為單一自包含 HTML 檔案（內嵌 Tailwind CSS、FontAwesome、Chart.js 圖表、投影片簡報資料與本地存檔功能），支援離線瀏覽。
