@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《Stephenson Real Estate Company：資本結構重組與融資決策抉擇》個案解析與財務推導詳解｜教學講義網頁版</title>
+  
+  <!-- MathJax Configuration for Word Equation Editor Style -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      chtml: {
+        fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+  <style>
+    body {
+      font-family: 'Times New Roman', '標楷體', 'DFKai-SB', 'BiauKai', serif;
+      line-height: 1.85;
+      color: #1a1a1a;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      font-size: 17px;
+    }
+
+    .page-wrapper {
+      max-width: 1080px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 55px 75px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      border: 1px solid #d9e2ec;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #143652;
+      color: #ffffff;
+      border-radius: 6px;
+      margin-bottom: 35px;
+      font-size: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-nav .nav-brand {
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+    }
+    .top-nav .nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .top-nav a.btn-link {
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.12);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: all 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .top-nav a.btn-link:hover {
+      background: #ffffff;
+      color: #143652;
+      border-color: #ffffff;
+      text-decoration: none;
+    }
+    .top-nav a.btn-link.highlight {
+      background: #d97706;
+      border-color: #d97706;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .doc-header-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #143652;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+    }
+    .doc-series {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      color: #556677;
+      letter-spacing: 1px;
+    }
+    .doc-meta {
+      font-size: 13px;
+      color: #556677;
+      text-align: right;
+    }
+
+    h1.doc-title {
+      font-size: 26px;
+      font-weight: bold;
+      color: #143652;
+      margin: 0 0 8px 0;
+      line-height: 1.4;
+    }
+    .doc-subtitle {
+      font-family: 'Arial', sans-serif;
+      font-size: 15px;
+      color: #486581;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+
+    .memo-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 6px solid #143652;
+      padding: 20px 25px;
+      border-radius: 4px;
+      margin-bottom: 35px;
+    }
+    .memo-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+    .memo-card td {
+      padding: 5px 8px;
+      vertical-align: top;
+      border: none;
+    }
+    .memo-card td.field-name {
+      font-weight: bold;
+      width: 130px;
+      color: #143652;
+    }
+
+    h2.question-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #143652;
+      border-bottom: 1.5px solid #d9e2ec;
+      padding-bottom: 6px;
+      margin-top: 40px;
+      margin-bottom: 18px;
+    }
+    h3.section-heading {
+      font-size: 18px;
+      font-weight: bold;
+      color: #243b53;
+      margin-top: 25px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin: 0 0 14px 0;
+      text-align: justify;
+    }
+
+    .table-container {
+      margin: 22px 0;
+      overflow-x: auto;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15.5px;
+      margin-bottom: 8px;
+    }
+    table.data-table th {
+      background-color: #143652;
+      color: #ffffff;
+      padding: 9px 12px;
+      font-weight: bold;
+      border: 1px solid #143652;
+      text-align: center;
+    }
+    table.data-table td {
+      padding: 8px 12px;
+      border: 1px solid #d9e2ec;
+      vertical-align: middle;
+    }
+    table.data-table tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    table.data-table tr.highlight-row {
+      background-color: #fef3c7;
+      font-weight: bold;
+    }
+    table.data-table tr.total-row {
+      background-color: #f1f5f9;
+      font-weight: bold;
+      border-top: 2px solid #143652;
+      border-bottom: 2px solid #143652;
+    }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .text-left { text-align: left; }
+
+    .formula-box {
+      background: #fdfdfd;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #d97706;
+      padding: 16px 20px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+
+    .doc-footer {
+      border-top: 1px solid #cbd5e1;
+      padding-top: 20px;
+      margin-top: 50px;
+      text-align: center;
+      font-size: 14px;
+      color: #627d98;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- Top Navigation Bar -->
+  <div class="top-nav">
+    <div class="nav-brand">
+      <strong>財務個案三</strong> ｜ 個案解析與財務推導詳解
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="btn-link">回主頁 / 三柱簡報</a>
+      <a href="財務個案3_Stephenson_Real_Estate_互動式財務模型.html" class="btn-link highlight">互動財務模型</a>
+      <a href="SRE_財務個案_財務理論與實證應用_資本結構與MM定理強化版.html" class="btn-link">理論強化講義</a>
+      <a href="財務個案3_Stephenson_Real_Estate_完整解析財務模型.xlsx" class="btn-link">下載 Excel</a>
+      <a href="3. 個案解析：Stephenson Real Estate Company_資本結構重組、利息稅盾價值與融資決策抉擇.docx" class="btn-link" download>下載 Word 解析</a>
+    </div>
+  </div>
+
+  <!-- Document Header Banner -->
+  <div class="doc-header-banner">
+    <div class="doc-series">HARVARD BUSINESS SCHOOL STYLE SOLUTION MANUAL</div>
+    <div class="doc-meta">文件編號：HBS-FIN-11501-SM03<br>修訂日期：2026 年 11 月 完整解析版</div>
+  </div>
+
+  <h1 class="doc-title">《Stephenson Real Estate Company：資本結構重組與融資決策抉擇》個案解析與財務推導詳解</h1>
+  <div class="doc-subtitle">Analytical Solutions & Quantitative Exhibits — Stephenson Real Estate: MM Proposition, Tax Shield, and Balance Sheet Restructuring</div>
+
+  <!-- Executive Memorandum -->
+  <div class="memo-card">
+    <table>
+      <tr>
+        <td class="field-name">受文者 (TO)：</td>
+        <td>羅伯特·史蒂芬森（Robert Stephenson），創辦人兼執行長 暨 董事會全體成員</td>
+      </tr>
+      <tr>
+        <td class="field-name">發文者 (FROM)：</td>
+        <td>董事會特別財務顧問團隊（特別諮詢小組）</td>
+      </tr>
+      <tr>
+        <td class="field-name">發文日期 (DATE)：</td>
+        <td>2026 年 11 月</td>
+      </tr>
+      <tr>
+        <td class="field-name">主旨 (SUBJECT)：</td>
+        <td><strong>【重大決策建言】商業地塊收購案之融資結構精算、每股價值最大化評估與治理分析備忘錄</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Question 1 -->
+  <h2 class="question-title">問題一解析：總市場價值最大化之融資建議與 MM 定理利息稅盾原理</h2>
+  
+  <p><strong>【核心決策建言】：特別財務顧問團隊給董事會的明確建言是——公司必須堅決採納方案 B，全額公開發行 1.1 億美元長期公司債券進行融資！</strong></p>
+
+  <p>根據現代公司財務學諾貝爾經濟學獎得主莫迪利安尼與米勒（Modigliani & Miller, 1963）的資本結構定理（考慮企業所得稅環境）：在存在企業所得稅制度下，公司支付給債權人的利息支出可以在計算企業所得稅時作為費用自稅前營業利潤中全額扣除（Tax Deductible）。這項稅法規定實質上賦予了舉債企業一項巨大的政府補貼——<strong>利息稅盾（Interest Tax Shield）</strong>。</p>
+
+  <h3 class="section-heading">1. 企業現金流的重分配本質</h3>
+  <p>如果公司維持 100% 全股權架構，每一塊錢的營業利潤在扣除 40.0% 的所得稅後，只有 60 美分能分配給股東，其餘 40 美分全部繳交給國稅局。然而，當公司發行債券後，原本必須上繳給政府的 40% 稅金，部分被轉化為免稅的利息支出支付給債權人。負債融資實質上是在『不損害經營效率的前提下，合法縮小上繳政府的餅，從而擴大分配給投資人（股東加債權人）的總財富之餅』。</p>
+
+  <h3 class="section-heading">2. MM 第一定理（有稅環境）數學表述</h3>
+  <div class="formula-box">
+    $$V_L = V_U + \text{PV(Interest Tax Shield)} = V_U + (T_c \times D)$$
+    <p style="margin-top: 10px; margin-bottom: 0;">其中：<br>
+    • $V_L$ 為具槓桿企業之總市場價值<br>
+    • $V_U$ 為無槓桿企業之市場價值（$517,500,000 美元）<br>
+    • $T_c$ 為企業綜合邊際所得稅率（40.0%）<br>
+    • $D$ 為新增長期公司債券之市場價值（$110,000,000 美元）<br>
+    • <strong>利息稅盾現值 $\text{PV(Tax Shield)} = 40.0\% \times \$110,000,000 = \$44,000,000$ 美元（4,400 萬美元）！</strong></p>
+  </div>
+
+  <p>由於債券持有人僅享有固定利息索取權，這筆憑空創造出來的高達 4,400 萬美元的利息稅盾價值，將 100% 完全歸屬於公司的既有股東！因此，發債融資能使股東的實質每股財富達到最大化；反之，若發行新股，稅盾現值為零，股東財富完全沒有增長。</p>
+
+  <!-- Question 2 -->
+  <h2 class="question-title">問題二解析：宣告前市場價值資產負債表編制與經濟實質剖析</h2>
+
+  <p>在正式向公開資本市場宣告購地計劃之前，Stephenson Real Estate 的市場價值資產負債表（Market Value Balance Sheet）編制如下：</p>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 35%;">資產端 (Assets)</th>
+          <th style="width: 15%;">市場價值 (USD)</th>
+          <th style="width: 35%;">負債與股東權益端 (Liabilities & Equity)</th>
+          <th style="width: 15%;">市場價值 (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>既有房地產物業資產 (Existing Assets)</td>
+          <td class="text-right">$517,500,000</td>
+          <td>長期負債 (Debt, D0)</td>
+          <td class="text-right">$0</td>
+        </tr>
+        <tr>
+          <td>待購置新商業地塊 (New Land)</td>
+          <td class="text-right">$0</td>
+          <td>股東權益 (Equity, S0: 1,500 萬股 @ $34.50)</td>
+          <td class="text-right">$517,500,000</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>總資產市場價值 (Total Assets)</strong></td>
+          <td class="text-right"><strong>$517,500,000</strong></td>
+          <td><strong>負債與權益總市值 (Total L & E)</strong></td>
+          <td class="text-right"><strong>$517,500,000</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-heading">為何必須採用市場價值（Market Value）而非會計帳面價值（Book Value）？</h3>
+  <p><strong>1. 歷史成本的沉沒性：</strong>會計帳面價值反映的是資產過去購入時的歷史成本扣除累計折舊。對於擁有 25 年歷史的房地產公司而言，許多早期購入的土地在會計帳上可能僅值數百萬美元，但在當前市場上的真實商業重置價值已達數億美元。會計帳面價值完全無法反映資產未來的真實獲利能力。</p>
+  <p><strong>2. 機會成本與資本定價：</strong>資本市場上的投資人與貸款銀行在決定融資價格時，看的是企業資產當下所能產生的未來現金流量現值（即市場價格）。股權的機會成本（$R_e$）與債券的定價（$R_d$）都是依據市場價值進行撮合。使用帳面價值會嚴重扭曲公司的財務槓桿比率與資本成本計算。</p>
+
+  <!-- Question 3 -->
+  <h2 class="question-title">問題三解析：方案 A（全額增發新股）完整精算分析</h2>
+
+  <h3 class="section-heading">1. 專案淨現值（NPV）計算</h3>
+  <p>在純股權架構下，該地塊未來永續現金流之折現現值恰好為 1.1 億美元。因此，在不產生任何融資稅盾的前提下：</p>
+  $$\text{NPV} = \text{未來現金流現值（\$110,000,000）} - \text{土地購置成本（\$110,000,000）} = \$0 \text{ 美元}$$
+  <p>這是一項零淨現值（Zero-NPV）投資，既未創造超額經濟附加價值，亦未摧毀現有價值。</p>
+
+  <h3 class="section-heading">2. 宣告後每股股票價格</h3>
+  <p>在半強式有效市場假說下，股票價格僅在專案產生正 NPV 或負 NPV 時發生跳升或下跌。由於專案 NPV = $0，且無融資利息稅盾，市場在得知此一增發宣告後，每股股價將保持在原水準不變：$$P_{1, \text{Equity}} = P_0 = \$34.50 \text{ 美元}$$</p>
+
+  <h3 class="section-heading">3. 需增發之新普通股股數</h3>
+  <p>為了籌集 1.1 億美元現金，公司必須以每股 $34.50 的市場公允價格發行新股：</p>
+  $$N_{\text{new}} = \frac{\$110,000,000}{\$34.50} = 3,188,405.797 \text{ 股（約 3,188,406 股）}$$
+  $$N_{\text{total}} = 15,000,000 + 3,188,406 = 18,188,406 \text{ 股}$$
+
+  <h3 class="section-heading">4. 方案 A 完成後之市場價值資產負債表</h3>
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 35%;">資產端 (Assets)</th>
+          <th style="width: 15%;">市場價值 (USD)</th>
+          <th style="width: 35%;">負債與股東權益端 (Liabilities & Equity)</th>
+          <th style="width: 15%;">市場價值 (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>既有房地產物業資產 (Existing Assets)</td>
+          <td class="text-right">$517,500,000</td>
+          <td>長期負債 (Debt, D)</td>
+          <td class="text-right">$0</td>
+        </tr>
+        <tr>
+          <td>新購置商業地塊 (New Land)</td>
+          <td class="text-right">$110,000,000</td>
+          <td>舊股東權益 (Old Equity: 15.00M 股 @ $34.50)</td>
+          <td class="text-right">$517,500,000</td>
+        </tr>
+        <tr>
+          <td>專案超額淨現值 (NPV)</td>
+          <td class="text-right">$0</td>
+          <td>新股東權益 (New Equity: 3.19M 股 @ $34.50)</td>
+          <td class="text-right">$110,000,000</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>總資產市場價值 (Total Assets)</strong></td>
+          <td class="text-right"><strong>$627,500,000</strong></td>
+          <td><strong>負債與權益總市值 (Total L & E)</strong></td>
+          <td class="text-right"><strong>$627,500,000</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-heading">5. 股權稀釋效應評估</h3>
+  <p>增發後總股數由 1,500 萬股擴大至 1,818.84 萬股，既有股東的股權所有權比例從 100.0% 被稀釋至 82.47%。然而，由於新股是嚴格按照 $34.50 的公平市場價格發行，且募集資金 100% 轉化為等值的優質土地資產，舊股東持有的每股淨值與每股市值依然恰好是 $34.50，其名目財富並未受損（仍為 5.175 億美元）。但從機會成本的角度來看，既有股東平白喪失了本可獲得的每股 2.93 美元增值機會！</p>
+
+  <!-- Question 4 -->
+  <h2 class="question-title">問題四解析：方案 B（全額發行債券）完整精算分析</h2>
+
+  <h3 class="section-heading">1. 利息稅盾現值（PV of Tax Shield）計算</h3>
+  <div class="formula-box">
+    $$\text{Annual Tax Shield} = (D \times R_d) \times T_c$$
+    $$\text{PV(Tax Shield)} = \frac{(D \times R_d) \times T_c}{R_d} = T_c \times D = 40.0\% \times \$110,000,000 = \$44,000,000 \text{ 美元}$$
+    $$\text{APV} = \text{專案基本無槓桿 NPV} + \text{PV(Tax Shield)} = \$0 + \$44,000,000 = +\$44,000,000 \text{ 美元！}$$
+  </div>
+
+  <h3 class="section-heading">2. 宣告後公司總市場價值（VL）與股權市值（S）</h3>
+  <p>在公開市場正式獲悉公司將以發債方式收購該土地的當下，4,400 萬美元的利息稅盾價值立即被資本市場資本化反映在公司總價值中：</p>
+  <p>• 公司總市場價值 $V_L = \$517.5\text{M} + \$110.0\text{M} + \$44.0\text{M} = \$671,500,000$ 美元（6.715 億美元）。<br>
+  • 股權總市場價值 $S = V_L - D = \$671,500,000 - \$110,000,000 = \$561,500,000$ 美元（5.615 億美元）。</p>
+
+  <h3 class="section-heading">3. 宣告當下每股股票價格與漲幅</h3>
+  <p>由於本次融資完全依靠發行債務，公司沒有增發任何一股新股，流通在外普通股股數依舊維持在原本的 1,500 萬股（$N_0 = 15,000,000$ 股）。整整 4,400 萬美元的新增企業價值，全數由既有的 1,500 萬股股東獨享：</p>
+  $$P_{1, \text{Debt}} = \frac{S}{N_0} = \frac{\$561,500,000}{15,000,000 \text{ 股}} = \$37.4333... \text{ 美元} \approx \$37.43 \text{ 美元！}$$
+  <p>• 每股淨增值額 $\Delta P = \$37.4333 - \$34.5000 = +\$2.9333$ 美元。<br>
+  • 股票增值百分比 $= \frac{+\$2.9333}{\$34.50} = +8.5029\% \approx +8.50\%$！</p>
+
+  <h3 class="section-heading">4. 舊股東總財富增值驗算</h3>
+  <p>舊股東財富增加總額 $= 15,000,000 \text{ 股} \times \$2.933333 = \$44,000,000$ 美元！<br>
+  <strong>【嚴謹數學驗算證明】：每股增加之價值，恰好等於每股所分配到的利息稅盾現值：</strong></p>
+  $$\Delta P = \frac{\text{PV(Tax Shield)}}{N_0} = \frac{\$44,000,000}{15,000,000 \text{ 股}} = \$2.9333 \text{ 美元！兩者完美契合！}$$
+
+  <h3 class="section-heading">5. 方案 B 完成後之市場價值資產負債表</h3>
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 35%;">資產端 (Assets)</th>
+          <th style="width: 15%;">市場價值 (USD)</th>
+          <th style="width: 35%;">負債與股東權益端 (Liabilities & Equity)</th>
+          <th style="width: 15%;">市場價值 (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>既有房地產物業資產 (Existing Assets)</td>
+          <td class="text-right">$517,500,000</td>
+          <td>長期公司債券 (New Debt, D)</td>
+          <td class="text-right">$110,000,000</td>
+        </tr>
+        <tr>
+          <td>新購置商業地塊 (New Land)</td>
+          <td class="text-right">$110,000,000</td>
+          <td>股東權益 (Equity, S: 1,500 萬股 @ $37.4333)</td>
+          <td class="text-right">$561,500,000</td>
+        </tr>
+        <tr class="highlight-row">
+          <td>利息稅盾折現現值 (PV of Tax Shield)</td>
+          <td class="text-right">$44,000,000</td>
+          <td>（流通股數：1,500 萬股，完全零稀釋）</td>
+          <td class="text-right">-</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>總資產市場價值 (Total Assets)</strong></td>
+          <td class="text-right"><strong>$671,500,000</strong></td>
+          <td><strong>負債與權益總市值 (Total L & E)</strong></td>
+          <td class="text-right"><strong>$671,500,000</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Question 5 -->
+  <h2 class="question-title">問題五解析：融資方案深度比較、資本成本演化與公司治理代理衝突探討</h2>
+
+  <h3 class="section-heading">1. 方案 A 與方案 B 核心財務指標全景對比</h3>
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>財務比較維度</th>
+          <th>方案 A：全額發行新股</th>
+          <th>方案 B：全額發行債券</th>
+          <th>方案 B 之優勢 / 差異</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>公司總市場價值 ($V_L$)</strong></td>
+          <td class="text-right">$627,500,000</td>
+          <td class="text-right">$671,500,000</td>
+          <td class="text-left font-bold" style="color: #059669;">+$44,000,000 (稅盾現值完全釋放)</td>
+        </tr>
+        <tr>
+          <td><strong>長期負債總規模 ($D$)</strong></td>
+          <td class="text-right">$0 美元</td>
+          <td class="text-right">$110,000,000</td>
+          <td class="text-left">+$1.10 億美元優質長期債券</td>
+        </tr>
+        <tr>
+          <td><strong>股權市場總價值 ($S$)</strong></td>
+          <td class="text-right">$627,500,000</td>
+          <td class="text-right">$561,500,000</td>
+          <td class="text-left">-$66,000,000 (股本無須過度膨脹)</td>
+        </tr>
+        <tr>
+          <td><strong>流通在外普通股股數</strong></td>
+          <td class="text-right">18,188,406 股</td>
+          <td class="text-right">15,000,000 股</td>
+          <td class="text-left font-bold" style="color: #059669;">維持原股數，完全零股權稀釋</td>
+        </tr>
+        <tr>
+          <td><strong>每股公開交易股票價格</strong></td>
+          <td class="text-right">$34.50 美元</td>
+          <td class="text-right">$37.43 美元</td>
+          <td class="text-left font-bold" style="color: #059669;">+$2.93 美元 / 股 (+8.50% 躍升)</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>既有 1,500 萬股股東總財富</strong></td>
+          <td class="text-right">$517,500,000</td>
+          <td class="text-right">$561,500,000</td>
+          <td class="text-left font-bold" style="color: #059669;">實質暴增 4,400 萬美元淨現金財富！</td>
+        </tr>
+        <tr>
+          <td><strong>資本結構負債比率 ($D/V_L$)</strong></td>
+          <td class="text-right">0.0%</td>
+          <td class="text-right">16.38%</td>
+          <td class="text-left">處於極度安全之投資級低負債水準</td>
+        </tr>
+        <tr>
+          <td><strong>加權平均資金成本 (WACC)</strong></td>
+          <td class="text-right">10.00%</td>
+          <td class="text-right">9.34%</td>
+          <td class="text-left font-bold" style="color: #059669;">有效壓低資金成本 66 個基點 (bps)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-heading">2. MM 第二定理之理論解析：為何股權成本（$R_e$）上升，每股股價反而上漲？</h3>
+  <p>根據莫迪利安尼-米勒第二定理（MM Proposition II with Corporate Taxes）：</p>
+  $$R_e = R_U + (R_U - R_d) \times (1 - T_c) \times \left(\frac{D}{S}\right)$$
+  <p>當公司引入 1.1 億美元負債後，由於債券具有固定利息給付義務，股東承擔的財務風險增加，因此股東要求的必要報酬率（股權資本成本 $R_e$）確實會從無負債時的 $R_U$ 上升。</p>
+  <p>假設基準無負債資產成本 $R_U = 10.0\%$，發債利率 $R_d = 8.0\%$。在方案 B 下：<br>
+  $$\frac{D}{S} = \frac{\$110\text{M}}{\$561.5\text{M}} = 0.1959 \quad (19.59\%)$$
+  $$R_e = 10.0\% + (10.0\% - 8.0\%) \times (1 - 0.40) \times 0.1959 = 10.0\% + 0.2351\% = 10.2351\% \approx 10.24\%$$</p>
+
+  <div class="formula-box">
+    <strong>【關鍵悖論化解：WACC 下降推升公司價值與股價】</strong><br>
+    雖然股權成本 $R_e$ 從 10.0% 微升至 10.24%，但因為新增的負債資金成本極低，其稅後實質成本僅為：<br>
+    $$R_d \times (1 - T_c) = 8.0\% \times (1 - 0.40) = 4.80\%!$$
+    這筆成本僅 4.80% 的廉價資金在總資本中佔了 16.38% 的權重。低成本負債的權重效應，遠遠超過了股權成本微幅上升 0.24% 的負面影響！<br>
+    $$\text{WACC} = \left(\frac{S}{V_L}\right) R_e + \left(\frac{D}{V_L}\right) R_d(1 - T_c) = \left(\frac{561.5}{671.5}\right) \times 10.2351\% + \left(\frac{110.0}{671.5}\right) \times 4.80\% = 9.3448\% \approx 9.34\%!$$
+    <br>
+    公司的整體綜合資金成本從 10.00% 顯著下降至 9.34%。由於企業總價值是未來營業現金流以 WACC 折現的結果，折現率下降，公司市場總價值自然暴增，直接推動每股股價由 $34.50 飆升至 $37.43！
+  </div>
+
+  <h3 class="section-heading">3. 行為財務學與公司治理代理衝突深刻啟示</h3>
+  <p><strong>1. 經理人個人創傷偏誤（Trauma-Induced Debt Phobia）：</strong>執行長羅伯特·史蒂芬森因為四十年前經歷過個人建築承包商在高利率下破產的慘痛回憶，在心理上形成了強烈的『損失厭惡（Loss Aversion）』與『創傷後應激防衛機制』。他將個人的心理舒適度（零負債、零償債壓力）置於理性財務決策之上。這導致他寧可讓全體股東蒙受 4,400 萬美元的實質財富損失，也要維持零負債的虛幻安全感。</p>
+  <p><strong>2. 嚴重的代理問題（Agency Dilemma）：</strong>代理理論（Jensen & Meckling, 1976）指出，當專業經理人（即使是創辦人兼大股東）的個人效用函數（追求自身名譽安全、避免承擔任何經營壓力）與外部公眾股東的財富最大化目標發生背離時，便會產生嚴重的代理成本。在零負債架構下，管理層享有過度寬鬆的現金流自由度，缺乏外部債權人與還本付息剛性支出的約束，容易導致資本配置怠惰。</p>
+  <p><strong>3. 董事會的信託防線（Fiduciary Duty of the Board）：</strong><br>
+  • 商業房地產的現金流特徵：SRE 擁有超過二十年穩定的優質租金收入，出租率長年高達 96%，現金流抗景氣波動能力極強。在收購 1.1 億美元土地後，負債比率僅為 16.38%，遠低於同業平均的 50%，破產違約概率趨近於零。<br>
+  • 董事會的治理行動方案：董事會必須履行對全體股東的法定信託義務，堅決否決方案 A，表決通過方案 B。同時，董事會應展示量化模型協助執行長客觀區分高投機與低負債物業的本質差異，並透過股票增值激勵機制，引領 Stephenson Real Estate 邁向公司價值最大化的全新里程碑！</p>
+
+  <div class="doc-footer">
+    Stephenson Real Estate Company (SRE) 財務個案解析 ｜ 國立大學商管碩士在職專班 領導與管理課程 ｜ 版權所有 © 2026
+  </div>
+
+</div>
+
+</body>
+</html>
